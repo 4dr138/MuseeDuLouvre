@@ -1,0 +1,21 @@
+#conteneur
+{
+    display:flex;
+    margin-left:auto;
+    margin-right:auto;
+    width: 400px;
+}
+
+.index, .reservation, .lien_site
+{
+    margin-left:20px;
+    padding:auto;
+    color:white;
+}
+header
+{
+    width:600px;
+    margin-left:auto;
+    margin-right:auto;
+    background-color:rgb(34,34,34);
+}
