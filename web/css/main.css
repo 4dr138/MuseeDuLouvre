@@ -3,19 +3,69 @@
     display:flex;
     margin-left:auto;
     margin-right:auto;
-    width: 400px;
-}
+    width: 600px;
 
+}
 .index, .reservation, .lien_site
 {
     margin-left:20px;
     padding:auto;
     color:white;
+    padding-top:5px;
+}
+h1
+{
+    text-align:center;
 }
 header
 {
-    width:600px;
-    margin-left:auto;
-    margin-right:auto;
     background-color:rgb(34,34,34);
 }
+a
+{
+    text-decoration:none;
+    color:white;
+}
+html
+{
+    background-image:url('../img/background.jpg');
+}
+body
+{
+    width:1000px;
+    margin-left:auto;
+    margin-right:auto;
+    min-height:620px;
+    background-attachment: fixed;
+    background-color: rgba(10,10,10,0.5);
+}
+#title, footer
+{
+    color:white;
+}
+p
+{
+    color:white;
+}
+#firstArticle
+{
+    width:600px;
+}
+#secondArticle
+{
+    width:600px;
+    float:right;
+}
+#btnLienReservation
+{
+    margin-left:40%;
+    margin-top:5%;
+}
+footer
+{
+    position:absolute;
+    bottom:0;
+    margin-left:20%;
+    margin-bottom:20px;
+}
+
