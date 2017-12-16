@@ -9,6 +9,12 @@
     <body>
         {% include 'navbar/navbar.html.twig' %}
         {% block body %}{% endblock %}
-        {% block javascripts %}<link href = "{{ asset('javascript/main.js') }}" />{% endblock %}
+        {% block javascripts %}
+            <script src = "{{ asset('javascript/jquery.js') }}"></script>
+            <script src = "{{ asset('javascript/main.js') }}"></script>
+        {% endblock %}
     </body>
+    <footer>
+        {% block footer %} Site réalisé pour le projet de billetterie pour le musée du Louvre {% endblock %}
+    </footer>
 </html>
