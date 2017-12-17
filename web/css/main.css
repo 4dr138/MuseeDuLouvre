@@ -35,7 +35,7 @@ body
     width:1000px;
     margin-left:auto;
     margin-right:auto;
-    min-height:600px;
+    min-height:620px;
     background-attachment: fixed;
     background-color: rgba(10,10,10,0.5);
 }
@@ -67,4 +67,38 @@ footer
     bottom:0;
     margin-left:20%;
     margin-bottom:20px;
+}
+#form, h1
+{
+  color:white;
+}
+li
+{
+  font-weight: bold;
+  color:white;
+}
+ul
+{
+  margin-left:10%;
+}
+.form-group
+{
+  padding-top:10px;
+}
+#basket
+{
+  margin-left:30px;
+}
+.ui-icon.ui-icon-circle-triangle-e
+{
+  float:right;
+}
+.ui-datepicker-title
+{
+  text-align:center;
+}
+#ui-datepicker-div
+{
+  background-color: rgba(0,0,0,0.8);
+  color:white;
 }

@@ -20,20 +20,39 @@ class ReservationController extends Controller
     /**
      * @Route("/reservation", name="reservation")
      */
-    public function newBillet()
+    public function newBasket()
     {
        $newBasket = new Basket();
 
        $formbuilder = $this->get('form.factory')->createBuilder(FormType::class, $newBasket);
 
        $formbuilder
-        ->add('date', DateType::class)
-        ->add('mail', TextType::class)
-        ->add('type', ChoiceType::class)
-        ->add('nbbillets', ChoiceType::class)
-        ;
+        ->add('date', DateType::class, array(
+          'label' => 'Date de réservation : ',
+          'widget' => 'single_text',
+          'html5' => false,
+          'format' => 'dd/MM/yyyy',
+          'attr' => ['class' => 'js-datepicker']))
+        ->add('mail', TextType::class, array('label' => 'Veuillez entrer votre mail : '))
+        ->add('type', ChoiceType::class, array(
+          'label' => 'Type de billet : ',
+          'choices' => array(
+            'Journée' => null,
+            'Demi-journée ' => null,
+          ),
+        ))
+        ->add('nbbillets', ChoiceType::class, array(
+          'label' => "Nombre de billets : ",
+          'choices' => array(
+            '1' => null,
+            '2' => null,
+            '3' => null,
+            '4' => null,
+            '5' => null,
+            ),
+        ));
 
-      $form = $formbuilder->getForm();
+       $form = $formbuilder->getForm();
 
        return $this->render('reservation/reservation.html.twig', array('form' => $form->createView()));
     }

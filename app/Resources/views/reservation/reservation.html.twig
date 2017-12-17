@@ -1,7 +1,12 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-  <div class = 'basket'>
+<h1>Formulaire de réservation</h1>
+<ul>
+  <li>Informations générales</li>
+  <div id = 'basket'>
       {{ form(form) }}
   </div>
-{% endblock %}  
+  <li>Billet(s)</li>
+</ul>
+{% endblock %}
