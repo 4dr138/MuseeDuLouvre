@@ -57,6 +57,10 @@ class Billet
     private $discount;
 
 
+    public function __construct()
+    {
+      $this->birthdate = new \DateTime();
+    }
     /**
      * Get id
      *
