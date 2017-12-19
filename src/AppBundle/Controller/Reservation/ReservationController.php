@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Reservation;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +22,7 @@ class ReservationController extends Controller
 {
     /**
      * @Route("/reservation", name="reservation")
+     * @Method({"GET","POST"})
      */
     public function newBasket(Request $request)
     {
@@ -64,23 +66,18 @@ class ReservationController extends Controller
 
       $formBasket = $formbuilderBasket->getForm();
 
-      if ($request->isMethod('POST')) {
 
-        $formBasket->handleRequest($request);
-
-        if ($formBasket->isValid()) {
-
-          $session = $request->getSession();
+        if ($formBasket->isValid() && $formBasket->isSubmitted()) {
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($newBasket);
           $em->flush();
 
-          $session->getFlashBag()->add('infos', 'Informations générales enregistrées.');
+          $this->addFlash('infos', 'Informations générales enregistrées.');
 
           return $this->redirectToRoute('reservation', array('id' => $newBasket->getId()));
         }
-      }
+
       return $this->render('reservation/reservation.html.twig', array('formBasket' => $formBasket->createView()));
 }
 

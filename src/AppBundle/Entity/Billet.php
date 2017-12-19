@@ -56,11 +56,37 @@ class Billet
      */
     private $discount;
 
+    /**
+     *
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Basket", inversedBy="billets")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Basket;
 
     public function __construct()
     {
       $this->birthdate = new \DateTime();
     }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getBasket()
+    {
+        return $this->Basket;
+    }
+
+    /**
+     * @param mixed $Basket
+     */
+    public function setBasket($Basket)
+    {
+        $this->Basket = $Basket;
+    }
+
     /**
      * Get id
      *

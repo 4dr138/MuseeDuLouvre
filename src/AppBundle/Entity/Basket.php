@@ -49,11 +49,34 @@ class Basket
      */
     private $type;
 
+    /**
+     * @var Billet[]
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Billet", mappedBy="Basket", cascade={'persist'})
+     */
+    private $billets;
 
     public function __construct()
     {
       $this->date = new \datetime();
     }
+
+    /**
+     * @return Billet[]
+     */
+    public function getBillets()
+    {
+        return $this->billets;
+    }
+
+    /**
+     * @param Billet[] $billets
+     */
+    public function setBillets($billets)
+    {
+        $this->billets = $billets;
+    }
+
     /**
      * Get id
      *
