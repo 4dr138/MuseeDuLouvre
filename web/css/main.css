@@ -120,3 +120,7 @@ input, select
 {
   margin-left:33%;
 }
+#basket p
+{
+  text-align:center;
+}

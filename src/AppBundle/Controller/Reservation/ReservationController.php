@@ -14,7 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use AppBundle\Entity\Basket;
 use AppBundle\Entity\Billet;
-use Symfony\Component\HttpFoundation\Request;
 
 
 
@@ -44,18 +43,18 @@ class ReservationController extends Controller
         ->add('type', ChoiceType::class, array(
           'label' => 'Type de billet : ',
           'choices' => array(
-            'Journée' => null,
-            'Demi-journée ' => null,
+            'Journée' => 'Journée',
+            'Demi-journée ' => 'Demi-journée',
           ),
         ))
         ->add('nbbillets', ChoiceType::class, array(
           'label' => "Nombre de billets : ",
           'choices' => array(
-            '1' => null,
-            '2' => null,
-            '3' => null,
-            '4' => null,
-            '5' => null,
+            '1' => 1,
+            '2' => 2,
+            '3' => 3,
+            '4' => 4,
+            '5' => 5,
             ),
         ))
         ->add('Ok', SubmitType::class, array(
@@ -63,58 +62,69 @@ class ReservationController extends Controller
           'attr' => ['class' => 'validFormBasket']
       ));
 
+      $formBasket = $formbuilderBasket->getForm();
 
       if ($request->isMethod('POST')) {
 
-        $form->handleRequest($request);
+        $formBasket->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($formBasket->isValid()) {
+
+          $session = $request->getSession();
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($newBasket);
           $em->flush();
 
-          $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+          $session->getFlashBag()->add('infos', 'Informations générales enregistrées.');
 
           return $this->redirectToRoute('reservation', array('id' => $newBasket->getId()));
         }
       }
+      return $this->render('reservation/reservation.html.twig', array('formBasket' => $formBasket->createView()));
+}
 
-
-// Création du second formulaire qui contient les informations relatives au(x) billet(s) unique(s)
-        $newBillet = new Billet();
-
-        $formbuilderBillet = $this->get('form.factory')->createBuilder(FormType::class, $newBillet);
-
-        $formbuilderBillet
-          ->add('name', TextType::class, array('label' => 'Nom : ',"required" => true,))
-          ->add('firstname', TextType::class, array('label' => 'Prénom : ',"required" => true,))
-          ->add('birthdate', DateType::class, array(
-            'label' => 'Date de naissance : ',
-            'widget' => 'choice',
-            'html5' => false,
-            'years' => range(1920,2018)))
-          ->add('country', ChoiceType::class, array(
-            'label' => 'Pays de résidence : ',
-            "choices" => array(
-              'France' => null,
-              'Angleterre' => null
-            )
-          ))
-          ->add('discount', CheckboxType::class, array(
-            'label' => 'Tarif réduit ? ',
-            'required' => true
-          ))
-          ->add('Save', SubmitType::class, array(
-            'label' => 'Ajouter un billet',
-            'attr' => ['class' => 'validFormBillet']
-          ));
-
-
-// Génération des deux formulaires
-       $formBasket = $formbuilderBasket->getForm();
-       $formBillet = $formbuilderBillet->getForm();
-
-       return $this->render('reservation/reservation.html.twig', array('formBasket' => $formBasket->createView(), 'formBillet' => $formBillet->createView()));
-    }
+    /**
+     * @Route("/resaBillet", name="resaBillet")
+     */
+    // public function newBillet()
+    // {
+//
+// // Création du second formulaire qui contient les informations relatives au(x) billet(s) unique(s)
+//         $newBillet = new Billet();
+//
+//         $formbuilderBillet = $this->get('form.factory')->createBuilder(FormType::class, $newBillet);
+//
+//         $formbuilderBillet
+//           ->add('name', TextType::class, array('label' => 'Nom : ',"required" => true,))
+//           ->add('firstname', TextType::class, array('label' => 'Prénom : ',"required" => true,))
+//           ->add('birthdate', DateType::class, array(
+//             'label' => 'Date de naissance : ',
+//             'widget' => 'choice',
+//             'html5' => false,
+//             'years' => range(1920,2018)))
+//           ->add('country', ChoiceType::class, array(
+//             'label' => 'Pays de résidence : ',
+//             "choices" => array(
+//               'France' => null,
+//               'Angleterre' => null
+//             )
+//           ))
+//           ->add('discount', CheckboxType::class, array(
+//             'label' => 'Tarif réduit ? ',
+//             'required' => true
+//           ))
+//           ->add('Save', SubmitType::class, array(
+//             'label' => 'Ajouter un billet',
+//             'attr' => ['class' => 'validFormBillet']
+//           ));
+//
+//
+// // Génération des deux formulaires
+//        $formBasket = $formbuilderBasket->getForm();
+//        $formBillet = $formbuilderBillet->getForm();
+//
+//        return $this->render('reservation/reservation.html.twig', array('formBasket' => $formBasket->createView(), 'formBillet' => $formBillet->createView()));
+//     }
+  // }
 }

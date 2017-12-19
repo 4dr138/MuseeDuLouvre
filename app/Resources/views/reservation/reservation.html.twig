@@ -6,11 +6,15 @@
   <li>Informations générales</li>
   <div id = 'basket'>
       {{ form(formBasket) }}
+      {% for message in app.session.flashbag.get('infos') %}
+        <p> {{ message }}</p>
+      {% endfor %}
   </div>
+
   <hr />
   <li>Billet(s)</li>
   <div id = 'billet'>
-      {{ form(formBillet) }}
+
   </div>
 </ul>
 

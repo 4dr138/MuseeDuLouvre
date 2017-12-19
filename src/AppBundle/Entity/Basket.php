@@ -22,9 +22,9 @@ class Basket
     private $id;
 
     /**
-     * @var datetime_immutable
+     * @var datetime
      *
-     * @ORM\Column(name="date", type="datetime_immutable")
+     * @ORM\Column(name="date", type="datetime")
      */
     private $date;
 
@@ -52,7 +52,7 @@ class Basket
 
     public function __construct()
     {
-      $this->date = new \DateTime();
+      $this->date = new \datetime();
     }
     /**
      * Get id
@@ -67,7 +67,7 @@ class Basket
     /**
      * Set date
      *
-     * @param datetime_immutable $date
+     * @param datetime $date
      *
      * @return Basket
      */
@@ -81,7 +81,7 @@ class Basket
     /**
      * Get date
      *
-     * @return datetime_immutable
+     * @return datetime
      */
     public function getDate()
     {
