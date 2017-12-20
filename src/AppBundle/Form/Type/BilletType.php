@@ -5,6 +5,11 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class BilletType extends AbstractType
 {
@@ -31,10 +36,6 @@ class BilletType extends AbstractType
           ->add('discount', CheckboxType::class, array(
             'label' => 'Tarif réduit ? ',
             'required' => true
-          ))
-          ->add('Save', SubmitType::class, array(
-            'label' => 'Ajouter un billet',
-            'attr' => ['class' => 'validFormBillet']
           ));
     }
 

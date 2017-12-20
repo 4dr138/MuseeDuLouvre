@@ -54,7 +54,7 @@ class Basket
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Billet", mappedBy="Basket", cascade={'persist'})
      */
-    private $billets;
+    private $billet;
 
     public function __construct()
     {
@@ -64,17 +64,17 @@ class Basket
     /**
      * @return Billet[]
      */
-    public function getBillets()
+    public function getBillet()
     {
-        return $this->billets;
+        return $this->billet;
     }
 
     /**
-     * @param Billet[] $billets
+     * @param Billet[] $billet
      */
-    public function setBillets($billets)
+    public function setBillet($billet)
     {
-        $this->billets = $billets;
+        $this->billet = $billet;
     }
 
     /**

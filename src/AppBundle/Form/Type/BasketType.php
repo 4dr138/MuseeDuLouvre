@@ -6,6 +6,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 
 class BasketType extends AbstractType
 {
@@ -42,9 +47,6 @@ class BasketType extends AbstractType
             '5' => 5,
             ),
         ))
-        ->add('Ok', SubmitType::class, array(
-          'label' => 'Valider les informations générales',
-          'attr' => ['class' => 'validFormBasket']))
         ->add('billet', CollectionType::class, array(
            "entry_type" => BilletType::class,
            "entry_options" => array(
@@ -53,7 +55,9 @@ class BasketType extends AbstractType
            "allow_add" => true,
            "allow_delete" => true
          ));
-    }/**
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)

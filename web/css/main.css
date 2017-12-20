@@ -13,7 +13,7 @@
     color:white;
     padding-top:5px;
 }
-h1
+h1, footer
 {
     text-align:center;
 }
@@ -26,33 +26,14 @@ a
     text-decoration:none;
     color:white;
 }
-html
-{
-    background-image:url('../img/background.jpg');
-}
-body
-{
-    width:1000px;
-    margin-left:auto;
-    margin-right:auto;
-    min-height:620px;
-    background-attachment: fixed;
-    background-color: rgba(10,10,10,0.5);
-}
-#title, footer
+#title
 {
     color:white;
 }
-p
+.reservation
 {
     color:white;
-}
-footer
-{
-    position:absolute;
-    bottom:0;
-    margin-left:20%;
-    margin-bottom:20px;
+    margin-top:10px;
 }
 #form, h1
 {
@@ -60,53 +41,16 @@ footer
 }
 li
 {
-  font-weight: bold;
-  color:white;
+    text-decoration: underline;
+    font-weight:bold;
 }
-ul
-{
-  margin-left:10%;
-  margin-right:45%;
+#add_billet {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    margin-top: -20px;
 }
-.form-group
+form
 {
-  padding-top:10px;
-}
-#basket, #billet
-{
-  margin-left:30px;
-}
-.ui-icon.ui-icon-circle-triangle-e
-{
-  float:right;
-}
-.ui-datepicker-title
-{
-  text-align:center;
-}
-#ui-datepicker-div
-{
-  background-color: rgba(0,0,0,0.8);
-  color:white;
-}
-input, select
-{
-  float:right;
-}
-#form_birthdate
-{
-  margin-top: -5%;
-  margin-bottom: 5%;
-}
-.validFormBasket
-{
-  margin-left:20%;
-}
-.validFormBillet
-{
-  margin-left:33%;
-}
-#basket p
-{
-  text-align:center;
+    width:30%;
 }

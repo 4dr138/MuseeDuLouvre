@@ -59,7 +59,7 @@ class Billet
     /**
      *
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Basket", inversedBy="billets")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Basket", inversedBy="billet")
      * @ORM\JoinColumn(nullable=false)
      */
     private $Basket;

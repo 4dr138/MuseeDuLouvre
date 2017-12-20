@@ -5,16 +5,19 @@
 <ul>
   <li>Informations générales</li>
   <div id = 'basket'>
-      {{ form(formBasket) }}
-      {% for message in app.session.flashbag.get('infos') %}
-        <p>{{ message }}</p>
-      {% endfor %}
+    {{ form_start(formBasket) }}
+    {{ form_widget(formBasket) }}
+    {{ form_end(formBasket) }}
+    <a href="#" id="add_billet" class="btn btn-default">Ajouter un billet</a>
+
+      {#{% for message in app.session.flashbag.get('infos') %}#}
+        {#<p>{{ message }}</p>#}
+      {#{% endfor %}#}
   </div>
-  <hr />
-  <li>Billet(s)</li>
-  <div id = 'billet'>
-    {{ form(formBillet) }}
-  </div>
+  {#<li>Billet(s)</li>#}
+  {#<div id = 'billet'>#}
+    {#{{ form(formBillet) }}#}
+  {#</div>#}
 </ul>
 
 {% endblock %}
