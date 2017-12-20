@@ -6,7 +6,7 @@
     width: 600px;
 
 }
-.index, .reservation, .lien_site
+.reservation, .lien_site
 {
     margin-left:20px;
     padding:auto;
@@ -46,20 +46,6 @@ body
 p
 {
     color:white;
-}
-#firstArticle
-{
-    width:600px;
-}
-#secondArticle
-{
-    width:600px;
-    float:right;
-}
-#btnLienReservation
-{
-    margin-left:40%;
-    margin-top:5%;
 }
 footer
 {

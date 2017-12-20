@@ -15,17 +15,44 @@ class BasketType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date')
-            ->add('nbbillets')
-            ->add('mail')
-            ->add('type')
-            ->add('billet', CollectionType::class, array(
-    /*            options*/
-            "entry_type" => BilletType::class,
-
-            ))
-
-        ;
+        ->add('date', DateType::class, array(
+          'label' => 'Date de réservation : ',
+          'widget' => 'single_text',
+          'html5' => false,
+          'format' => 'dd/MM/yyyy',
+          "required" => true,
+          'attr' => ['class' => 'js-datepicker']))
+        ->add('mail', TextType::class, array(
+          'label' => 'Veuillez entrer votre mail : ',
+          "required" => true))
+        ->add('type', ChoiceType::class, array(
+          'label' => 'Type de billet : ',
+          'choices' => array(
+            'Journée' => true,
+            'Demi-journée ' => false,
+          ),
+        ))
+        ->add('nbbillets', ChoiceType::class, array(
+          'label' => "Nombre de billets : ",
+          'choices' => array(
+            '1' => 1,
+            '2' => 2,
+            '3' => 3,
+            '4' => 4,
+            '5' => 5,
+            ),
+        ))
+        ->add('Ok', SubmitType::class, array(
+          'label' => 'Valider les informations générales',
+          'attr' => ['class' => 'validFormBasket']))
+        ->add('billet', CollectionType::class, array(
+           "entry_type" => BilletType::class,
+           "entry_options" => array(
+             'attr' => array('class' => 'formBillet')
+           ),
+           "allow_add" => true,
+           "allow_delete" => true
+         ));
     }/**
      * {@inheritdoc}
      */

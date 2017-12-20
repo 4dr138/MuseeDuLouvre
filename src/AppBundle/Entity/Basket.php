@@ -43,9 +43,9 @@ class Basket
     private $mail;
 
     /**
-     * @var string
+     * @var type
      *
-     * @ORM\Column(name="type", type="string", length=255)
+     * @ORM\Column(name="type", type="boolean", options={"default":true})
      */
     private $type;
 

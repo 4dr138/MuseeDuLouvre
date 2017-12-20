@@ -50,9 +50,9 @@ class Billet
     private $country;
 
     /**
-     * @var string
+     * @var discount
      *
-     * @ORM\Column(name="discount", type="decimal", precision=5, scale=2)
+     * @ORM\Column(name="discount", type="boolean", options={"default": false})
      */
     private $discount;
 
