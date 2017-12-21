@@ -9,15 +9,12 @@
     {{ form_widget(formBasket) }}
     {{ form_end(formBasket) }}
     <a href="#" id="add_billet" class="btn btn-default">Ajouter un billet</a>
-
-      {#{% for message in app.session.flashbag.get('infos') %}#}
-        {#<p>{{ message }}</p>#}
-      {#{% endfor %}#}
   </div>
-  {#<li>Billet(s)</li>#}
-  {#<div id = 'billet'>#}
-    {#{{ form(formBillet) }}#}
-  {#</div>#}
 </ul>
+{% endblock %}
 
+{% block aside %}
+<div id = 'recap'>
+  <ul></ul>
+</div>
 {% endblock %}
