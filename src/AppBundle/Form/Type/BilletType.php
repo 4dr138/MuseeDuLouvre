@@ -25,6 +25,7 @@ class BilletType extends AbstractType
             'label' => 'Date de naissance : ',
             'widget' => 'choice',
             'html5' => false,
+            'format' => 'ddMMyyyy',
             'years' => range(1920,2018)))
           ->add('country', ChoiceType::class, array(
             'label' => 'Pays de résidence : ',

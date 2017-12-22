@@ -1,6 +1,23 @@
 $(document).ready(function() {
 
-    // Initialisation du DatePicker
+// Définition des dates particulières à bloquer pour le datepicker
+var unavailableDates = ["1-5-2018", "1-11-2018", "25-12-2017","1-5-2018", "1-11-2018", "25-12-2018","1-5-2019", "1-11-2019", "25-12-2019"];
+
+function unavailable(date) {
+    dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+    if ($.inArray(dmy, unavailableDates) >= 0) {
+        return [false, "", "Unavailable"];
+    } else {
+        return disabledays(date);
+    }
+};
+
+function disabledays(date) {
+    var day = date.getDay();
+    return [(day != 2 && day != 0)];
+};
+
+//     // Initialisation du DatePicker
     $( ".js-datepicker" ).datepicker({
         firstDay: 1,
         minDate: new Date(),
@@ -16,28 +33,55 @@ $(document).ready(function() {
         dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
         weekHeader: 'Sem.',
         dateFormat: 'dd/mm/yy',
-        beforeShowDay : function(date){
-            if(date.getDay() === 2){
-                return [false, ''];
-            }
-            else{
-                return [true, ''];
-            }
-        }
+        beforeShowDay : unavailable
     });
+
+// Gestion de l'email pour le format de la string avec REGEX
+function validateEmail(email)
+{
+  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
+
+$('#appbundle_basket_mail').blur(function()
+{
+  var email = $("#appbundle_basket_mail").val();
+  var newBalise = $("<p>Validation</p>").insertAfter('#appbundle_basket_mail');
+  if(validateEmail(email))
+  {
+    newBalise.html("<p>Email Correct ! </p>").css('color', 'green');
+  }
+  else {
+    newBalise.html("<p>Email Incorrect !</p>").css('color', 'red');
+  }
+});
+
+$('#appbundle_basket_mail').focus(function()
+{
+  $("<p>Test</p>").hide();
+});
+
+//
+// if( /(.+)@(.+){2,}\.(.+){2,}/.test(booking_email) ){
+//   // valid email
+// } else {
+//   // invalid email
+// }
+
+
+
 
 
     // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
     var $container = $('div#appbundle_basket_billet');
-
     $('legend:nth-child(1)').hide();
 
     // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
     var index = $container.find(':input').length;
-
-
     // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
     $('#add_billet').click(function(e){
+
+
         // On conditionne le nombre de billets à ajouter par la valeur du select associé
         var select = $('#appbundle_basket_nbbillets option:selected').val();
         if(index > select)
@@ -92,8 +136,16 @@ $(document).ready(function() {
              $("li").eq(2).replaceWith($("#add_billet"));
          }
 
-        // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
-        index++;
+        var select = $('#appbundle_basket_nbbillets option:selected').val();
+        if(index > select)
+        {
+            $('.formBillet').hide();
+        }
+        else {
+          // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+          index++;
+        }
+
 
     }
 
