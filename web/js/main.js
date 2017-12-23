@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
 // Définition des dates particulières à bloquer pour le datepicker
 var unavailableDates = ["1-5-2018", "1-11-2018", "25-12-2017","1-5-2018", "1-11-2018", "25-12-2018","1-5-2019", "1-11-2019", "25-12-2019"];
 
@@ -45,41 +44,52 @@ function validateEmail(email)
 
 $('#appbundle_basket_mail').blur(function()
 {
+  $('#Validation').replaceWith("<div id = 'Validation'></div>");
   var email = $("#appbundle_basket_mail").val();
-  var newBalise = $("<p>Validation</p>").insertAfter('#appbundle_basket_mail');
+  var newBalise = $("<div id = 'Validation'></div>").insertAfter('#appbundle_basket_mail');
   if(validateEmail(email))
   {
     newBalise.html("<p>Email Correct ! </p>").css('color', 'green');
   }
   else {
-    newBalise.html("<p>Email Incorrect !</p>").css('color', 'red');
+    newBalise.html("<p>Format de l'email Incorrect !</p>").css('color', 'red');
   }
 });
-
-$('#appbundle_basket_mail').focus(function()
-{
-  $("<p>Test</p>").hide();
-});
-
-//
-// if( /(.+)@(.+){2,}\.(.+){2,}/.test(booking_email) ){
-//   // valid email
-// } else {
-//   // invalid email
-// }
-
-
-
-
-
     // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
     var $container = $('div#appbundle_basket_billet');
     $('legend:nth-child(1)').hide();
 
     // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
     var index = $container.find(':input').length;
+
+    // On valide si les champs nom/prénom sont vides ou non
+    function check(champ)
+    {
+        $('#Check').remove();
+        var newBalise = $("<div id = 'Check'></div>").insertAfter(champ);
+        if(champ.val() == ''){ // si le champ est vide
+            newBalise.html("<p>Attention, le champ doit être complété ! </p>").css('color', 'red');
+            return false;
+            }
+        else
+        {
+            return true;
+        }
+    }
+
+
     // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
     $('#add_billet').click(function(e){
+        var $name = $('#appbundle_basket_billet_'+(index-1)+'_name');
+        var $firstname = $('#appbundle_basket_billet_'+(index-1)+'_firstname');
+        var returnName = check($name);
+        if(returnName === false) {
+            return false;
+        }
+        var returnFirstName = check($firstname);
+        if(returnFirstName === false){
+            return false;
+        }
 
 
         // On conditionne le nombre de billets à ajouter par la valeur du select associé
@@ -136,17 +146,8 @@ $('#appbundle_basket_mail').focus(function()
              $("li").eq(2).replaceWith($("#add_billet"));
          }
 
-        var select = $('#appbundle_basket_nbbillets option:selected').val();
-        if(index > select)
-        {
-            $('.formBillet').hide();
-        }
-        else {
           // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
           index++;
-        }
-
-
     }
 
     // La fonction qui ajoute un lien de suppression d'un billet

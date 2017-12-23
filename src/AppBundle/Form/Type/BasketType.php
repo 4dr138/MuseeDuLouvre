@@ -34,7 +34,7 @@ class BasketType extends AbstractType
           'label' => 'Type de billet : ',
           'choices' => array(
             'Journée' => true,
-            'Demi-journée ' => false,
+            'Demi-journée' => false,
           ),
         ))
         ->add('nbbillets', ChoiceType::class, array(

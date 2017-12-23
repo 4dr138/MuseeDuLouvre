@@ -52,7 +52,7 @@ class Basket
     /**
      * @var Billet[]
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Billet", mappedBy="Basket", cascade={'persist'})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Billet", mappedBy="Basket", cascade={"persist"})
      */
     private $billet;
 
@@ -71,12 +71,13 @@ class Basket
 
     /**
      * @param Billet[] $billet
+     *
+     *
      */
     public function setBillet($billet)
     {
         $this->billet = $billet;
     }
-
     /**
      * Get id
      *
@@ -162,7 +163,7 @@ class Basket
     /**
      * Set type
      *
-     * @param string $type
+     * @param boolean $type
      *
      * @return Basket
      */
