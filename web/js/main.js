@@ -212,27 +212,27 @@ $('#appbundle_basket_mail').blur(function()
             }
 
           // On se sert de l'élément récupéré pour faire notre calcul de tarif
-          calculTotal(tarif);
+          // calculTotal(tarif);
           // Placement des différents éléments dans le bloc récap
           $("#titreResa").append("<div id ='resaBillet'</div>");
           $("#resaBillet").append("<p>Billet n°"+index+" - <strong>"+name+" "+firstname+"</strong><br />"+datereservation+" - Tarif "+type+" - <strong>"+tarif+" € HT</strong> <hr />");
         }
 
-        function calculTotal($tarif)
-        {
-
-          var tarif = $tarif;
-          console.log(tarif);
-          var tarifTVA = tarif * 0.2;
-          Math.round(tarifTVA);
-          console.log(tarifTVA);
-          var tarifTotal = tarifTotal * 1 + tarifTVA;
-          console.log(tarifTotal);
-
-          $("#tvaBillet").remove();
-          $("#totalBillets").remove();
-          $("<div id = 'tvaBillet'>TVA à 20% : "+tarifTVA+" </div>").insertAfter("#resaBillet");
-          $("<div id = 'totalBillets'>Total TTC : "+tarifTotal+"</div>").insertAfter("#tvaBillet");
-        }
+        // function calculTotal($tarif)
+        // {
+        //
+        //   var tarif = $tarif;
+        //   console.log(tarif);
+        //   var tarifTVA = tarif * 0.2;
+        //   Math.round(tarifTVA);
+        //   console.log(tarifTVA);
+        //   var tarifTotal = tarifTotal * 1 + tarifTVA;
+        //   console.log(tarifTotal);
+        //
+        //   $("#tvaBillet").remove();
+        //   $("#totalBillets").remove();
+        //   $("<div id = 'tvaBillet'>TVA à 20% : "+tarifTVA+" </div>").insertAfter("#resaBillet");
+        //   $("<div id = 'totalBillets'>Total TTC : "+tarifTotal+"</div>").insertAfter("#tvaBillet");
+        // }
 
     });
