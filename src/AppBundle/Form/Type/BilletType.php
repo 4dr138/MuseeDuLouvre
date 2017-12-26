@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 
 class BilletType extends AbstractType
 {
@@ -21,12 +22,12 @@ class BilletType extends AbstractType
         $builder
           ->add('name', TextType::class, array('label' => 'Nom : ',"required" => true))
           ->add('firstname', TextType::class, array('label' => 'Prénom : ',"required" => true))
-          ->add('birthdate', DateType::class, array(
+          ->add('birthdate', BirthdayType::class, array(
             'label' => 'Date de naissance : ',
             'widget' => 'choice',
             'html5' => false,
             'format' => 'ddMMyyyy',
-            'years' => range(1920,2018)))
+            'years' => range(1950,2018)))
           ->add('country', ChoiceType::class, array(
             'label' => 'Pays de résidence : ',
             "choices" => array(
@@ -35,8 +36,7 @@ class BilletType extends AbstractType
             )
           ))
           ->add('discount', CheckboxType::class, array(
-            'label' => 'Tarif réduit ? ',
-            'required' => true
+            'label' => 'Tarif réduit ? '
           ));
 
     }

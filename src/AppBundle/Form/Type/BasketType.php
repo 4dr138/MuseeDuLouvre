@@ -25,7 +25,6 @@ class BasketType extends AbstractType
           'widget' => 'single_text',
           'html5' => false,
           'format' => 'dd/MM/yyyy',
-          "required" => true,
           'attr' => ['class' => 'js-datepicker']))
         ->add('mail', TextType::class, array(
           'label' => 'Veuillez entrer votre mail : ',

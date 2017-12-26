@@ -3,7 +3,7 @@
     display:flex;
     margin-left:auto;
     margin-right:auto;
-    width: 600px;
+    width: 700px;
 
 }
 .reservation, .lien_site
@@ -26,22 +26,15 @@ a
     text-decoration:none;
     color:white;
 }
-#title
-{
-    color:white;
-}
 .reservation
 {
     color:white;
-    margin-top:10px;
+    margin-top:13px;
+    font-size:18px;
 }
-#form, h1
+li, #titreResa
 {
-  color:white;
-}
-li
-{
-    text-decoration: underline;
+    /* text-decoration: underline; */
     font-weight:bold;
     font-size:21px;
 }
@@ -54,4 +47,23 @@ li
 form
 {
     width:30%;
+}
+#aside
+{
+  float:right;
+  margin-right:20px;
+  margin-top:-0.5%;;
+  padding:20px;
+  border:1px solid black;
+  min-height: 400px;
+  height:auto;
+}
+#resaBillet
+{
+  text-decoration: none;
+  font-weight:normal;
+}
+#resaBillet p
+{
+  font-size:16px;
 }

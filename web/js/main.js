@@ -82,14 +82,19 @@ $('#appbundle_basket_mail').blur(function()
     $('#add_billet').click(function(e){
         var $name = $('#appbundle_basket_billet_'+(index-1)+'_name');
         var $firstname = $('#appbundle_basket_billet_'+(index-1)+'_firstname');
-        var returnName = check($name);
-        if(returnName === false) {
-            return false;
-        }
-        var returnFirstName = check($firstname);
-        if(returnFirstName === false){
-            return false;
-        }
+        var $email = $("#appbundle_basket_mail").val();
+        // var returnMail = check($email);
+        // if(returnMail === false) {
+        //     return false;
+        // }
+        // var returnName = check($name);
+        // if(returnName === false) {
+        //     return false;
+        // }
+        // var returnFirstName = check($firstname);
+        // if(returnFirstName === false){
+        //     return false;
+        // }
 
 
         // On conditionne le nombre de billets à ajouter par la valeur du select associé
@@ -143,6 +148,7 @@ $('#appbundle_basket_mail').blur(function()
              $("li").hide();
              $("li").eq(0).show();
              $("li").eq(1).show();
+             addRecapBillet($prototype);
              $("li").eq(2).replaceWith($("#add_billet"));
          }
 
@@ -166,4 +172,67 @@ $('#appbundle_basket_mail').blur(function()
             return false;
         });
         }
+
+        function addRecapBillet($prototype){
+          // On récupère les valeurs des champs qui nous intéressent pour la partie visible du récap
+          var name = $('#appbundle_basket_billet_'+(index-1)+'_name').val();
+          var firstname = $('#appbundle_basket_billet_'+(index-1)+'_firstname').val();
+          var type = $('#appbundle_basket_type option:selected').text();
+          var datereservation = $('#appbundle_basket_date').val();
+          var tarifreduit = $('#appbundle_basket_billet_'+(index-1)+'_discount');
+          // On calcule l'âge en fonction de la date choisie dans le billet
+          var day = $('#appbundle_basket_billet_'+(index-1)+'_birthdate_day option:selected').val();
+          var month = $('#appbundle_basket_billet_'+(index-1)+'_birthdate_month option:selected').val();
+          var year = $('#appbundle_basket_billet_'+(index-1)+'_birthdate_year option:selected').val();
+          var date = new Date(year,month,day);
+          var today = new Date();
+          var age = Math.floor((today-date) / (365.25 * 24 * 60 * 60 * 1000));
+
+
+          // Détermination du tarif en fonction de l'age
+          if(age < 4)
+            {
+              var tarif = 0;
+            }
+          else if (age >= 4 && age < 12)
+            {
+              var tarif = 8;
+            }
+          else if (age >= 60)
+            {
+              var tarif = 12;
+            }
+          else if (age && tarifreduit.is(':checked'))
+            {
+              var tarif = 10;
+            }
+          else
+            {
+              var tarif = 16;
+            }
+
+          // On se sert de l'élément récupéré pour faire notre calcul de tarif
+          calculTotal(tarif);
+          // Placement des différents éléments dans le bloc récap
+          $("#titreResa").append("<div id ='resaBillet'</div>");
+          $("#resaBillet").append("<p>Billet n°"+index+" - <strong>"+name+" "+firstname+"</strong><br />"+datereservation+" - Tarif "+type+" - <strong>"+tarif+" € HT</strong> <hr />");
+        }
+
+        function calculTotal($tarif)
+        {
+
+          var tarif = $tarif;
+          console.log(tarif);
+          var tarifTVA = tarif * 0.2;
+          Math.round(tarifTVA);
+          console.log(tarifTVA);
+          var tarifTotal = tarifTotal * 1 + tarifTVA;
+          console.log(tarifTotal);
+
+          $("#tvaBillet").remove();
+          $("#totalBillets").remove();
+          $("<div id = 'tvaBillet'>TVA à 20% : "+tarifTVA+" </div>").insertAfter("#resaBillet");
+          $("<div id = 'totalBillets'>Total TTC : "+tarifTotal+"</div>").insertAfter("#tvaBillet");
+        }
+
     });
