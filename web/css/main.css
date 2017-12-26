@@ -1,0 +1,69 @@
+#conteneur
+{
+    display:flex;
+    margin-left:auto;
+    margin-right:auto;
+    width: 700px;
+
+}
+.reservation, .lien_site
+{
+    margin-left:20px;
+    padding:auto;
+    color:white;
+    padding-top:5px;
+}
+h1, footer
+{
+    text-align:center;
+}
+header
+{
+    background-color:rgb(34,34,34);
+}
+a
+{
+    text-decoration:none;
+    color:white;
+}
+.reservation
+{
+    color:white;
+    margin-top:13px;
+    font-size:18px;
+}
+li, #titreResa
+{
+    /* text-decoration: underline; */
+    font-weight:bold;
+    font-size:21px;
+}
+#add_billet {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    margin-top: -20px;
+}
+form
+{
+    width:30%;
+}
+#aside
+{
+  float:right;
+  margin-right:20px;
+  margin-top:-0.5%;;
+  padding:20px;
+  border:1px solid black;
+  min-height: 400px;
+  height:auto;
+}
+#resaBillet
+{
+  text-decoration: none;
+  font-weight:normal;
+}
+#resaBillet p
+{
+  font-size:16px;
+}

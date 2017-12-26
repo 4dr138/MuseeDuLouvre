@@ -1,0 +1,18 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+<h1>Formulaire de réservation</h1>
+<div id = 'aside'>
+    <p id = 'titreResa'>Récapitulatif de la commande : </p>
+</div>
+<ul>
+  <li>Informations générales : </li><br />
+  <div id = 'basket'>
+    {{ form_start(formBasket) }}
+    {{ form_widget(formBasket) }}
+    {{ form_end(formBasket) }}
+    <a href="#" id="add_billet" class="btn btn-default">Ajouter un billet</a>
+  </div>
+</ul>
+
+{% endblock %}
