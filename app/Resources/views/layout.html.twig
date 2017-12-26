@@ -16,10 +16,15 @@
     <body>
         {% include 'navbar/navbar.html.twig' %}
         {% block body %}{% endblock %}
+
         {% block aside %}{% endblock %}
         {% block javascripts %}
             <script src = "{{ asset('js/main.js') }}"></script>
             <script src="{{ asset('js/bootstrap.js') }}"></script>
+        {% endblock %}
+        {% block javascripts %}
+            <script src = "{{ asset('javascript/jquery.js') }}"></script>
+            <script src = "{{ asset('javascript/main.js') }}"></script>
         {% endblock %}
     </body>
     <footer>

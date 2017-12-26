@@ -15,8 +15,9 @@ use AppBundle\Form\Type\BilletType;
 
 class IndexController extends Controller
 {
+
   /**
-   * @Route("/", name="")
+   * @Route("/", name="homepage")
    */
   public function indexAction()
   {
@@ -56,6 +57,7 @@ class IndexController extends Controller
         return $this->redirectToRoute('reservation', array('id' => $newBasket->getId()));
       }
 
-    return $this->render('reservation/reservation.html.twig', array('formBasket' => $formBasket->createView()));
+    return $this->render('index/index.html.twig', array('formBasket' => $formBasket->createView()));
   }
+
 }
