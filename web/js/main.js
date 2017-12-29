@@ -156,23 +156,6 @@ $('#appbundle_basket_mail').blur(function()
           index++;
     }
 
-    // La fonction qui ajoute un lien de suppression d'un billet
-    function addDeleteLink($prototype) {
-        // Création du lien
-        var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
-
-        // Ajout du lien
-        $prototype.append($deleteLink);
-
-        // Ajout du listener sur le clic du lien pour effectivement supprimer le billet
-        $deleteLink.click(function(e) {
-            $prototype.remove();
-
-            e.preventDefault(); // évite qu'un # apparaisse dans l'URL
-            return false;
-        });
-        }
-
         function addRecapBillet($prototype){
           // On récupère les valeurs des champs qui nous intéressent pour la partie visible du récap
           var name = $('#appbundle_basket_billet_'+(index-1)+'_name').val();
@@ -214,8 +197,31 @@ $('#appbundle_basket_mail').blur(function()
           // On se sert de l'élément récupéré pour faire notre calcul de tarif
           // calculTotal(tarif);
           // Placement des différents éléments dans le bloc récap
-          $("#titreResa").append("<div id ='resaBillet'</div>");
-          $("#resaBillet").append("<p>Billet n°"+index+" - <strong>"+name+" "+firstname+"</strong><br />"+datereservation+" - Tarif "+type+" - <strong>"+tarif+" € HT</strong> <hr />");
+          $("#titreResa").append("<div id ='resaBillet'><br /></div>");
+          $("#resaBillet").append("<p class = 'recapBillet'>Billet n°"+index+" - <strong>"+name+" "+firstname+"</strong><br />"+datereservation+" - Tarif "+type+" - <strong>"+tarif+" € HT</strong><br />");
+          $("#resaBillet").append(deleteBillet($(".recapBillet")));
+          $("#resaBillet").append(deleteBillet($(".recapBillet")));
+        }
+
+        // La fonction qui ajoute un lien de suppression d'un billet
+        function deleteBillet(billet) {
+            // Création du lien
+            var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+
+            // Ajout du lien
+            $(".recapBillet").append($deleteLink);
+
+            // Ajout du listener sur le clic du lien pour effectivement supprimer le billet
+            $deleteLink.click(function(e) {
+                $(".recapBillet").remove();
+
+                e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+                return false;
+            })
+          }
+
+        function changeBillet(billet) {
+
         }
 
         // function calculTotal($tarif)
