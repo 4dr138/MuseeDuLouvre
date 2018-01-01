@@ -72,3 +72,15 @@ form
   float:right;
   margin-right:1%;
 }
+#modif_Billet
+{
+    background:gray;
+    padding:20px;
+    display:none;
+    z-index:10001;
+    position:absolute;
+    top:0;
+    left:0;
+    height:500px;
+    width:500px;
+}

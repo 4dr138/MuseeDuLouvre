@@ -1,20 +1,23 @@
 $(document).ready(function() {
+    "use strict";
 // Définition des dates particulières à bloquer pour le datepicker
 var unavailableDates = ["1-5-2018", "1-11-2018", "25-12-2017","1-5-2018", "1-11-2018", "25-12-2018","1-5-2019", "1-11-2019", "25-12-2019"];
 
+function disabledays(date) {
+    var day = date.getDay();
+    return [(day != 2 && day != 0)];
+}
+
+
 function unavailable(date) {
-    dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+    var dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
     if ($.inArray(dmy, unavailableDates) >= 0) {
         return [false, "", "Unavailable"];
     } else {
         return disabledays(date);
     }
-};
+}
 
-function disabledays(date) {
-    var day = date.getDay();
-    return [(day != 2 && day != 0)];
-};
 
 //     // Initialisation du DatePicker
     $( ".js-datepicker" ).datepicker({
@@ -78,6 +81,41 @@ $('#appbundle_basket_mail').blur(function()
     }
 
 
+
+    // La fonction qui ajoute un formulaire CategoryType
+    function addBillet($container) {
+
+        // Dans le contenu de l'attribut « data-prototype », on remplace :
+        // - le texte "__name__label__" qu'il contient par le label du champ
+        // - le texte "__name__" qu'il contient par le numéro du champ
+        var template = $container.attr('data-prototype')
+            .replace(/__name__label__/g, '<li>Billet n°' + (index+1) + '</li>')
+            .replace(/__name__/g,        index)
+        ;
+        // On crée un objet jquery qui contient ce template
+        var $prototype = $(template);
+
+        // On ajoute au prototype un lien pour pouvoir supprimer le billet
+        // addDeleteLink($prototype);
+
+        // On ajoute le prototype modifié à la fin de la balise <div>
+        $container.prepend($prototype);
+
+        // On conditionne le fait que les formulaires se masquent l'un après l'autre
+        if(index !== 0) {
+            $('.formBillet').hide();
+            $('#appbundle_basket_billet_'+index).show();
+            $("li").hide();
+            $("li").eq(0).show();
+            $("li").eq(1).show();
+            addRecapBillet($prototype);
+            $("li").eq(2).replaceWith($("#add_billet"));
+        }
+
+        // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+        index++;
+    }
+
     // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
     $('#add_billet').click(function(e){
         var $name = $('#appbundle_basket_billet_'+(index-1)+'_name');
@@ -117,45 +155,38 @@ $('#appbundle_basket_mail').blur(function()
     else {
         // S'il existe déjà des billets, on ajoute un lien de suppression pour chacune d'entre elles
         $container.children('div').each(function() {
-            addDeleteLink($(this));
+            // addDeleteLink($(this));
 
         });
     }
 
-    // La fonction qui ajoute un formulaire CategoryType
-    function addBillet($container) {
+    // La fonction qui ajoute un lien de suppression d'un billet
+    function deleteBillet(billet) {
+        // Création du lien
+        var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
 
-        // Dans le contenu de l'attribut « data-prototype », on remplace :
-        // - le texte "__name__label__" qu'il contient par le label du champ
-        // - le texte "__name__" qu'il contient par le numéro du champ
-        var template = $container.attr('data-prototype')
-            .replace(/__name__label__/g, '<li>Billet n°' + (index+1) + '</li>')
-            .replace(/__name__/g,        index)
-        ;
-        // On crée un objet jquery qui contient ce template
-        var $prototype = $(template);
+        // Ajout du lien
+        $(".recapBillet").append($deleteLink);
 
-        // On ajoute au prototype un lien pour pouvoir supprimer le billet
-        // addDeleteLink($prototype);
+        // Ajout du listener sur le clic du lien pour effectivement supprimer le billet
+        $deleteLink.click(function(e) {
+            $deleteLink.remove();
+            $(".recapBillet").remove();
 
-        // On ajoute le prototype modifié à la fin de la balise <div>
-        $container.prepend($prototype);
-
-        // On conditionne le fait que les formulaires se masquent l'un après l'autre
-         if(index !== 0) {
-             $('.formBillet').hide();
-             $('#appbundle_basket_billet_'+index).show();
-             $("li").hide();
-             $("li").eq(0).show();
-             $("li").eq(1).show();
-             addRecapBillet($prototype);
-             $("li").eq(2).replaceWith($("#add_billet"));
-         }
-
-          // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
-          index++;
+            e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+            return false;
+        })
     }
 
+    function changeBillet(billet) {
+        var $changeLink = $('<a href = "#" class = "btn btn-modif">Modifier ce billet</a>');
+
+        $(".recapBillet").append($changeLink);
+
+        $changeLink.click(function(e){
+
+        })
+    }
         function addRecapBillet($prototype){
           // On récupère les valeurs des champs qui nous intéressent pour la partie visible du récap
           var name = $('#appbundle_basket_billet_'+(index-1)+'_name').val();
@@ -200,29 +231,10 @@ $('#appbundle_basket_mail').blur(function()
           $("#titreResa").append("<div id ='resaBillet'><br /></div>");
           $("#resaBillet").append("<p class = 'recapBillet'>Billet n°"+index+" - <strong>"+name+" "+firstname+"</strong><br />"+datereservation+" - Tarif "+type+" - <strong>"+tarif+" € HT</strong><br />");
           $("#resaBillet").append(deleteBillet($(".recapBillet")));
-          $("#resaBillet").append(deleteBillet($(".recapBillet")));
+          // $("#resaBillet").append(changeBillet($(".recapBillet")));
         }
 
-        // La fonction qui ajoute un lien de suppression d'un billet
-        function deleteBillet(billet) {
-            // Création du lien
-            var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
 
-            // Ajout du lien
-            $(".recapBillet").append($deleteLink);
-
-            // Ajout du listener sur le clic du lien pour effectivement supprimer le billet
-            $deleteLink.click(function(e) {
-                $(".recapBillet").remove();
-
-                e.preventDefault(); // évite qu'un # apparaisse dans l'URL
-                return false;
-            })
-          }
-
-        function changeBillet(billet) {
-
-        }
 
         // function calculTotal($tarif)
         // {
