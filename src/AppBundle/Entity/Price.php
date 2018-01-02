@@ -56,15 +56,6 @@ class Price
      */
     private $reduit;
 
-    public function __construct()
-    {
-        $this->normal = 16;
-        $this->senior = 12;
-        $this->enfant = 8;
-        $this->bebe = 0;
-        $this->reduit = 10;
-    }
-
     /**
      * Get id
      *
