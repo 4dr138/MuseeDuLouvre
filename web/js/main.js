@@ -161,44 +161,80 @@ $('#appbundle_basket_mail').blur(function()
     }
 
     // La fonction qui ajoute un lien de suppression d'un billet
-    function deleteBillet(billet) {
+    function deleteBillet(index) {
+
         // Création du lien
         var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
 
         // Ajout du lien
-        $(".recapBillet").append($deleteLink);
+        $(".recapBillet"+index+"").append($deleteLink);
 
         // Ajout du listener sur le clic du lien pour effectivement supprimer le billet
         $deleteLink.click(function(e) {
-            $deleteLink.remove();
-            $(".recapBillet").remove();
+            $(".recapBillet"+index+"").remove();
 
             e.preventDefault(); // évite qu'un # apparaisse dans l'URL
             return false;
         })
     }
 
-    function changeBillet(billet) {
+    function changeBillet(index, name, firstname, textdate, country, tarifreduit) {
         var $changeLink = $('<a href = "#" class = "btn btn-modif">Modifier ce billet</a>');
 
-        $(".recapBillet").append($changeLink);
-
+        $(".recapBillet"+index+"").append($changeLink);
         $changeLink.click(function(e){
+          var popup = window.open('', 'popup', 'height=200, width=600');
+          popup.document.write('<form>');
+          popup.document.write('<div id = "formName">Votre nom : <input type = "text" value = '+name+' /><br /></div>');
+          popup.document.write('<div id = "formFirstName">Votre prénom : <input type = "text" value = '+firstname+' /><br /></div>');
+          popup.document.write('<div id = "formBirthDate">Votre date de naissance : <input type = "date" value = '+textdate+' /><br /></div>');
+          popup.document.write('<div id = "formCountry">Votre pays de résidence : <select name = "country"><option value = '+country+'>'+country+'</option><option value = "Angleterre">Angleterre</option></select><br /></div>');
+          popup.document.write('<div id = "formCheckTarif">Tarif réduit ? : <input type = "checkbox" '+tarifreduit+' /><br /></div>');
+          popup.document.write('<div id = "formSubmit"><input type = "button" onclick = changeBillet() value = "Modifier"/></div>');
+          popup.document.write('<div id = "formClose"><input type = "button" value = "Annuler" onclick = window.close() /></div>');
+          popup.document.write('</form>');
+        });
+    };
 
-        })
-    }
+// Fonction qui permet de formater la date
+    function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+        }
+
+
         function addRecapBillet($prototype){
           // On récupère les valeurs des champs qui nous intéressent pour la partie visible du récap
           var name = $('#appbundle_basket_billet_'+(index-1)+'_name').val();
           var firstname = $('#appbundle_basket_billet_'+(index-1)+'_firstname').val();
           var type = $('#appbundle_basket_type option:selected').text();
           var datereservation = $('#appbundle_basket_date').val();
+
+          // On vérifie si la checkbox tarif réduit est bien cochée ou non
           var tarifreduit = $('#appbundle_basket_billet_'+(index-1)+'_discount');
+            if(tarifreduit.is(':checked'))
+            {
+              tarifreduit = 'checked';
+            }
+
+
+          var country = $('#appbundle_basket_billet_'+(index-1)+'_country option:selected').text();
           // On calcule l'âge en fonction de la date choisie dans le billet
           var day = $('#appbundle_basket_billet_'+(index-1)+'_birthdate_day option:selected').val();
           var month = $('#appbundle_basket_billet_'+(index-1)+'_birthdate_month option:selected').val();
           var year = $('#appbundle_basket_billet_'+(index-1)+'_birthdate_year option:selected').val();
+          month = month - 1;
           var date = new Date(year,month,day);
+
+          // On convertit la date dans un format string pour l'utiliser lors de la modification du billet
+          var textdate = formatDate(date);
           var today = new Date();
           var age = Math.floor((today-date) / (365.25 * 24 * 60 * 60 * 1000));
 
@@ -228,9 +264,10 @@ $('#appbundle_basket_mail').blur(function()
           // On se sert de l'élément récupéré pour faire notre calcul de tarif
           // calculTotal(tarif);
           // Placement des différents éléments dans le bloc récap
-          $("#titreResa").append("<div id ='resaBillet'><br /></div>");
-          $("#resaBillet").append("<p class = 'recapBillet'>Billet n°"+index+" - <strong>"+name+" "+firstname+"</strong><br />"+datereservation+" - Tarif "+type+" - <strong>"+tarif+" € HT</strong><br />");
-          $("#resaBillet").append(deleteBillet($(".recapBillet")));
+          $("#titreResa").append("<div id ='resaBillet'></div>");
+          $("#resaBillet").append("<p class = 'recapBillet"+index+"'>Billet n°"+index+" - <strong>"+name+" "+firstname+"</strong><br />"+datereservation+" - Tarif "+type+" - <strong>"+tarif+" € HT</strong><br />");
+          deleteBillet(index);
+          changeBillet(index, name, firstname, textdate, country, tarifreduit);
           // $("#resaBillet").append(changeBillet($(".recapBillet")));
         }
 
