@@ -216,11 +216,11 @@ $('#appbundle_basket_mail').blur(function()
 
         function getPrice(tarif)
         {
-          // debugger;
+          //debugger;
           var url = Routing.generate('price', {tarif: tarif});
           $.ajax({
             url: url,
-            dataType: 'JSON',
+            dataType: 'html',
             type: 'GET',
             success: function(code_html, statut){
 
@@ -262,33 +262,34 @@ $('#appbundle_basket_mail').blur(function()
 
 
           // Détermination du tarif en fonction de l'age
+            var tarif = "";
           if(age < 4)
             {
-              var tarif = "bebe";
+              tarif = "bebe";
             }
           else if (age >= 4 && age < 12)
             {
-              var tarif = "enfant";
+              tarif = "enfant";
             }
           else if (age >= 60)
             {
-              var tarif = "senior";
+              tarif = "senior";
             }
           else if (age && tarifreduit.is(':checked'))
             {
-              var tarif = "reduit";
+              tarif = "reduit";
             }
           else
             {
-              var tarif = "normal";
+              tarif = "normal";
             }
 
           // On se sert de l'élément récupéré pour faire notre calcul de tarif
           // calculTotal(tarif);
           // Placement des différents éléments dans le bloc récap
           $("#titreResa").append("<div id ='resaBillet'></div>");
-          var tarif = getPrice(tarif);
-          $("#resaBillet").append("<p class = 'recapBillet"+index+"'>Billet n°"+index+" - <strong>"+name+" "+firstname+"</strong><br />"+datereservation+" - Tarif "+type+" - <strong>"+tarif+" € HT</strong><br />");
+          var price = getPrice(tarif);
+          $("#resaBillet").append("<p class = 'recapBillet"+index+"'>Billet n°"+index+" - <strong>"+name+" "+firstname+"</strong><br />"+datereservation+" - Tarif "+type+" - <strong>"+price+" € HT</strong><br />");
           deleteBillet(index);
           changeBillet(index, name, firstname, textdate, country, tarifreduit);
           // $("#resaBillet").append(changeBillet($(".recapBillet")));
