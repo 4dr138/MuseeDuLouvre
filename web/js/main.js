@@ -178,21 +178,26 @@ $('#appbundle_basket_mail').blur(function()
         })
     }
 
+    function modifBillet()
+    {
+      alert('hello');
+    }
     function changeBillet(index, name, firstname, textdate, country, tarifreduit) {
         var $changeLink = $('<a href = "#" class = "btn btn-modif">Modifier ce billet</a>');
 
         $(".recapBillet"+index+"").append($changeLink);
         $changeLink.click(function(e){
-          var popup = window.open('', 'popup', 'height=200, width=600');
-          popup.document.write('<form>');
-          popup.document.write('<div id = "formName">Votre nom : <input type = "text" value = '+name+' /><br /></div>');
-          popup.document.write('<div id = "formFirstName">Votre prénom : <input type = "text" value = '+firstname+' /><br /></div>');
-          popup.document.write('<div id = "formBirthDate">Votre date de naissance : <input type = "date" value = '+textdate+' /><br /></div>');
-          popup.document.write('<div id = "formCountry">Votre pays de résidence : <select name = "country"><option value = '+country+'>'+country+'</option><option value = "Angleterre">Angleterre</option></select><br /></div>');
-          popup.document.write('<div id = "formCheckTarif">Tarif réduit ? : <input type = "checkbox" '+tarifreduit+' /><br /></div>');
-          popup.document.write('<div id = "formSubmit"><input type = "button" onclick = changeBillet() value = "Modifier"/></div>');
-          popup.document.write('<div id = "formClose"><input type = "button" value = "Annuler" onclick = window.close() /></div>');
-          popup.document.write('</form>');
+          var popup = window.open('../../app/Reources/views/modifBillet/modifBillet.html.twig', 'popup', 'height=200, width=600');
+          // popup.document.write('<form>');
+          // popup.document.write('<div id = "formName">Votre nom : <input type = "text" value = '+name+' /><br /></div>');
+          // popup.document.write('<div id = "formFirstName">Votre prénom : <input type = "text" value = '+firstname+' /><br /></div>');
+          // popup.document.write('<div id = "formBirthDate">Votre date de naissance : <input type = "date" value = '+textdate+' /><br /></div>');
+          // popup.document.write('<div id = "formCountry">Votre pays de résidence : <select name = "country"><option value = '+country+'>'+country+'</option><option value = "Angleterre">Angleterre</option></select><br /></div>');
+          // popup.document.write('<div id = "formCheckTarif">Tarif réduit ? : <input type = "checkbox" '+tarifreduit+' /><br /></div>');
+          // popup.document.write('<div id = "formSubmit"><input type = "button" onclick = "modifBillet()" value = "Modifier"/></div>');
+          // popup.document.write('<div id = "formClose"><input type = "button" value = "Annuler" onclick = window.close() /></div>');
+          // popup.document.write('</form>');
+          // popup.document.write('<script src = "main.js"></script>');
         });
     };
 
@@ -207,6 +212,20 @@ $('#appbundle_basket_mail').blur(function()
     if (day.length < 2) day = '0' + day;
 
     return [year, month, day].join('-');
+        }
+
+        function getPrice(tarif)
+        {
+          $.ajax({
+            url: "../../src/AppBundle/Controller/GetPrice/GetPriceController",
+            type: "GET",
+            success: function(response){
+
+            },
+            error: function(xhr){
+
+            }
+          });
         }
 
 
@@ -242,29 +261,30 @@ $('#appbundle_basket_mail').blur(function()
           // Détermination du tarif en fonction de l'age
           if(age < 4)
             {
-              var tarif = 0;
+              var tarif = "bebe";
             }
           else if (age >= 4 && age < 12)
             {
-              var tarif = 8;
+              var tarif = "enfant";
             }
           else if (age >= 60)
             {
-              var tarif = 12;
+              var tarif = "senior";
             }
           else if (age && tarifreduit.is(':checked'))
             {
-              var tarif = 10;
+              var tarif = "reduit";
             }
           else
             {
-              var tarif = 16;
+              var tarif = "normal";
             }
 
           // On se sert de l'élément récupéré pour faire notre calcul de tarif
           // calculTotal(tarif);
           // Placement des différents éléments dans le bloc récap
           $("#titreResa").append("<div id ='resaBillet'></div>");
+          var tarif = getPrice(tarif);
           $("#resaBillet").append("<p class = 'recapBillet"+index+"'>Billet n°"+index+" - <strong>"+name+" "+firstname+"</strong><br />"+datereservation+" - Tarif "+type+" - <strong>"+tarif+" € HT</strong><br />");
           deleteBillet(index);
           changeBillet(index, name, firstname, textdate, country, tarifreduit);
