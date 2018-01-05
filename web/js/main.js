@@ -216,13 +216,16 @@ $('#appbundle_basket_mail').blur(function()
 
         function getPrice(tarif)
         {
+          // debugger;
+          var url = Routing.generate('price', {tarif: tarif});
           $.ajax({
-            url: "../../src/AppBundle/Controller/GetPrice/GetPriceController",
-            type: "GET",
-            success: function(response){
+            url: url,
+            dataType: 'JSON',
+            type: 'GET',
+            success: function(code_html, statut){
 
             },
-            error: function(xhr){
+            error: function(resultat, statut, erreur){
 
             }
           });
