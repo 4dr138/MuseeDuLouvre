@@ -5,13 +5,11 @@ namespace AppBundle\Controller\GetPrice;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use AppBundle\Entity\Price;
 use Symfony\Component\HttpFoundation\Response;
 
 class GetPriceController extends Controller
 {
   /**
-   *
    * @Route("/modification/{tarif}", name="price", options={"expose"=true})
    */
    public function getPriceAction($tarif)
@@ -22,6 +20,5 @@ class GetPriceController extends Controller
             $price = $values;
         }
         return new Response($price);
-
    }
 }

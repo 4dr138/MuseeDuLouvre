@@ -217,7 +217,6 @@ $('#appbundle_basket_mail').blur(function()
 
     function validationBasket(data, index){
 
-        $("#validationPanier").remove();
         $("#totalPrice").remove();
 
         // var ht = 0;
@@ -239,14 +238,12 @@ $('#appbundle_basket_mail').blur(function()
 
         //Récap Prix
         var $recapPrice = $("<div id = 'totalPrice'><p>Total HT : "+totalHT+"€<br />TVA : "+totalTVA+"€<br />Total TTC : "+totalTTC+"€</p></div>");
-        // Création du lien
-        var $validPanier = $('<div id="validationPanier"><br />Payer</div>');
         // On récupère la value du HT pour pouvoir le gérer après dans la boucle quand l'index sera supérieur à 1
         var $htValue = $("<input type = 'number' id = 'htPrice' value = "+totalHT+" />");
 
         $("#titreResa").append($recapPrice);
         // Ajout du lien
-        $("#titreResa").append($validPanier);
+
 
     }
 
@@ -282,7 +279,6 @@ $('#appbundle_basket_mail').blur(function()
             {
               tarifreduit = 'checked';
             }
-
 
           var country = $('#appbundle_basket_billet_'+(index-1)+'_country option:selected').text();
           // On calcule l'âge en fonction de la date choisie dans le billet
@@ -321,13 +317,27 @@ $('#appbundle_basket_mail').blur(function()
               tarif = "normal";
             }
 
-          // On se sert de l'élément récupéré pour faire notre calcul de tarif
-          $("<input type = 'number' id = 'htPrice' value =  />");
+            if(index){
+              var indexArray = new Array(name,firstname,type,datereservation,country,tarif);
+              console.log(indexArray);
+            }
           // Placement des différents éléments dans le bloc récap
           $("#titreResa").append("<div id ='resaBillet'></div>");
           getPrice(index,name,firstname,datereservation,type,tarif);
           changeBillet(index, name, firstname, textdate, country, tarifreduit);
-          // $("#resaBillet").append(changeBillet($(".recapBillet")));
+
+          // Création du lien
+          $("#validationPanier").remove();
+          var $validPanier = $('<input id="validationPanier" type = "button" value = "Payer"><br /></input>');
+          $($validPanier).insertAfter($('#titreResa'));
+
+          $($validPanier).click(function() {
+              console.log(index);
+                var i = 0;
+                for(i; i < index; i++){
+                    console.log(name);
+                }
+            });
         }
 
     });
