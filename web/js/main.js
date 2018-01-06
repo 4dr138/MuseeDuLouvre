@@ -104,6 +104,7 @@ $('#appbundle_basket_mail').blur(function()
         // On conditionne le fait que les formulaires se masquent l'un après l'autre
         if(index !== 0) {
             $('.formBillet').hide();
+
             $('#appbundle_basket_billet_'+index).show();
             $("li").hide();
             $("li").eq(0).show();
@@ -164,7 +165,7 @@ $('#appbundle_basket_mail').blur(function()
     function deleteBillet(index) {
 
         // Création du lien
-        var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+        var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a><br />');
 
         // Ajout du lien
         $(".recapBillet"+index+"").append($deleteLink);
@@ -199,7 +200,7 @@ $('#appbundle_basket_mail').blur(function()
           // popup.document.write('</form>');
           // popup.document.write('<script src = "main.js"></script>');
         });
-    };
+    }
 
 // Fonction qui permet de formater la date
     function formatDate(date) {
@@ -214,23 +215,59 @@ $('#appbundle_basket_mail').blur(function()
     return [year, month, day].join('-');
         }
 
-        function getPrice(tarif)
+    function validationBasket(data, index){
+
+        $("#validationPanier").remove();
+        $("#totalPrice").remove();
+
+        // var ht = 0;
+        // var totalHT = calculHT(ht, data);
+        if(index == 1){
+            var totalHT = data;
+        }
+        else{
+            var oldData = $("#htPrice");
+            console.log(oldData);
+            console.log(oldData.val());
+            // var totalHT = data * 1 + oldData * 1;
+        }
+
+        var totalTVA = totalHT * 0.2;
+        totalTVA = totalTVA.toFixed(2);
+        var totalTTC = totalHT * 1 + totalTVA * 1;
+
+
+        //Récap Prix
+        var $recapPrice = $("<div id = 'totalPrice'><p>Total HT : "+totalHT+"€<br />TVA : "+totalTVA+"€<br />Total TTC : "+totalTTC+"€</p></div>");
+        // Création du lien
+        var $validPanier = $('<div id="validationPanier"><br />Payer</div>');
+        // On récupère la value du HT pour pouvoir le gérer après dans la boucle quand l'index sera supérieur à 1
+        var $htValue = $("<input type = 'number' id = 'htPrice' value = "+totalHT+" />");
+
+        $("#titreResa").append($recapPrice);
+        // Ajout du lien
+        $("#titreResa").append($validPanier);
+
+    }
+
+        function getPrice(index,name,firstname,datereservation,type,tarif)
         {
           //debugger;
           var url = Routing.generate('price', {tarif: tarif});
           $.ajax({
             url: url,
-            dataType: 'html',
-            type: 'GET',
-            success: function(code_html, statut){
-
+            data: tarif,
+            type: 'POST',
+            success: function(data){
+                $("#resaBillet").append("<p class = 'recapBillet"+index+"'>Billet n°"+index+" - <strong>"+name+" "+firstname+"</strong><br />"+datereservation+" - Tarif "+type+" - <strong>"+data+" € HT</strong><br />");
+                deleteBillet(index);
+                validationBasket(data, index);
             },
-            error: function(resultat, statut, erreur){
-
+            error: function(data){
+                alert('No data');
             }
           });
         }
-
 
         function addRecapBillet($prototype){
           // On récupère les valeurs des champs qui nous intéressent pour la partie visible du récap
@@ -285,33 +322,12 @@ $('#appbundle_basket_mail').blur(function()
             }
 
           // On se sert de l'élément récupéré pour faire notre calcul de tarif
-          // calculTotal(tarif);
+          $("<input type = 'number' id = 'htPrice' value =  />");
           // Placement des différents éléments dans le bloc récap
           $("#titreResa").append("<div id ='resaBillet'></div>");
-          var price = getPrice(tarif);
-          $("#resaBillet").append("<p class = 'recapBillet"+index+"'>Billet n°"+index+" - <strong>"+name+" "+firstname+"</strong><br />"+datereservation+" - Tarif "+type+" - <strong>"+price+" € HT</strong><br />");
-          deleteBillet(index);
+          getPrice(index,name,firstname,datereservation,type,tarif);
           changeBillet(index, name, firstname, textdate, country, tarifreduit);
           // $("#resaBillet").append(changeBillet($(".recapBillet")));
         }
-
-
-
-        // function calculTotal($tarif)
-        // {
-        //
-        //   var tarif = $tarif;
-        //   console.log(tarif);
-        //   var tarifTVA = tarif * 0.2;
-        //   Math.round(tarifTVA);
-        //   console.log(tarifTVA);
-        //   var tarifTotal = tarifTotal * 1 + tarifTVA;
-        //   console.log(tarifTotal);
-        //
-        //   $("#tvaBillet").remove();
-        //   $("#totalBillets").remove();
-        //   $("<div id = 'tvaBillet'>TVA à 20% : "+tarifTVA+" </div>").insertAfter("#resaBillet");
-        //   $("<div id = 'totalBillets'>Total TTC : "+tarifTotal+"</div>").insertAfter("#tvaBillet");
-        // }
 
     });

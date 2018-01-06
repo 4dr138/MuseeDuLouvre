@@ -84,3 +84,13 @@ form
     height:500px;
     width:500px;
 }
+#validationPanier
+{
+    height:auto;
+    margin-left:40%;
+}
+.col-form-legend
+{
+    margin-bottom:0px;
+    border-bottom: none;
+}
