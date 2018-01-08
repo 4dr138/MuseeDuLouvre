@@ -269,6 +269,7 @@ $('#appbundle_basket_mail').blur(function()
             type: 'POST',
             success: function(data){
                 $("#resaBillet").append("<p class = 'recapBillet"+index+"'>Billet n°"+index+" - <strong>"+name+" "+firstname+"</strong><br />"+datereservation+" - Tarif "+type+" - <strong>"+data+" € HT</strong><br />");
+                $("#resaBillet").append("<input type = 'hidden' value = '" + data + "' id = 'tarifindex_"+ index +"' />");
                 validationBasket(data, index);
                 deleteBillet(index,data);
             },
@@ -337,20 +338,39 @@ $('#appbundle_basket_mail').blur(function()
 
           // Création du lien
           $("#validationPanier").remove();
-          var $validPanier = $('<input id="validationPanier" type = "button" value = "Payer"><br /></input>');
+          var $validPanier = $('<input id="validationPanier" type = "button" value = "Payer"></input>');
           $($validPanier).insertAfter($('#titreResa'));
 
           $($validPanier).click(function() {
                 index = index - 1;
                 var i = 0;
+                var arrPaiement = [];
                 for(i; i < index; i++){
                     var name = $('#appbundle_basket_billet_'+(i)+'_name').val();
                     var firstname = $('#appbundle_basket_billet_'+(i)+'_firstname').val();
                     var type = $('#appbundle_basket_type option:selected').text();
                     var datereservation = $('#appbundle_basket_date').val();
                     var country = $('#appbundle_basket_billet_'+(i)+'_country option:selected').text();
-                    var arrInfos = new Array(name, firstname, type, datereservation, country, tarif);
+                    var tarif = $('#tarifindex_'+(i+1)).val();
+                    var tarifTotal = $("#htPrice").val();
+                    var arrInfos = new Array(name, firstname, type, datereservation, country, tarif,tarifTotal);
+                    arrPaiement[i] = arrInfos;
                 }
+                var url = Routing.generate('paiement');
+                var datapaiement = {datapaiement : arrPaiement};
+                jQuery.ajax({
+                    type: "POST",
+                    url : url,
+                    data: datapaiement,
+                    dataType:'json',
+                    success: function(){
+                        console.log('ok');
+                    },
+                    error: function(){
+                        console.log('Pasok');
+                    }
+                });
+
             });
         }
 
