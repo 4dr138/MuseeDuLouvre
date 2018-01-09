@@ -12,8 +12,16 @@ class PaiementController extends Controller
     /**
      * @Route("/paiement", name="paiement", options={"expose"=true})
      */
-    public function paiementAction($datapaiement)
+    public function paiementAction()
     {
-        var_dump($_POST[$datapaiement]);
+        if($_POST['datapaiement']){
+            $data = $_POST['datapaiement'];
+            header("paiement");
+        }
+        return new Response(json_encode($data));
     }
 }
+
+// Appeler le formulaire pour tout stocker dedans ?
+// Stocker manuellement par une fonction ?
+// Je gère le stockage des données ici, et je m'en ressers ensuite en appelant une autre page sur le success de la requete ajax

@@ -1,42 +1,5 @@
 $(document).ready(function() {
     "use strict";
-// Définition des dates particulières à bloquer pour le datepicker
-var unavailableDates = ["1-5-2018", "1-11-2018", "25-12-2017","1-5-2018", "1-11-2018", "25-12-2018","1-5-2019", "1-11-2019", "25-12-2019"];
-
-function disabledays(date) {
-    var day = date.getDay();
-    return [(day != 2 && day != 0)];
-}
-
-
-function unavailable(date) {
-    var dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
-    if ($.inArray(dmy, unavailableDates) >= 0) {
-        return [false, "", "Unavailable"];
-    } else {
-        return disabledays(date);
-    }
-}
-
-
-//     // Initialisation du DatePicker
-    $( ".js-datepicker" ).datepicker({
-        firstDay: 1,
-        minDate: new Date(),
-        altField: "#datepicker",
-        closeText: 'Fermer',
-        prevText: 'Précédent',
-        nextText: 'Suivant',
-        currentText: 'Aujourd\'hui',
-        monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-        monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
-        dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
-        dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
-        dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
-        weekHeader: 'Sem.',
-        dateFormat: 'dd/mm/yy',
-        beforeShowDay : unavailable
-    });
 
 // Gestion de l'email pour le format de la string avec REGEX
 function validateEmail(email)
@@ -285,13 +248,19 @@ $('#appbundle_basket_mail').blur(function()
           var firstname = $('#appbundle_basket_billet_'+(index-1)+'_firstname').val();
           var type = $('#appbundle_basket_type option:selected').text();
           var datereservation = $('#appbundle_basket_date').val();
+          var todayDate = new Date().toISOString().replace(/T.*/,'').split('-').reverse().join('/');
+          if(todayDate == datereservation){
+              var dateHour = new Date();
+              var h = dateHour.getHours();
+              if(h >= 14 && type == 'Demi-journée')
+              {
+                  alert('Attention, après 14h, le type de billet ne peut être que sur la demi-journée !');
+                  type = 'Journée';
+              }
+          }
 
           // On vérifie si la checkbox tarif réduit est bien cochée ou non
           var tarifreduit = $('#appbundle_basket_billet_'+(index-1)+'_discount');
-            if(tarifreduit.is(':checked'))
-            {
-              tarifreduit = 'checked';
-            }
 
           var country = $('#appbundle_basket_billet_'+(index-1)+'_country option:selected').text();
           // On calcule l'âge en fonction de la date choisie dans le billet
@@ -308,9 +277,9 @@ $('#appbundle_basket_mail').blur(function()
 
           // Détermination du tarif en fonction de l'age
             var tarif = "";
-          if(age < 4)
+          if(tarifreduit.is(':checked'))
             {
-              tarif = "bebe";
+              tarif = "reduit";
             }
           else if (age >= 4 && age < 12)
             {
@@ -320,9 +289,9 @@ $('#appbundle_basket_mail').blur(function()
             {
               tarif = "senior";
             }
-          else if (age && tarifreduit.is(':checked'))
+          else if (age < 4)
             {
-              tarif = "reduit";
+                tarif = "bebe";
             }
           else
             {
@@ -353,21 +322,25 @@ $('#appbundle_basket_mail').blur(function()
                     var country = $('#appbundle_basket_billet_'+(i)+'_country option:selected').text();
                     var tarif = $('#tarifindex_'+(i+1)).val();
                     var tarifTotal = $("#htPrice").val();
-                    var arrInfos = new Array(name, firstname, type, datereservation, country, tarif,tarifTotal);
+                    var email = $("#appbundle_basket_mail").val();
+                    var arrInfos = new Array(name, firstname, type, datereservation, country, tarif,tarifTotal,email);
                     arrPaiement[i] = arrInfos;
                 }
+                console.log(arrPaiement);
                 var url = Routing.generate('paiement');
                 var datapaiement = {datapaiement : arrPaiement};
+                // var datapaiement = JSON.stringify(arrPaiement);
+                console.log(datapaiement);
                 jQuery.ajax({
                     type: "POST",
                     url : url,
                     data: datapaiement,
                     dataType:'json',
-                    success: function(){
-                        console.log('ok');
+                    success: function(datapaiement){
+                        console.log(datapaiement);
                     },
                     error: function(){
-                        console.log('Pasok');
+                        alert('Attention, les données ne sont pas parties');
                     }
                 });
 

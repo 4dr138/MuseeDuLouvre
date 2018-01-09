@@ -36,7 +36,7 @@ class BilletType extends AbstractType
             )
           ))
           ->add('discount', CheckboxType::class, array(
-            'label' => 'Tarif réduit ? '
+            'label' => 'Tarif réduit ? (Carte étudiant, militaire, ou équivalent requise)'
           ));
 
     }
