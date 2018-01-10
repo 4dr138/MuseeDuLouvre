@@ -20,7 +20,7 @@ class BilletType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-          ->add('name', TextType::class, array('label' => 'Nom : ',"required" => true))
+          ->add('name', TextType::class, array('label' => 'Nom : ','required' => true))
           ->add('firstname', TextType::class, array('label' => 'Prénom : ',"required" => true))
           ->add('birthdate', BirthdayType::class, array(
             'label' => 'Date de naissance : ',
@@ -36,9 +36,9 @@ class BilletType extends AbstractType
             )
           ))
           ->add('discount', CheckboxType::class, array(
-            'label' => 'Tarif réduit ? (Carte étudiant, militaire, ou équivalent requise)'
+            'label' => 'Tarif réduit ? (Carte étudiant, militaire, ou équivalent requise)',
+              'required' => false
           ));
-
     }
 
     /**

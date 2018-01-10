@@ -21,5 +21,6 @@ class IndexController extends Controller
     $formBasket->handleRequest($request);
 
     return $this->render('index/index.html.twig', array('formBasket' => $formBasket->createView()));
+
   }
 }
