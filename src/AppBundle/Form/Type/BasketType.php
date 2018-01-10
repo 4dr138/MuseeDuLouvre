@@ -36,16 +36,6 @@ class BasketType extends AbstractType
             'Demi-journée' => false,
           ),
         ))
-        ->add('nbbillets', ChoiceType::class, array(
-          'label' => "Nombre de billets : ",
-          'choices' => array(
-            '1' => 1,
-            '2' => 2,
-            '3' => 3,
-            '4' => 4,
-            '5' => 5,
-            ),
-        ))
         ->add('billet', CollectionType::class, array(
            "entry_type" => BilletType::class,
            "entry_options" => array(
@@ -53,7 +43,8 @@ class BasketType extends AbstractType
            ),
            "allow_add" => true,
            "allow_delete" => true
-         ));
+         ))
+        ->add('Payer', SubmitType::class);
     }
 
     /**

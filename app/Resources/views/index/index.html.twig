@@ -1,4 +1,11 @@
 {% extends 'layout.html.twig' %}
+{% block script %}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script src = "{{ asset('js/main2.js') }}"></script>
+    <script src = "{{ asset('js/datepicker.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+{% endblock %}
 
 {% block body %}
 <h1>Formulaire de réservation</h1>
@@ -27,12 +34,4 @@
 </div>
 
 
-{% endblock %}
-
-{% block script %}
-<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-<script src = "{{ asset('js/main.js') }}"></script>
-<script src = "{{ asset('js/datepicker.js') }}"></script>
-<script src="{{ asset('js/bootstrap.js') }}"></script>
 {% endblock %}

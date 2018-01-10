@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Basket
@@ -39,6 +40,11 @@ class Basket
      * @var string
      *
      * @ORM\Column(name="mail", type="string", length=255)
+     *
+     * @Assert\Email(
+     *     message = "Le format de l'email n'est pas valide",
+     *     checkMX=true
+     * )
      */
     private $mail;
 

@@ -21,7 +21,3 @@ class PaiementController extends Controller
         return new Response(json_encode($data));
     }
 }
-
-// Appeler le formulaire pour tout stocker dedans ?
-// Stocker manuellement par une fonction ?
-// Je gère le stockage des données ici, et je m'en ressers ensuite en appelant une autre page sur le success de la requete ajax

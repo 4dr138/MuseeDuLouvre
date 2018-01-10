@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Billet
@@ -39,6 +40,13 @@ class Billet
      * @var string
      *
      * @ORM\Column(name="firstname", type="string", length=255)
+     *
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Votre nom doit au moins faire {{ limit }} caractères.",
+     *      maxMessage = "Votre nom ne peut pas dépasser {{ limit }} caractères"
+     * )
      */
     private $firstname;
 
@@ -46,6 +54,13 @@ class Billet
      * @var string
      *
      * @ORM\Column(name="country", type="string", length=255)
+     *
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Votre prénom doit au moins faire {{ limit }} caractères",
+     *      maxMessage = "Votre nom ne peut pas dépasser {{ limit }} caractères"
+     * )
      */
     private $country;
 

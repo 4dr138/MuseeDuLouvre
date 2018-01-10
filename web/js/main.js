@@ -47,6 +47,7 @@ $('#appbundle_basket_mail').blur(function()
 
     // La fonction qui ajoute un formulaire CategoryType
     function addBillet($container) {
+        console.log(index);
 
         // Dans le contenu de l'attribut « data-prototype », on remplace :
         // - le texte "__name__label__" qu'il contient par le label du champ
@@ -66,8 +67,7 @@ $('#appbundle_basket_mail').blur(function()
 
         // On conditionne le fait que les formulaires se masquent l'un après l'autre
         if(index !== 0) {
-            $('.formBillet').hide();
-
+            $('#appbundle_basket_billet_'+(index-1)).hide();
             $('#appbundle_basket_billet_'+index).show();
             $("li").hide();
             $("li").eq(0).show();
@@ -75,7 +75,6 @@ $('#appbundle_basket_mail').blur(function()
             addRecapBillet($prototype);
             $("li").eq(2).replaceWith($("#add_billet"));
         }
-
         // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
         index++;
     }
@@ -97,31 +96,14 @@ $('#appbundle_basket_mail').blur(function()
         // if(returnFirstName === false){
         //     return false;
         // }
-
-
-        // On conditionne le nombre de billets à ajouter par la valeur du select associé
-        var select = $('#appbundle_basket_nbbillets option:selected').val();
-        if(index > select)
-        {
-            alert('Vous avez précisé ne vouloir que ' + select + ' billet(s), veuillez revoir votre commande si vous voulez en ajouter plus ! ');
-        }
-        else {
             addBillet($container);
             e.preventDefault(); // évite qu'un # apparaisse dans l'URL
             return false;
-        }
     });
 
     // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'un nouveau billet par exemple).
     if (index == 0) {
         addBillet($container);
-    }
-    else {
-        // S'il existe déjà des billets, on ajoute un lien de suppression pour chacune d'entre elles
-        $container.children('div').each(function() {
-            // addDeleteLink($(this));
-
-        });
     }
 
     // La fonction qui ajoute un lien de suppression d'un billet
@@ -135,6 +117,8 @@ $('#appbundle_basket_mail').blur(function()
 
         // Ajout du listener sur le clic du lien pour effectivement supprimer le billet
         $deleteLink.click(function(e) {
+            // On supprime le billet et le récap
+            $('#appbundle_basket_billet_'+index).remove();
             $("#totalPrice").remove();
             $(".recapBillet"+index+"").remove();
             var total = $("#htPrice").val();
@@ -151,32 +135,10 @@ $('#appbundle_basket_mail').blur(function()
             $("body").append("<input type='hidden' id='totalPrice' value=  />");
             $("#totalPrice").attr({value: totalTTC});
 
-            e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+
+           // évite qu'un # apparaisse dans l'URL
             return false;
         })
-    }
-
-    function modifBillet()
-    {
-      alert('hello');
-    }
-    function changeBillet(index, name, firstname, textdate, country, tarifreduit) {
-        var $changeLink = $('<a href = "#" class = "btn btn-modif">Modifier ce billet</a>');
-
-        $(".recapBillet"+index+"").append($changeLink);
-        $changeLink.click(function(e){
-          var popup = window.open('../../app/Reources/views/modifBillet/modifBillet.html.twig', 'popup', 'height=200, width=600');
-          // popup.document.write('<form>');
-          // popup.document.write('<div id = "formName">Votre nom : <input type = "text" value = '+name+' /><br /></div>');
-          // popup.document.write('<div id = "formFirstName">Votre prénom : <input type = "text" value = '+firstname+' /><br /></div>');
-          // popup.document.write('<div id = "formBirthDate">Votre date de naissance : <input type = "date" value = '+textdate+' /><br /></div>');
-          // popup.document.write('<div id = "formCountry">Votre pays de résidence : <select name = "country"><option value = '+country+'>'+country+'</option><option value = "Angleterre">Angleterre</option></select><br /></div>');
-          // popup.document.write('<div id = "formCheckTarif">Tarif réduit ? : <input type = "checkbox" '+tarifreduit+' /><br /></div>');
-          // popup.document.write('<div id = "formSubmit"><input type = "button" onclick = "modifBillet()" value = "Modifier"/></div>');
-          // popup.document.write('<div id = "formClose"><input type = "button" value = "Annuler" onclick = window.close() /></div>');
-          // popup.document.write('</form>');
-          // popup.document.write('<script src = "main.js"></script>');
-        });
     }
 
 // Fonction qui permet de formater la date
@@ -303,7 +265,6 @@ $('#appbundle_basket_mail').blur(function()
           $("#titreResa").append("<div id ='resaBillet'></div>");
 
           getPrice(index,name,firstname,datereservation,type,tarif);
-          changeBillet(index, name, firstname, textdate, country, tarifreduit);
 
           // Création du lien
           $("#validationPanier").remove();
