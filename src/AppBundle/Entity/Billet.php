@@ -74,9 +74,8 @@ class Billet
 
     /**
      *
-     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Basket", inversedBy="billet")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $Basket;
 
@@ -84,8 +83,6 @@ class Billet
     {
       $this->birthdate = new \DateTime();
     }
-
-
 
     /**
      * @return mixed

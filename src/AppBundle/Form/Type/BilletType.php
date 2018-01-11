@@ -31,8 +31,8 @@ class BilletType extends AbstractType
           ->add('country', ChoiceType::class, array(
             'label' => 'Pays de résidence : ',
             "choices" => array(
-              'France' => true,
-              'Angleterre' => null
+              'France' => 'France',
+              'Angleterre' => 'Angleterre'
             )
           ))
           ->add('discount', CheckboxType::class, array(

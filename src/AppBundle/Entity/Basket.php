@@ -53,6 +53,7 @@ class Basket
      * @var Billet[]
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Billet", mappedBy="Basket", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $billet;
 
