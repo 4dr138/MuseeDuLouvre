@@ -18,9 +18,22 @@ class IndexController extends Controller
   {
     $newBasket = new Basket();
     $formBasket = $this->createForm("AppBundle\Form\Type\BasketType", $newBasket);
-    $formBasket->handleRequest($request);
+
+    if($request->isMethod('POST')) {
+        $formBasket->handleRequest($request);
+
+        if ($formBasket->isSubmitted() && $formBasket->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($newBasket);
+            $em->flush();
+
+            return $this->render('paiement/paiement.html.twig');
+        }
+    }
 
     return $this->render('index/index.html.twig', array('formBasket' => $formBasket->createView()));
+
+
 
   }
 }

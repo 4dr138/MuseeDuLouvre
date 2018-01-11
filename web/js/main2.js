@@ -5,18 +5,45 @@ $(document).ready(function() {
 
         // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
         var index = $container.find(':input').length;
+        var indexMax = index;
+        var $lastBillet= false;
 
         // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
         $('#add_billet').click(function(e) {
-            addBillet($container);
+            // var $name = $('#appbundle_basket_billet_'+(index-1)+'_name');
+            // var $firstname = $('#appbundle_basket_billet_'+(index-1)+'_firstname');
+            // var returnName = check($name);
+            // if(returnName === false) {
+            //     return false;
+            // }
+            // var returnFirstName = check($firstname);
+            // if(returnFirstName === false){
+            //     return false;
+            // }
+            addBillet($container, $lastBillet);
 
             e.preventDefault(); // évite qu'un # apparaisse dans l'URL
             return false;
         });
 
+        // On valide si les champs nom/prénom sont vides ou non
+        function check(champ)
+        {
+            $('#Check').remove();
+            var newBalise = $("<div id = 'Check'></div>").insertAfter(champ);
+            if(champ.val() == ''){ // si le champ est vide
+                newBalise.html("<p>Attention, le champ doit être complété ! </p>").css('color', 'red');
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
         if (index == 0) {
-            addBillet($container);
+            addBillet($container, $lastBillet);
         } else {
             // S'il existe déjà des billets, on ajoute un lien de suppression pour chacune d'entre elles
             $container.children('div').each(function() {
@@ -25,8 +52,7 @@ $(document).ready(function() {
         }
 
         // La fonction qui ajoute un formulaire BilletType
-        function addBillet($container) {
-
+        function addBillet($container, $lastBillet) {
             // Dans le contenu de l'attribut « data-prototype », on remplace :
             // - le texte "__name__label__" qu'il contient par le label du champ
             // - le texte "__name__" qu'il contient par le numéro du champ
@@ -41,15 +67,20 @@ $(document).ready(function() {
             // On donne un attribut au prototype pour pouvoir le masquer au fur et à mesure
             $prototype = $prototype.attr("id","prototype"+index);
 
+            // On gère le bouton pour payer (submit) ainsi que l'affichage dynamique des billets l'un après l'autre
+            $($("#appbundle_basket_Payer")).insertAfter($('#titreResa'));
             if(index >= 1) {
-                $("#prototype" + (index - 1)).hide();
+                // $("#prototype" + (index - 1)).hide();
+                $("#appbundle_basket_Payer").show();
+                // $("#prototype"+ (index) + " legend").accordion();
+            }
+            else
+            {
+                $("#appbundle_basket_Payer").hide();
             }
 
-            // On ajoute au prototype un lien pour pouvoir supprimer le billet
-            addDeleteLink($prototype);
-
             // On ajoute un récap sur le coté
-            addRecapBillet($prototype);
+            addRecapBillet($prototype, $lastBillet);
 
 
             // On ajoute le prototype modifié à la fin de la balise <div>
@@ -57,28 +88,11 @@ $(document).ready(function() {
 
             // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
             index++;
+            indexMax++;
         }
 
-        // La fonction qui ajoute un lien de suppression d'un billet
-        function addDeleteLink($prototype) {
-            // Création du lien
-            var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
-
-            // Ajout du lien
-            $prototype.append($deleteLink);
-
-            // Ajout du listener sur le clic du lien pour effectivement supprimer le billet
-            $deleteLink.click(function(e) {
-                $prototype.remove();
-                index--;
-
-                e.preventDefault(); // évite qu'un # apparaisse dans l'URL
-                return false;
-            });
-        }
-
-    function addRecapBillet($prototype) {
-        if (index >= 1) {
+    function addRecapBillet($prototype, $lastBillet) {
+        if (index >= 1 && $lastBillet == false) {
             // On récupère les valeurs des champs qui nous intéressent pour la partie visible du récap
             var name = $('#appbundle_basket_billet_' + (index - 1) + '_name').val();
             var firstname = $('#appbundle_basket_billet_' + (index - 1) + '_firstname').val();
@@ -88,9 +102,9 @@ $(document).ready(function() {
             if (todayDate == datereservation) {
                 var dateHour = new Date();
                 var h = dateHour.getHours();
-                if (h >= 14 && type == 'Demi-journée') {
-                    alert('Attention, après 14h, le type de billet ne peut être que sur la demi-journée !');
-                    type = 'Journée';
+                if (h >= 14 && type == 'Journée') {
+                    type = 'Demi-Journée';
+
                 }
             }
 
@@ -132,11 +146,6 @@ $(document).ready(function() {
             $("#titreResa").append("<div id ='resaBillet'></div>");
 
             getPrice(index, name, firstname, datereservation, type, tarif);
-
-            // Création du lien
-            $("#validationPanier").remove();
-            var $validPanier = $('<input id="validationPanier" type = "button" value = "Payer"></input>');
-            $($validPanier).insertAfter($('#titreResa'));
         }
     }
 
@@ -149,10 +158,11 @@ $(document).ready(function() {
             data: tarif,
             type: 'POST',
             success: function(data){
-                $("#resaBillet").append("<p class = 'recapBillet"+index+"'>Billet n°"+index+" - <strong>"+name+" "+firstname+"</strong><br />"+datereservation+" - Tarif "+type+" - <strong>"+data+" € HT</strong><br />");
+                $("#resaBillet").append("<p class = 'recapBillet"+index+"'><strong>"+name+" "+firstname+"</strong><br />"+datereservation+" - Tarif "+type+" - <strong>"+data+" € HT</strong><br />");
                 $("#resaBillet").append("<input type = 'hidden' value = '" + data + "' id = 'tarifindex_"+ index +"' />");
                 validationBasket(data, index);
                 deleteBillet(index,data);
+
             },
             error: function(data){
                 alert('No data');
@@ -161,7 +171,6 @@ $(document).ready(function() {
     }
 
     function validationBasket(data, index){
-
         $("#totalPrice").remove();
         if(index == 1) {
             var totalHT = data;
@@ -188,17 +197,55 @@ $(document).ready(function() {
 
     // La fonction qui ajoute un lien de suppression d'un billet
     function deleteBillet(index, data) {
-
         // Création du lien
         var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a><br />');
+        var $deleteProto = $('<a href="#" class="btn btn-danger">Supprimer</a><br />');
 
         // Ajout du lien
         $(".recapBillet"+index+"").append($deleteLink);
+        $("#prototype"+index).append($deleteProto);
+        if(index == 1)
+        {
+            var $deleteProto1 = $('<a href="#" class="btn btn-danger">Supprimer</a><br />');
+            $("#prototype"+0).append($deleteProto1);
+            $deleteProto1.click(function(e) {
+                // On supprime le billet et le récap
+                $('#prototype'+(index-1)).remove();
+                $("#totalPrice").remove();
+                $(".recapBillet"+index+"").remove();
+                var total = $("#htPrice").val();
+                var totalHT = total * 1 - data * 1;
+                $("#htPrice").attr({value: totalHT});
+                var totalTVA = totalHT * 0.2;
+                totalTVA = totalTVA.toFixed(2);
+                var totalTTC = totalHT * 1 + totalTVA * 1;
+
+                //Récap Prix
+                var $recapPrice = $("<div id = 'totalPrice'><p>Total HT : "+totalHT+"€<br />TVA : "+totalTVA+"€<br />Total TTC : "+totalTTC+"€</p></div>");
+                $("#titreResa").append($recapPrice);
+
+                $("body").append("<input type='hidden' id='totalPrice' value=  />");
+                $("#totalPrice").attr({value: totalTTC});
+
+                // On gere le cas du dernier billet
+                // if(index == (indexMax-1))
+                // {
+                //     $lastBillet = true;
+                //     addBillet($container, $lastBillet);
+                //     $lastBillet = false;
+                // }
+                index--;
+                // évite qu'un # apparaisse dans l'URL
+                e.preventDefault();
+                return false;
+            });
+
+        }
 
         // Ajout du listener sur le clic du lien pour effectivement supprimer le billet
         $deleteLink.click(function(e) {
             // On supprime le billet et le récap
-            $('#appbundle_basket_billet_'+index).remove();
+            $('#prototype'+(index-1)).remove();
             $("#totalPrice").remove();
             $(".recapBillet"+index+"").remove();
             var total = $("#htPrice").val();
@@ -215,10 +262,47 @@ $(document).ready(function() {
             $("body").append("<input type='hidden' id='totalPrice' value=  />");
             $("#totalPrice").attr({value: totalTTC});
 
-            //On enleve aussi le prototype associé
-            $("#prototype" + index).remove();
-
+            // // On gere le cas du dernier billet
+            // if(index == (indexMax-1))
+            // {
+            //     $lastBillet = true;
+            //     addBillet($container, $lastBillet);
+            //     $lastBillet = false;
+            // }
             index--;
+            // évite qu'un # apparaisse dans l'URL
+            e.preventDefault();
+            return false;
+        });
+
+        // Ajout du listener sur le clic du lien pour effectivement supprimer le billet
+        $deleteProto.click(function(e) {
+            // On supprime le billet et le récap
+            $('#prototype'+index).remove();
+            $("#totalPrice").remove();
+            $(".recapBillet"+(index+1)).remove();
+            var total = $("#htPrice").val();
+            var totalHT = total * 1 - data * 1;
+            $("#htPrice").attr({value: totalHT});
+            var totalTVA = totalHT * 0.2;
+            totalTVA = totalTVA.toFixed(2);
+            var totalTTC = totalHT * 1 + totalTVA * 1;
+
+            //Récap Prix
+            var $recapPrice = $("<div id = 'totalPrice'><p>Total HT : "+totalHT+"€<br />TVA : "+totalTVA+"€<br />Total TTC : "+totalTTC+"€</p></div>");
+            $("#titreResa").append($recapPrice);
+
+            $("body").append("<input type='hidden' id='totalPrice' value=  />");
+            $("#totalPrice").attr({value: totalTTC});
+
+            // On gere le cas du dernier billet
+            // if(index == (indexMax-1))
+            // {
+            //     $lastBillet = true;
+            //     addBillet($container, $lastBillet);
+            //     $lastBillet = false;
+            // }
+
             // évite qu'un # apparaisse dans l'URL
             e.preventDefault();
             return false;
@@ -236,4 +320,5 @@ $(document).ready(function() {
 
         return [year, month, day].join('-');
     }
+
 });
