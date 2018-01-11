@@ -31,13 +31,6 @@ class Basket
     private $date;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="nbbillets", type="integer")
-     */
-    private $nbbillets;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="mail", type="string", length=255)
@@ -117,30 +110,6 @@ class Basket
     public function getDate()
     {
         return $this->date;
-    }
-
-    /**
-     * Set nbbillets
-     *
-     * @param integer $nbbillets
-     *
-     * @return Basket
-     */
-    public function setNbbillets($nbbillets)
-    {
-        $this->nbbillets = $nbbillets;
-
-        return $this;
-    }
-
-    /**
-     * Get nbbillets
-     *
-     * @return int
-     */
-    public function getNbbillets()
-    {
-        return $this->nbbillets;
     }
 
     /**

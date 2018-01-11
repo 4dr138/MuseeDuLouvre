@@ -31,14 +31,15 @@ class BilletType extends AbstractType
           ->add('country', ChoiceType::class, array(
             'label' => 'Pays de résidence : ',
             "choices" => array(
-              'France' => null,
+              'France' => true,
               'Angleterre' => null
             )
           ))
           ->add('discount', CheckboxType::class, array(
             'label' => 'Tarif réduit ? (Carte étudiant, militaire, ou équivalent requise)',
               'required' => false
-          ));
+          ))
+        ->add('test', SubmitType::class);
     }
 
     /**
