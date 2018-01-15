@@ -74,8 +74,9 @@ class Billet
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Basket", inversedBy="billet")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Basket", inversedBy="billet", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     *
      */
     private $Basket;
 

@@ -42,9 +42,10 @@ class BasketType extends AbstractType
              'attr' => array('class' => 'formBillet')
            ),
            "allow_add" => true,
-           "allow_delete" => true
+           "allow_delete" => true,
+            "by_reference" => false
          ))
-        ->add('Payer', SubmitType::class);
+        ->add('payer', SubmitType::class);
     }
 
     /**

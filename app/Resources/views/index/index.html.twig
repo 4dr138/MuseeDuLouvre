@@ -27,7 +27,29 @@
   <ul>
     <li>Informations générales : </li><br />
       {{ form_start(formBasket) }}
-      {{ form_widget(formBasket) }}
+      <div>
+          {{ form_label(formBasket.date) }}
+          {{ form_widget(formBasket.date) }}
+          {{ form_errors(formBasket.date) }}
+      </div>
+      <div>
+          {{ form_label(formBasket.mail) }}
+          {{ form_widget(formBasket.mail) }}
+          {{ form_errors(formBasket.mail) }}
+      </div>
+      <div>
+          {{ form_label(formBasket.type) }}
+          {{ form_widget(formBasket.type) }}
+          {{ form_errors(formBasket.type) }}
+      </div>
+      <div>
+          {{ form_label(formBasket.billet) }}
+          {{ form_widget(formBasket.billet) }}
+          {{ form_errors(formBasket.billet) }}
+      </div>
+      <div>
+          {{ form_widget(formBasket.payer) }}
+      </div>
       {{ form_end(formBasket) }}
       <a href="#" id="add_billet" class="btn btn-default">Ajouter un billet</a>
   </ul>
