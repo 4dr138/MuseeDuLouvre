@@ -47,16 +47,12 @@
           {{ form_widget(formBasket.billet) }}
           {{ form_errors(formBasket.billet) }}
       </div>
-      <div>
+      <div id = 'submitForm'>
           {{ form_widget(formBasket.payer) }}
       </div>
       {{ form_end(formBasket) }}
       <a href="#" id="add_billet" class="btn btn-default">Ajouter un billet</a>
   </ul>
 </div>
-<div id = 'accordeon'>
-
-</div>
-
 
 {% endblock %}

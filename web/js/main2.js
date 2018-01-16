@@ -2,6 +2,29 @@ $(document).ready(function() {
         // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
         var $container = $('div#appbundle_basket_billet');
         $('legend:nth-child(1)').remove();
+        // On récupère la position du bouton payer
+        var marginSubmit = $('#submitForm').css("margin-top");
+
+    // Gestion de l'email pour le format de la string avec REGEX
+    function validateEmail(email)
+    {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+
+    $('#appbundle_basket_mail').blur(function()
+    {
+        $('#Validation').replaceWith("<div id = 'Validation'></div>");
+        var email = $("#appbundle_basket_mail").val();
+        var newBalise = $("<div id = 'Validation'></div>").insertAfter('#appbundle_basket_mail');
+        if(validateEmail(email))
+        {
+            newBalise.html("<p>Email Correct ! </p>").css('color', 'green');
+        }
+        else {
+            newBalise.html("<p>Format de l'email Incorrect !</p>").css('color', 'red');
+        }
+    });
 
         // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
         var index = $container.find(':input').length;
@@ -10,16 +33,21 @@ $(document).ready(function() {
 
         // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
         $('#add_billet').click(function(e) {
-            // var $name = $('#appbundle_basket_billet_'+(index-1)+'_name');
-            // var $firstname = $('#appbundle_basket_billet_'+(index-1)+'_firstname');
-            // var returnName = check($name);
-            // if(returnName === false) {
-            //     return false;
-            // }
-            // var returnFirstName = check($firstname);
-            // if(returnFirstName === false){
-            //     return false;
-            // }
+            var $name = $('#appbundle_basket_billet_'+(index-1)+'_name');
+            var $firstname = $('#appbundle_basket_billet_'+(index-1)+'_firstname');
+            var $email = $("#appbundle_basket_mail");
+            var returnMail = check($email);
+            if(returnMail === false) {
+                return false;
+            }
+            var returnName = check($name);
+            if(returnName === false) {
+                return false;
+            }
+            var returnFirstName = check($firstname);
+            if(returnFirstName === false){
+                return false;
+            }
             addBillet($container, $lastBillet);
 
             e.preventDefault(); // évite qu'un # apparaisse dans l'URL
@@ -57,7 +85,7 @@ $(document).ready(function() {
             // - le texte "__name__label__" qu'il contient par le label du champ
             // - le texte "__name__" qu'il contient par le numéro du champ
             var template = $container.attr('data-prototype')
-                .replace(/__name__label__/g, '<li>Billet n°' + (index+1) +'</li>')
+                .replace(/__name__label__/g, '<li>Billet</li>')
                 .replace(/__name__/g,        index)
             ;
 
@@ -68,15 +96,14 @@ $(document).ready(function() {
             $prototype = $prototype.attr("id","prototype"+index);
 
             // On gère le bouton pour payer (submit) ainsi que l'affichage dynamique des billets l'un après l'autre
-            $($("#appbundle_basket_Payer")).insertAfter($('#titreResa'));
             if(index >= 1) {
-                // $("#prototype" + (index - 1)).hide();
-                $("#appbundle_basket_Payer").show();
+                $("#prototype" + (index - 1)).hide();
+                $("#appbundle_basket_payer").show();
                 // $("#prototype"+ (index) + " legend").accordion();
             }
             else
             {
-                $("#appbundle_basket_Payer").hide();
+                $("#appbundle_basket_payer").hide();
             }
 
             // On ajoute un récap sur le coté
@@ -98,15 +125,6 @@ $(document).ready(function() {
             var firstname = $('#appbundle_basket_billet_' + (index - 1) + '_firstname').val();
             var type = $('#appbundle_basket_type option:selected').text();
             var datereservation = $('#appbundle_basket_date').val();
-            var todayDate = new Date().toISOString().replace(/T.*/, '').split('-').reverse().join('/');
-            if (todayDate == datereservation) {
-                var dateHour = new Date();
-                var h = dateHour.getHours();
-                if (h >= 14 && type == 'Journée') {
-                    type = 'Demi-Journée';
-
-                }
-            }
 
             // On vérifie si la checkbox tarif réduit est bien cochée ou non
             var tarifreduit = $('#appbundle_basket_billet_' + (index - 1) + '_discount');
@@ -141,6 +159,12 @@ $(document).ready(function() {
                 tarif = "normal";
             }
 
+
+            // On gère le placement du bouton payer
+            marginSubmit = marginSubmit.slice(0, (marginSubmit.length - 2));
+            marginSubmit = marginSubmit * 1 + (75 * 1);
+            marginSubmit = marginSubmit + "px";
+            $("#submitForm").css("margin-top", marginSubmit);
 
             // Placement des différents éléments dans le bloc récap
             $("#titreResa").append("<div id ='resaBillet'></div>");
@@ -199,46 +223,44 @@ $(document).ready(function() {
     function deleteBillet(index, data) {
         // Création du lien
         var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a><br />');
-        var $deleteProto = $('<a href="#" class="btn btn-danger">Supprimer</a><br />');
+        // var $deleteProto = $('<a href="#" class="btn btn-danger">Supprimer</a><br />');
 
         // Ajout du lien
         $(".recapBillet"+index+"").append($deleteLink);
-        $("#prototype"+index).append($deleteProto);
+        // $("#prototype"+index).append($deleteProto);
         if(index == 1)
         {
-            var $deleteProto1 = $('<a href="#" class="btn btn-danger">Supprimer</a><br />');
-            $("#prototype"+0).append($deleteProto1);
-            $deleteProto1.click(function(e) {
-                // On supprime le billet et le récap
-                $('#prototype'+(index-1)).remove();
-                $("#totalPrice").remove();
-                $(".recapBillet"+index+"").remove();
-                var total = $("#htPrice").val();
-                var totalHT = total * 1 - data * 1;
-                $("#htPrice").attr({value: totalHT});
-                var totalTVA = totalHT * 0.2;
-                totalTVA = totalTVA.toFixed(2);
-                var totalTTC = totalHT * 1 + totalTVA * 1;
-
-                //Récap Prix
-                var $recapPrice = $("<div id = 'totalPrice'><p>Total HT : "+totalHT+"€<br />TVA : "+totalTVA+"€<br />Total TTC : "+totalTTC+"€</p></div>");
-                $("#titreResa").append($recapPrice);
-
-                $("body").append("<input type='hidden' id='totalPrice' value=  />");
-                $("#totalPrice").attr({value: totalTTC});
-
-                // On gere le cas du dernier billet
-                // if(index == (indexMax-1))
-                // {
-                //     $lastBillet = true;
-                //     addBillet($container, $lastBillet);
-                //     $lastBillet = false;
-                // }
-                index--;
-                // évite qu'un # apparaisse dans l'URL
-                e.preventDefault();
-                return false;
-            });
+            // var $deleteProto1 = $('<a href="#" class="btn btn-danger">Supprimer</a><br />');
+            // $("#prototype"+0).append($deleteProto1);
+            // $deleteProto1.click(function(e) {
+            //     // On supprime le billet et le récap
+            //     $('#prototype'+(index-1)).remove();
+            //     $("#totalPrice").remove();
+            //     $(".recapBillet"+index+"").remove();
+            //     var total = $("#htPrice").val();
+            //     var totalHT = total * 1 - data * 1;
+            //     $("#htPrice").attr({value: totalHT});
+            //     var totalTVA = totalHT * 0.2;
+            //     totalTVA = totalTVA.toFixed(2);
+            //     var totalTTC = totalHT * 1 + totalTVA * 1;
+            //
+            //     //Récap Prix
+            //     var $recapPrice = $("<div id = 'totalPrice'><p>Total HT : "+totalHT+"€<br />TVA : "+totalTVA+"€<br />Total TTC : "+totalTTC+"€</p></div>");
+            //     $("#titreResa").append($recapPrice);
+            //
+            //     $("body").append("<input type='hidden' id='totalPrice' value=  />");
+            //     $("#totalPrice").attr({value: totalTTC});
+            //
+            //     // On gère le placement du bouton payer
+            //     marginSubmit = marginSubmit.slice(0, (marginSubmit.length - 2));
+            //     marginSubmit = marginSubmit * 1 - (75 * 1);
+            //     marginSubmit = marginSubmit + "px";
+            //     $("#submitForm").css("margin-top", marginSubmit);
+            //     index--;
+            //     // évite qu'un # apparaisse dans l'URL
+            //     e.preventDefault();
+            //     return false;
+            // });
 
         }
 
@@ -262,51 +284,50 @@ $(document).ready(function() {
             $("body").append("<input type='hidden' id='totalPrice' value=  />");
             $("#totalPrice").attr({value: totalTTC});
 
-            // // On gere le cas du dernier billet
-            // if(index == (indexMax-1))
-            // {
-            //     $lastBillet = true;
-            //     addBillet($container, $lastBillet);
-            //     $lastBillet = false;
-            // }
+            // On gère le placement du bouton payer
+            marginSubmit = marginSubmit.slice(0, (marginSubmit.length - 2));
+            marginSubmit = marginSubmit * 1  - (75 * 1);
+            marginSubmit = marginSubmit + "px";
+            $("#submitForm").css("margin-top", marginSubmit);
+
             index--;
             // évite qu'un # apparaisse dans l'URL
             e.preventDefault();
             return false;
         });
 
-        // Ajout du listener sur le clic du lien pour effectivement supprimer le billet
-        $deleteProto.click(function(e) {
-            // On supprime le billet et le récap
-            $('#prototype'+index).remove();
-            $("#totalPrice").remove();
-            $(".recapBillet"+(index+1)).remove();
-            var total = $("#htPrice").val();
-            var totalHT = total * 1 - data * 1;
-            $("#htPrice").attr({value: totalHT});
-            var totalTVA = totalHT * 0.2;
-            totalTVA = totalTVA.toFixed(2);
-            var totalTTC = totalHT * 1 + totalTVA * 1;
-
-            //Récap Prix
-            var $recapPrice = $("<div id = 'totalPrice'><p>Total HT : "+totalHT+"€<br />TVA : "+totalTVA+"€<br />Total TTC : "+totalTTC+"€</p></div>");
-            $("#titreResa").append($recapPrice);
-
-            $("body").append("<input type='hidden' id='totalPrice' value=  />");
-            $("#totalPrice").attr({value: totalTTC});
-
-            // On gere le cas du dernier billet
-            // if(index == (indexMax-1))
-            // {
-            //     $lastBillet = true;
-            //     addBillet($container, $lastBillet);
-            //     $lastBillet = false;
-            // }
-
-            // évite qu'un # apparaisse dans l'URL
-            e.preventDefault();
-            return false;
-        })
+        // // Ajout du listener sur le clic du lien pour effectivement supprimer le billet
+        // $deleteProto.click(function(e) {
+        //     // On supprime le billet et le récap
+        //     $('#prototype'+index).remove();
+        //     $("#totalPrice").remove();
+        //     $(".recapBillet"+(index+1)).remove();
+        //     var total = $("#htPrice").val();
+        //     var totalHT = total * 1 - data * 1;
+        //     $("#htPrice").attr({value: totalHT});
+        //     var totalTVA = totalHT * 0.2;
+        //     totalTVA = totalTVA.toFixed(2);
+        //     var totalTTC = totalHT * 1 + totalTVA * 1;
+        //
+        //     //Récap Prix
+        //     var $recapPrice = $("<div id = 'totalPrice'><p>Total HT : "+totalHT+"€<br />TVA : "+totalTVA+"€<br />Total TTC : "+totalTTC+"€</p></div>");
+        //     $("#titreResa").append($recapPrice);
+        //
+        //     $("body").append("<input type='hidden' id='totalPrice' value=  />");
+        //     $("#totalPrice").attr({value: totalTTC});
+        //
+        //     // On gere le cas du dernier billet
+        //     // if(index == (indexMax-1))
+        //     // {
+        //     //     $lastBillet = true;
+        //     //     addBillet($container, $lastBillet);
+        //     //     $lastBillet = false;
+        //     // }
+        //
+        //     // évite qu'un # apparaisse dans l'URL
+        //     e.preventDefault();
+        //     return false;
+        // })
     }
     // Fonction qui permet de formater la date
     function formatDate(date) {
@@ -321,4 +342,12 @@ $(document).ready(function() {
         return [year, month, day].join('-');
     }
 
+ // On gère la partie Disabled au clic du payer pour ne pas bloquer la transmission de données
+    $("#submitForm").click(function(e){
+        $('#appbundle_basket_type').prop('disabled', false);
+        $("#prototype"+(indexMax-1)).remove();
+    })
 });
+
+
+// En fonction du numéro du billet, supprimer le dernier sélectionné pour passer dans le controlleur dans check les derniers

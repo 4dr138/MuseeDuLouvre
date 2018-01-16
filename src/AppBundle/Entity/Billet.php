@@ -80,6 +80,13 @@ class Billet
      */
     private $Basket;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="price", type="integer")
+     */
+    private $price;
+
     public function __construct()
     {
       $this->birthdate = new \DateTime();
@@ -229,5 +236,29 @@ class Billet
     public function getDiscount()
     {
         return $this->discount;
+    }
+
+    /**
+     * Set price
+     *
+     * @param int $price
+     *
+     * @return Billet
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return int
+     */
+    public function getPrice()
+    {
+        return $this->price;
     }
 }
