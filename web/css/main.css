@@ -112,7 +112,7 @@ form
     margin-left:33%;
     width:40%;
 }
-#appbundle_basket_Payer
+#submitForm
 {
     margin-left:40%;
 }
@@ -140,7 +140,7 @@ form
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
-
+}
 a
 {
     text-decoration:none;
@@ -187,5 +187,10 @@ footer
     bottom:0;
     margin-left:20%;
     margin-bottom:20px;
+=======
+    position:absolute;
+    margin-top:-525px;
+    margin-left:80%;
+>>>>>>> d0ba1fb314d40c0429cf9d463b872eb3a1e41f4c
 }
 

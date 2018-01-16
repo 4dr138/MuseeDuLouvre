@@ -33,3 +33,7 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    appbundle.pricebillet:
+        class : AppBundle\Service\PriceBillet
+        public: true

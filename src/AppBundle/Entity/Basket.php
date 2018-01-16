@@ -56,6 +56,13 @@ class Basket
      */
     private $billet;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="totalPrice", type="integer")
+     */
+    private $totalPrice;
+
     public function __construct()
     {
       $this->date = new \datetime();
@@ -158,5 +165,29 @@ class Basket
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set totalPrice
+     *
+     * @param int $totalPrice
+     *
+     * @return Basket
+     */
+    public function setTotalPrice($totalPrice)
+    {
+        $this->totalPrice = $totalPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return int
+     */
+    public function getTotalPrice()
+    {
+        return $this->totalPrice;
     }
 }

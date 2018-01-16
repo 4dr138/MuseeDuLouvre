@@ -1,1 +1,8 @@
 {% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>Récapitulatif de votre commande : </h1>
+{% for panier in newBasket %}
+    {{ panier.id }}
+{% endfor %}
+{% endblock %}
