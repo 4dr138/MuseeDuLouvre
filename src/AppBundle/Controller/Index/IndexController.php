@@ -13,8 +13,25 @@ use Symfony\Component\HttpFoundation\Request;
 
 class IndexController extends Controller
 {
+
   /**
    * @Route("/", name="homepage")
+   */
+  public function indexAction()
+  {
+    $newBasket = new Basket();
+    $formBuilderBasket = $this->get('form.factory')->createBuilder(BasketType::class, $newBasket);
+    $newBillet = new Billet();
+    $formBuilderBillet = $this->get('form.factory')->createBuilder(BilletType::class, $newBillet);
+
+    $formBasket = $formBuilderBasket->getForm();
+    $formBillet = $formBuilderBillet->getForm();
+
+    return $this->render('index/index.html.twig', array('formBasket' => $formBasket->createView(), 'formBillet' => $formBillet->createView()));
+  }
+
+  /**
+   * @Route("/reservation", name="reservation")
    * @Method({"GET","POST"})
    */
   public function indexAction(Request $request)
@@ -40,4 +57,5 @@ class IndexController extends Controller
 
     return $this->render('index/index.html.twig', array('formBasket' => $formBasket->createView()));
   }
+
 }

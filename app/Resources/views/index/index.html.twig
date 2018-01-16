@@ -54,9 +54,15 @@
       <a href="#" id="add_billet" class="btn btn-default">Ajouter un billet</a>
   </ul>
 </div>
-<div id = 'accordeon'>
 
-</div>
-
-
+<ul>
+  <li>Informations générales : </li><br />
+  <div id = 'basket'>
+    {{ form_start(formBasket) }}
+    {{ form_widget(formBasket) }}
+    {{ form_end(formBasket) }}
+    <a href="#" id="add_billet" class="btn btn-default">Ajouter un billet</a>
+  </div>
+</ul>
 {% endblock %}
+
