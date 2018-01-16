@@ -1,39 +1,5 @@
 $(document).ready(function() {
-// Définition des dates particulières à bloquer pour le datepicker
-var unavailableDates = ["1-5-2018", "1-11-2018", "25-12-2017","1-5-2018", "1-11-2018", "25-12-2018","1-5-2019", "1-11-2019", "25-12-2019"];
-
-function unavailable(date) {
-    dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
-    if ($.inArray(dmy, unavailableDates) >= 0) {
-        return [false, "", "Unavailable"];
-    } else {
-        return disabledays(date);
-    }
-};
-
-function disabledays(date) {
-    var day = date.getDay();
-    return [(day != 2 && day != 0)];
-};
-
-//     // Initialisation du DatePicker
-    $( ".js-datepicker" ).datepicker({
-        firstDay: 1,
-        minDate: new Date(),
-        altField: "#datepicker",
-        closeText: 'Fermer',
-        prevText: 'Précédent',
-        nextText: 'Suivant',
-        currentText: 'Aujourd\'hui',
-        monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-        monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
-        dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
-        dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
-        dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
-        weekHeader: 'Sem.',
-        dateFormat: 'dd/mm/yy',
-        beforeShowDay : unavailable
-    });
+    "use strict";
 
 // Gestion de l'email pour le format de la string avec REGEX
 function validateEmail(email)
@@ -78,52 +44,10 @@ $('#appbundle_basket_mail').blur(function()
     }
 
 
-    // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
-    $('#add_billet').click(function(e){
-        var $name = $('#appbundle_basket_billet_'+(index-1)+'_name');
-        var $firstname = $('#appbundle_basket_billet_'+(index-1)+'_firstname');
-        var $email = $("#appbundle_basket_mail").val();
-        // var returnMail = check($email);
-        // if(returnMail === false) {
-        //     return false;
-        // }
-        // var returnName = check($name);
-        // if(returnName === false) {
-        //     return false;
-        // }
-        // var returnFirstName = check($firstname);
-        // if(returnFirstName === false){
-        //     return false;
-        // }
-
-
-        // On conditionne le nombre de billets à ajouter par la valeur du select associé
-        var select = $('#appbundle_basket_nbbillets option:selected').val();
-        if(index > select)
-        {
-            alert('Vous avez précisé ne vouloir que ' + select + ' billet(s), veuillez revoir votre commande si vous voulez en ajouter plus ! ');
-        }
-        else {
-            addBillet($container);
-            e.preventDefault(); // évite qu'un # apparaisse dans l'URL
-            return false;
-        }
-    });
-
-    // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'un nouveau billet par exemple).
-    if (index == 0) {
-        addBillet($container);
-    }
-    else {
-        // S'il existe déjà des billets, on ajoute un lien de suppression pour chacune d'entre elles
-        $container.children('div').each(function() {
-            addDeleteLink($(this));
-
-        });
-    }
 
     // La fonction qui ajoute un formulaire CategoryType
     function addBillet($container) {
+        console.log(index);
 
         // Dans le contenu de l'attribut « data-prototype », on remplace :
         // - le texte "__name__label__" qu'il contient par le label du champ
@@ -142,35 +66,142 @@ $('#appbundle_basket_mail').blur(function()
         $container.prepend($prototype);
 
         // On conditionne le fait que les formulaires se masquent l'un après l'autre
-         if(index !== 0) {
-             $('.formBillet').hide();
-             $('#appbundle_basket_billet_'+index).show();
-             $("li").hide();
-             $("li").eq(0).show();
-             $("li").eq(1).show();
-             addRecapBillet($prototype);
-             $("li").eq(2).replaceWith($("#add_billet"));
-         }
+        if(index !== 0) {
+            $('#appbundle_basket_billet_'+(index-1)).hide();
+            $('#appbundle_basket_billet_'+index).show();
+            $("li").hide();
+            $("li").eq(0).show();
+            $("li").eq(1).show();
+            addRecapBillet($prototype);
+            $("li").eq(2).replaceWith($("#add_billet"));
+        }
+        // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+        index++;
+    }
 
-          // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
-          index++;
+    // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+    $('#add_billet').click(function(e){
+        var $name = $('#appbundle_basket_billet_'+(index-1)+'_name');
+        var $firstname = $('#appbundle_basket_billet_'+(index-1)+'_firstname');
+        var $email = $("#appbundle_basket_mail").val();
+        // var returnMail = check($email);
+        // if(returnMail === false) {
+        //     return false;
+        // }
+        // var returnName = check($name);
+        // if(returnName === false) {
+        //     return false;
+        // }
+        // var returnFirstName = check($firstname);
+        // if(returnFirstName === false){
+        //     return false;
+        // }
+            addBillet($container);
+            e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+            return false;
+    });
+
+    // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'un nouveau billet par exemple).
+    if (index == 0) {
+        addBillet($container);
     }
 
     // La fonction qui ajoute un lien de suppression d'un billet
-    function addDeleteLink($prototype) {
+    function deleteBillet(index, data) {
+
         // Création du lien
-        var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+        var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a><br />');
 
         // Ajout du lien
-        $prototype.append($deleteLink);
+        $(".recapBillet"+index+"").append($deleteLink);
 
         // Ajout du listener sur le clic du lien pour effectivement supprimer le billet
         $deleteLink.click(function(e) {
-            $prototype.remove();
+            // On supprime le billet et le récap
+            $('#appbundle_basket_billet_'+index).remove();
+            $("#totalPrice").remove();
+            $(".recapBillet"+index+"").remove();
+            var total = $("#htPrice").val();
+            var totalHT = total * 1 - data * 1;
+            $("#htPrice").attr({value: totalHT});
+            var totalTVA = totalHT * 0.2;
+            totalTVA = totalTVA.toFixed(2);
+            var totalTTC = totalHT * 1 + totalTVA * 1;
 
-            e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+            //Récap Prix
+            var $recapPrice = $("<div id = 'totalPrice'><p>Total HT : "+totalHT+"€<br />TVA : "+totalTVA+"€<br />Total TTC : "+totalTTC+"€</p></div>");
+            $("#titreResa").append($recapPrice);
+
+            $("body").append("<input type='hidden' id='totalPrice' value=  />");
+            $("#totalPrice").attr({value: totalTTC});
+
+
+           // évite qu'un # apparaisse dans l'URL
             return false;
-        });
+        })
+    }
+
+// Fonction qui permet de formater la date
+    function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+        }
+
+
+    function validationBasket(data, index){
+
+        $("#totalPrice").remove();
+        if(index == 1) {
+            var totalHT = data;
+        }
+        else
+        {
+            var oldValue =  $("#htPrice").val();
+            totalHT = oldValue * 1 + data * 1;
+        }
+        var totalTVA = totalHT * 0.2;
+        totalTVA = totalTVA.toFixed(2);
+        var totalTTC = totalHT * 1 + totalTVA * 1;
+
+        //Récap Prix
+        var $recapPrice = $("<div id = 'totalPrice'><p>Total HT : "+totalHT+"€<br />TVA : "+totalTVA+"€<br />Total TTC : "+totalTTC+"€</p></div>");
+        // On récupère la value du HT pour pouvoir le gérer après dans la boucle quand l'index sera supérieur à 1
+        $("body").append("<input type='hidden' id='htPrice' value=  />");
+        $("#htPrice").attr({value: totalHT});
+        $("body").append("<input type='hidden' id='totalPrice' value=  />");
+        $("#totalPrice").attr({value: totalTTC});
+
+        $("#titreResa").append($recapPrice);
+        // Ajout du lien
+
+
+    }
+
+        function getPrice(index,name,firstname,datereservation,type,tarif)
+        {
+          //debugger;
+          var url = Routing.generate('price', {tarif: tarif});
+          $.ajax({
+            url: url,
+            data: tarif,
+            type: 'POST',
+            success: function(data){
+                $("#resaBillet").append("<p class = 'recapBillet"+index+"'>Billet n°"+index+" - <strong>"+name+" "+firstname+"</strong><br />"+datereservation+" - Tarif "+type+" - <strong>"+data+" € HT</strong><br />");
+                $("#resaBillet").append("<input type = 'hidden' value = '" + data + "' id = 'tarifindex_"+ index +"' />");
+                validationBasket(data, index);
+                deleteBillet(index,data);
+            },
+            error: function(data){
+                alert('No data');
+            }
+          });
         }
 
         function addRecapBillet($prototype){
@@ -179,60 +210,102 @@ $('#appbundle_basket_mail').blur(function()
           var firstname = $('#appbundle_basket_billet_'+(index-1)+'_firstname').val();
           var type = $('#appbundle_basket_type option:selected').text();
           var datereservation = $('#appbundle_basket_date').val();
+          var todayDate = new Date().toISOString().replace(/T.*/,'').split('-').reverse().join('/');
+          if(todayDate == datereservation){
+              var dateHour = new Date();
+              var h = dateHour.getHours();
+              if(h >= 14 && type == 'Demi-journée')
+              {
+                  alert('Attention, après 14h, le type de billet ne peut être que sur la demi-journée !');
+                  type = 'Journée';
+              }
+          }
+
+          // On vérifie si la checkbox tarif réduit est bien cochée ou non
           var tarifreduit = $('#appbundle_basket_billet_'+(index-1)+'_discount');
+
+          var country = $('#appbundle_basket_billet_'+(index-1)+'_country option:selected').text();
           // On calcule l'âge en fonction de la date choisie dans le billet
           var day = $('#appbundle_basket_billet_'+(index-1)+'_birthdate_day option:selected').val();
           var month = $('#appbundle_basket_billet_'+(index-1)+'_birthdate_month option:selected').val();
           var year = $('#appbundle_basket_billet_'+(index-1)+'_birthdate_year option:selected').val();
+          month = month - 1;
           var date = new Date(year,month,day);
+
+          // On convertit la date dans un format string pour l'utiliser lors de la modification du billet
+          var textdate = formatDate(date);
           var today = new Date();
           var age = Math.floor((today-date) / (365.25 * 24 * 60 * 60 * 1000));
 
-
           // Détermination du tarif en fonction de l'age
-          if(age < 4)
+            var tarif = "";
+          if(tarifreduit.is(':checked'))
             {
-              var tarif = 0;
+              tarif = "reduit";
             }
           else if (age >= 4 && age < 12)
             {
-              var tarif = 8;
+              tarif = "enfant";
             }
           else if (age >= 60)
             {
-              var tarif = 12;
+              tarif = "senior";
             }
-          else if (age && tarifreduit.is(':checked'))
+          else if (age < 4)
             {
-              var tarif = 10;
+                tarif = "bebe";
             }
           else
             {
-              var tarif = 16;
+              tarif = "normal";
             }
 
-          // On se sert de l'élément récupéré pour faire notre calcul de tarif
-          // calculTotal(tarif);
-          // Placement des différents éléments dans le bloc récap
-          $("#titreResa").append("<div id ='resaBillet'</div>");
-          $("#resaBillet").append("<p>Billet n°"+index+" - <strong>"+name+" "+firstname+"</strong><br />"+datereservation+" - Tarif "+type+" - <strong>"+tarif+" € HT</strong> <hr />");
-        }
 
-        // function calculTotal($tarif)
-        // {
-        //
-        //   var tarif = $tarif;
-        //   console.log(tarif);
-        //   var tarifTVA = tarif * 0.2;
-        //   Math.round(tarifTVA);
-        //   console.log(tarifTVA);
-        //   var tarifTotal = tarifTotal * 1 + tarifTVA;
-        //   console.log(tarifTotal);
-        //
-        //   $("#tvaBillet").remove();
-        //   $("#totalBillets").remove();
-        //   $("<div id = 'tvaBillet'>TVA à 20% : "+tarifTVA+" </div>").insertAfter("#resaBillet");
-        //   $("<div id = 'totalBillets'>Total TTC : "+tarifTotal+"</div>").insertAfter("#tvaBillet");
-        // }
+          // Placement des différents éléments dans le bloc récap
+          $("#titreResa").append("<div id ='resaBillet'></div>");
+
+          getPrice(index,name,firstname,datereservation,type,tarif);
+
+          // Création du lien
+          $("#validationPanier").remove();
+          var $validPanier = $('<input id="validationPanier" type = "button" value = "Payer"></input>');
+          $($validPanier).insertAfter($('#titreResa'));
+
+          $($validPanier).click(function() {
+                index = index - 1;
+                var i = 0;
+                var arrPaiement = [];
+                for(i; i < index; i++){
+                    var name = $('#appbundle_basket_billet_'+(i)+'_name').val();
+                    var firstname = $('#appbundle_basket_billet_'+(i)+'_firstname').val();
+                    var type = $('#appbundle_basket_type option:selected').text();
+                    var datereservation = $('#appbundle_basket_date').val();
+                    var country = $('#appbundle_basket_billet_'+(i)+'_country option:selected').text();
+                    var tarif = $('#tarifindex_'+(i+1)).val();
+                    var tarifTotal = $("#htPrice").val();
+                    var email = $("#appbundle_basket_mail").val();
+                    var arrInfos = new Array(name, firstname, type, datereservation, country, tarif,tarifTotal,email);
+                    arrPaiement[i] = arrInfos;
+                }
+                console.log(arrPaiement);
+                var url = Routing.generate('paiement');
+                var datapaiement = {datapaiement : arrPaiement};
+                // var datapaiement = JSON.stringify(arrPaiement);
+                console.log(datapaiement);
+                jQuery.ajax({
+                    type: "POST",
+                    url : url,
+                    data: datapaiement,
+                    dataType:'json',
+                    success: function(datapaiement){
+                        console.log(datapaiement);
+                    },
+                    error: function(){
+                        alert('Attention, les données ne sont pas parties');
+                    }
+                });
+
+            });
+        }
 
     });

@@ -3,15 +3,13 @@
 namespace AppBundle\Controller\Index;
 
 
-use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Billet;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 use AppBundle\Entity\Basket;
-use AppBundle\Entity\Billet;
-use AppBundle\Form\Type\BasketType;
-use AppBundle\Form\Type\BilletType;
+use Symfony\Component\HttpFoundation\Request;
+
 
 class IndexController extends Controller
 {
@@ -36,26 +34,26 @@ class IndexController extends Controller
    * @Route("/reservation", name="reservation")
    * @Method({"GET","POST"})
    */
-  public function newBasket(Request $request)
+  public function indexAction(Request $request)
   {
-// Génération du premier formulaire qui contient les informations de la commande
-     $newBasket = new Basket();
+    $newBasket = new Basket();
+    $formBasket = $this->createForm("AppBundle\Form\Type\BasketType", $newBasket);
 
-     $formbuilderBasket = $this->get('form.factory')->createBuilder(FormType::class, $newBasket);
+        $formBasket->handleRequest($request);
 
-    $formBasket = $formbuilderBasket->getForm();
+        if ($formBasket->isSubmitted() && $formBasket->isValid()) {
+            $em = $this->getDoctrine()->getManager();
 
+            foreach ($newBasket->getBillet() as $billet) {
+                // Service calcul de prix puis retourner prix et créer attribut prix
+                dump($newBasket->getId());
+                dump($billet);
+            }
 
-      if ($formBasket->isValid() && $formBasket->isSubmitted()) {
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($newBasket);
-        $em->flush();
-
-        $this->addFlash('infos', 'Informations générales enregistrées.');
-
-        return $this->redirectToRoute('reservation', array('id' => $newBasket->getId()));
-      }
+            $em->persist($newBasket);
+            $em->flush();
+            return $this->redirectToRoute('recap');
+        }
 
     return $this->render('index/index.html.twig', array('formBasket' => $formBasket->createView()));
   }

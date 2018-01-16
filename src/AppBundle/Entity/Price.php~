@@ -22,51 +22,22 @@ class Price
     private $id;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="normal", type="integer")
+     * @ORM\Column(name="tarif", type="string", length=255)
      */
-    private $normal;
+    private $tarif;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="senior", type="integer")
+     * @ORM\Column(name="price", type="integer")
      */
-    private $senior;
+    private $price;
+
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="enfant", type="integer")
-     */
-    private $enfant;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="bebe", type="integer")
-     */
-    private $bebe;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="reduit", type="integer")
-     */
-    private $reduit;
-
-    public function __construct()
-    {
-        $this->normal = 16;
-        $this->senior = 12;
-        $this->enfant = 8;
-        $this->bebe = 0;
-        $this->reduit = 10;
-    }
-
-    /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -76,122 +47,50 @@ class Price
     }
 
     /**
-     * Set normal
+     * Set tarif.
      *
-     * @param integer $normal
+     * @param string $tarif
      *
      * @return Price
      */
-    public function setNormal($normal)
+    public function setTarif($tarif)
     {
-        $this->normal = $normal;
+        $this->tarif = $tarif;
 
         return $this;
     }
 
     /**
-     * Get normal
+     * Get tarif.
      *
-     * @return int
+     * @return string
      */
-    public function getNormal()
+    public function getTarif()
     {
-        return $this->normal;
+        return $this->tarif;
     }
 
     /**
-     * Set senior
+     * Set price.
      *
-     * @param integer $senior
+     * @param int $price
      *
      * @return Price
      */
-    public function setSenior($senior)
+    public function setPrice($price)
     {
-        $this->senior = $senior;
+        $this->price = $price;
 
         return $this;
     }
 
     /**
-     * Get senior
+     * Get price.
      *
      * @return int
      */
-    public function getSenior()
+    public function getPrice()
     {
-        return $this->senior;
-    }
-
-    /**
-     * Set enfant
-     *
-     * @param integer $enfant
-     *
-     * @return Price
-     */
-    public function setEnfant($enfant)
-    {
-        $this->enfant = $enfant;
-
-        return $this;
-    }
-
-    /**
-     * Get enfant
-     *
-     * @return int
-     */
-    public function getEnfant()
-    {
-        return $this->enfant;
-    }
-
-    /**
-     * Set bebe
-     *
-     * @param integer $bebe
-     *
-     * @return Price
-     */
-    public function setBebe($bebe)
-    {
-        $this->bebe = $bebe;
-
-        return $this;
-    }
-
-    /**
-     * Get bebe
-     *
-     * @return int
-     */
-    public function getBebe()
-    {
-        return $this->bebe;
-    }
-
-    /**
-     * Set reduit
-     *
-     * @param integer $reduit
-     *
-     * @return Price
-     */
-    public function setReduit($reduit)
-    {
-        $this->reduit = $reduit;
-
-        return $this;
-    }
-
-    /**
-     * Get reduit
-     *
-     * @return int
-     */
-    public function getReduit()
-    {
-        return $this->reduit;
+        return $this->price;
     }
 }

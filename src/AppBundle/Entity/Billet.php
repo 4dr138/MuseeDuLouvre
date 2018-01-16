@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Entity\Basket;
 
 /**
  * Billet
@@ -39,6 +41,13 @@ class Billet
      * @var string
      *
      * @ORM\Column(name="firstname", type="string", length=255)
+     *
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Votre nom doit au moins faire {{ limit }} caractères.",
+     *      maxMessage = "Votre nom ne peut pas dépasser {{ limit }} caractères"
+     * )
      */
     private $firstname;
 
@@ -46,6 +55,13 @@ class Billet
      * @var string
      *
      * @ORM\Column(name="country", type="string", length=255)
+     *
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Votre prénom doit au moins faire {{ limit }} caractères",
+     *      maxMessage = "Votre nom ne peut pas dépasser {{ limit }} caractères"
+     * )
      */
     private $country;
 
@@ -58,9 +74,9 @@ class Billet
 
     /**
      *
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Basket", inversedBy="billet")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Basket", inversedBy="billet", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
+     *
      */
     private $Basket;
 
@@ -68,8 +84,6 @@ class Billet
     {
       $this->birthdate = new \DateTime();
     }
-
-
 
     /**
      * @return mixed

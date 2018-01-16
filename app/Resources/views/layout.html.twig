@@ -2,21 +2,19 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Musée du Louvre{% endblock %}</title>
-        {% block stylesheets %}
+        <title>Musée du Louvre</title>
             <link href = "{{ asset('css/main.css')}}" rel = "stylesheet" />
             <script src = "{{ asset('js/jquery.min.js') }}"></script>
             <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
             <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
-        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
         {% include 'navbar/navbar.html.twig' %}
         {% block body %}{% endblock %}
-
+        {% block script %}{% endblock %}
         {% block aside %}{% endblock %}
         {% block javascripts %}
             <script src = "{{ asset('js/main.js') }}"></script>
@@ -28,6 +26,6 @@
         {% endblock %}
     </body>
     <footer>
-        {% block footer %} Site réalisé pour le projet de billetterie pour le musée du Louvre {% endblock %}
+      Site réalisé pour le projet de billetterie pour le musée du Louvre
     </footer>
 </html>
