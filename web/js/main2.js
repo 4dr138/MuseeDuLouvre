@@ -162,7 +162,7 @@ $(document).ready(function() {
 
             // On gère le placement du bouton payer
             marginSubmit = marginSubmit.slice(0, (marginSubmit.length - 2));
-            marginSubmit = marginSubmit * 1 + (75 * 1);
+            marginSubmit = marginSubmit * 1 + (70 * 1);
             marginSubmit = marginSubmit + "px";
             $("#submitForm").css("margin-top", marginSubmit);
 

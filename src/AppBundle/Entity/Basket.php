@@ -63,6 +63,20 @@ class Basket
      */
     private $totalPrice;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="totalTTC", type="decimal", precision=10, scale=1)
+     */
+    private $totalTTC;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="totalTVA", type="decimal", precision=10, scale=1)
+     */
+    private $totalTVA;
+
     public function __construct()
     {
       $this->date = new \datetime();
@@ -182,12 +196,60 @@ class Basket
     }
 
     /**
-     * Get type
+     * Get totalPrice
      *
      * @return int
      */
     public function getTotalPrice()
     {
         return $this->totalPrice;
+    }
+
+    /**
+     * Set totalTTC
+     *
+     * @param int $totalTTC
+     *
+     * @return Basket
+     */
+    public function setTotalTTC($totalTTC)
+    {
+        $this->totalTTC = $totalTTC;
+
+        return $this;
+    }
+
+    /**
+     * Get totalTTC
+     *
+     * @return int
+     */
+    public function getTotalTTC()
+    {
+        return $this->totalTTC;
+    }
+
+    /**
+     * Set totalTVA
+     *
+     * @param int $totalTVA
+     *
+     * @return Basket
+     */
+    public function setTotalTVA($totalTVA)
+    {
+        $this->totalTVA = $totalTVA;
+
+        return $this;
+    }
+
+    /**
+     * Get totalTVA
+     *
+     * @return int
+     */
+    public function getTotalTVA()
+    {
+        return $this->totalTVA;
     }
 }

@@ -10,11 +10,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class RecapController extends Controller
 {
     /**
-     * @Route("/recap", name="recap")
+     * @Route("/recap/{id}", name="recap")
      *
      */
-    public function recapAction()
+    public function recapAction($id)
     {
-        return $this->render('recap/recap.html.twig');
+        $arrBillet = $this->container->get('appbundle.billetbyid');
+        $billets = $arrBillet->getBilletById($id);
+        $basket = $arrBillet->getBasketById($id);
+        return $this->render('recap/recap.html.twig', array('billets' => $billets, 'basket' => $basket));
     }
 }

@@ -18,22 +18,6 @@ class IndexController extends Controller
 
   /**
    * @Route("/", name="homepage")
-   */
-  public function indexAction()
-  {
-    $newBasket = new Basket();
-    $formBuilderBasket = $this->get('form.factory')->createBuilder(BasketType::class, $newBasket);
-    $newBillet = new Billet();
-    $formBuilderBillet = $this->get('form.factory')->createBuilder(BilletType::class, $newBillet);
-
-    $formBasket = $formBuilderBasket->getForm();
-    $formBillet = $formBuilderBillet->getForm();
-
-    return $this->render('index/index.html.twig', array('formBasket' => $formBasket->createView(), 'formBillet' => $formBillet->createView()));
-  }
-
-  /**
-   * @Route("/reservation", name="reservation")
    * @Method({"GET","POST"})
    */
   public function indexAction(Request $request)
@@ -59,14 +43,22 @@ class IndexController extends Controller
                 // On calcule le total des prix des billets dans la boucle pour les attribuer au total du panier
                 $totalPrice = $billet->getPrice() + $newBasket->getTotalPrice();
                 $newBasket->setTotalPrice($totalPrice);
+                $totalTVA = $newBasket->getTotalPrice() * 0.2;
+                $totalTVA = number_format($totalTVA,1);
+                $newBasket->setTotalTVA($totalTVA);
+                $totalTTC = $newBasket->getTotalPrice() + $newBasket->getTotalTVA();
+                $totalTTC = number_format($totalTTC,1);
+                $newBasket->setTotalTTC($totalTTC);
             }
 
             $em->persist($newBasket);
             $em->flush();
-            return $this->render('recap/recap.html.twig', array('billet' => $billet, 'newBasket' => $newBasket));
+            return $this->redirectToRoute('recap', array('id' => $newBasket->getId()));
         }
 
     return $this->render('index/index.html.twig', array('formBasket' => $formBasket->createView()));
   }
 
 }
+
+// calcul tva nveau champ

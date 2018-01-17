@@ -54,15 +54,8 @@
       <a href="#" id="add_billet" class="btn btn-default">Ajouter un billet</a>
   </ul>
 </div>
-
-<ul>
-  <li>Informations générales : </li><br />
-  <div id = 'basket'>
-    {{ form_start(formBasket) }}
-    {{ form_widget(formBasket) }}
-    {{ form_end(formBasket) }}
-    <a href="#" id="add_billet" class="btn btn-default">Ajouter un billet</a>
-  </div>
-</ul>
 {% endblock %}
 
+{% block footer %}
+    <footer>Site réalisé pour le projet de billetterie pour le musée du Louvre</footer>
+{% endblock %}
