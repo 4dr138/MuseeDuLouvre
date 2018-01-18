@@ -31,7 +31,7 @@
             <h3>Total HT : <strong>{{ panier.totalPrice }} €</strong></h3>
             <h3>TVA à 20% : <strong>{{ panier.totalTVA }} €</strong></h3>
             <h3>Total TTC : <strong>{{ panier.totalTTC }} €</strong></h3>
-            <a href = "{{ path("paiement", {'totalTTC': panier.totalTTC , 'mail': panier.mail }) }}">Procéder au paiement</a>
+            <strong><a id = 'btnPaiement' href = "{{ path('paiement', {'totalTTC': panier.totalTTC, 'mail': panier.mail, 'id': panier.id, 'date':panier.date|date('d-m-Y')}) }}">Procéder au paiement</a></strong>
         {% endfor %}
     </div>
 </div>

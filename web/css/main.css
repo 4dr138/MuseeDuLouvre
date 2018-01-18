@@ -101,11 +101,6 @@ form
 {
     font-size:0.8em;
 }
-#accessibilite
-{
-    margin-left:33%;
-    width:40%;
-}
 #submitForm
 {
     position:absolute;
@@ -145,4 +140,13 @@ table
 #recap
 {
     width:800px;
+}
+#btnPaiement
+{
+    color: black;
+    text-decoration: none;
+    margin-left: 18%;
+    background-color:red;
+    padding:7px;
+    border-radius:5px;
 }
