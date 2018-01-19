@@ -1,0 +1,12 @@
+
+
+<h2>Voici votre récapitulatif de commande {{ code }} pour le {{ date }}</h2>
+
+Ci-dessous les noms des personnes associées à la commande :
+        {% for names in name %}
+            - <strong>{{ names.name}}</strong>
+        {% endfor %}
+
+Total de la facture : {{ totalTTC }} € TTC.
+
+A bientôt au Musée du Louvre

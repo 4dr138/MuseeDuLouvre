@@ -1,25 +1,20 @@
+
 #conteneur
 {
-    display:flex;
-    margin-left:auto;
-    margin-right:auto;
-
-    width: 700px;
+display:flex;
+margin-left:auto;
+margin-right:auto;
+width: 700px;
 
 }
 .reservation, .lien_site
-{
-    width: 600px;
-}
-.index, .reservation, .lien_site
 {
     margin-left:20px;
     padding:auto;
     color:white;
     padding-top:5px;
 }
-
-h1
+h1, footer
 {
     text-align:center;
 }
@@ -56,27 +51,27 @@ form
 }
 #aside
 {
-  float:right;
-  margin-right:20px;
-  margin-top:-0.5%;;
-  padding:20px;
-  border:1px solid black;
-  min-height: 400px;
-  height:auto;
+    float:right;
+    margin-right:20px;
+    margin-top:-0.5%;;
+    padding:20px;
+    border:1px solid black;
+    min-height: 400px;
+    height:auto;
 }
 #resaBillet
 {
-  text-decoration: none;
-  font-weight:normal;
+    text-decoration: none;
+    font-weight:normal;
 }
 #resaBillet p
 {
-  font-size:16px;
+    font-size:16px;
 }
 .btn-danger
 {
-  float:right;
-  margin-right:1%;
+    float:right;
+    margin-right:1%;
 }
 #modif_Billet
 {
@@ -106,86 +101,52 @@ form
 {
     font-size:0.8em;
 }
-#accessibilite
-{
-    /*text-align:center;*/
-    margin-left:33%;
-    width:40%;
-}
-#appbundle_basket_Payer
-{
-    margin-left:40%;
-}
-.accordion {
-    background-color: #eee;
-    color: #444;
-    cursor: pointer;
-    padding: 18px;
-    width: 40%;
-    display: flex;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 15px;
-    transition: 0.4s;
-}
-
-.active, .accordion:hover {
-    background-color: #ccc;
-}
-
-.panel {
-    padding: 0 18px;
-    background-color: white;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-
-a
-{
-    text-decoration:none;
-    color:white;
-}
-html
-{
-    background-image:url('../img/background.jpg');
-}
-body
-{
-    width:1000px;
-    margin-left:auto;
-    margin-right:auto;
-    min-height:620px;
-    background-attachment: fixed;
-    background-color: rgba(10,10,10,0.5);
-}
-#title, footer
-{
-    color:white;
-}
-p
-{
-    color:white;
-}
-#firstArticle
-{
-    width:600px;
-}
-#secondArticle
-{
-    width:600px;
-    float:right;
-}
-#btnLienReservation
-{
-    margin-left:40%;
-    margin-top:5%;
-}
-footer
+#submitForm
 {
     position:absolute;
-    bottom:0;
-    margin-left:20%;
-    margin-bottom:20px;
+    margin-top:-525px;
+    margin-left:80%;
 }
-
+td
+{
+    border-bottom: 1px solid black;
+}
+table
+{
+    width: 50%;
+    margin-left:25%;
+}
+#priceBasket
+{
+    border: 1px solid black;
+    width:250px;
+    margin-right:60px;
+    padding: 10px;
+}
+#titreTotal
+{
+    text-align:center;
+}
+#bodyRecap
+{
+    display: inline-flex;
+    height:auto;
+}
+#infosClients
+{
+    width:250px;
+    margin-left:30px;
+}
+#recap
+{
+    width:800px;
+}
+#btnPaiement
+{
+    color: black;
+    text-decoration: none;
+    margin-left: 18%;
+    background-color:red;
+    padding:7px;
+    border-radius:5px;
+}

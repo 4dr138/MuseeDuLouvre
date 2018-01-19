@@ -24,6 +24,7 @@
         "components/jquery": "^3.1",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
+        "flosch/stripe-bundle": "^0.1.9",
         "friendsofsymfony/jsrouting-bundle": "^2.1",
         "incenteev/composer-parameter-handler": "^2.0",
         "oyejorge/less.php": "v1.7.0.14",
