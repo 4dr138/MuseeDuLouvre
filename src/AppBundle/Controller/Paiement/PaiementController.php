@@ -48,7 +48,7 @@ class PaiementController extends Controller
         // On utilise SwiftMailer pour envoyer le mail
         $this->get('mailer')->send($message);
 
-        return $this->render('confirmationPaiement/confirmationPaiement.html.twig', array('totalTTC' => ($totalTTC * 100)));
+        return $this->render('confirmationPaiement/confirmationPaiement.html.twig', array('totalTTC' => $totalTTC));
 
     }
 }

@@ -1,18 +1,22 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <h1>Récapitulatif de votre commande : </h1>
-
-<div id = 'bodyRecap'>
-    <div id = 'infosClients'>
-        <h2>Informations client</h2>
-        {% for panier in basket %}
-            <h3>Date de réservation : <br /><strong>{{ panier.date|date('d-m-Y') }}</strong></h3>
-            <h3>Mail : <br /><strong>{{ panier.mail }}</strong></h3><br/>
-        {% endfor %}
-    </div>
-    <div id = 'recap'>
-        <table>
+<div class="container">
+    <h2>Récapitulatif de votre commande</h2>
+    {% for panier in basket %}
+        <p>Un e-mail de confirmation vous sera envoyé à l'adresse : <strong>{{ panier.mail }}</strong> pour une réservation à la date du <strong>{{ panier.date|date('d-m-Y') }}</strong></p>
+    {% endfor %}
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Numéro du billet</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Tarif</th>
+            </tr>
+            </thead>
+            <tbody>
             {% for billet in billets %}
                 <tr>
                     <td><h3>Billet n° {{ loop.index }} : </h3></td>
@@ -21,18 +25,21 @@
                     <td><h3><strong>{{ billet.price }} €</strong></h3></td>
                 </tr>
                 <br />
-
             {% endfor %}
+            </tbody>
         </table>
     </div>
-    <div id = 'priceBasket'>
-        <h2 id = 'titreTotal'>Total : </h2>
+    <div class = 'priceBasket'>
+        <h2 class = 'titreTotal'>Total : </h2>
         {% for panier in basket %}
             <h3>Total HT : <strong>{{ panier.totalPrice }} €</strong></h3>
             <h3>TVA à 20% : <strong>{{ panier.totalTVA }} €</strong></h3>
             <h3>Total TTC : <strong>{{ panier.totalTTC }} €</strong></h3>
-            <strong><a id = 'btnPaiement' href = "{{ path('paiement', {'totalTTC': panier.totalTTC, 'mail': panier.mail, 'id': panier.id, 'date':panier.date|date('d-m-Y')}) }}">Procéder au paiement</a></strong>
+            <strong><button class = "btn btn-info"><a id = 'btnPaiement' href = "{{ path('paiement', {'totalTTC': panier.totalTTC, 'mail': panier.mail, 'id': panier.id, 'date':panier.date|date('d-m-Y')}) }}">Procéder au paiement</a></button></strong>
         {% endfor %}
     </div>
 </div>
 {% endblock %}
+
+
+

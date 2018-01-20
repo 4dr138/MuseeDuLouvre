@@ -41,3 +41,7 @@ services:
     appbundle.billetbyid:
         class : AppBundle\Service\BilletById
         public: true
+
+    appbundle.billetsbydate:
+            class : AppBundle\Service\BilletsByDate
+            public: true

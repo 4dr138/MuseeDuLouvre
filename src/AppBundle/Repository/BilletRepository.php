@@ -44,6 +44,25 @@ class BilletRepository extends EntityRepository
         return $query->execute();
     }
 
+    /**
+     * @param \DateTime $dateresa
+     * @return mixed
+     */
+    public function getBilletsDate($dateresa)
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            'SELECT count(b.id)
+            FROM AppBundle\Entity\Billet b, AppBundle\Entity\Basket ba
+            WHERE ba.id = b.Basket
+            AND ba.date = :date')
+            ->setParameter('date', $dateresa);
+
+        return $query->execute();
+    }
+
+
+
 
 
 }

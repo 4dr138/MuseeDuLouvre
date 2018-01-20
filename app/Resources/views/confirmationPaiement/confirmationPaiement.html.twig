@@ -4,16 +4,15 @@
     <div id="wrapper">
         <div id="container">
             <div id="welcome">
-                <h1><span>Projet Stripe</span> Mentorat OpenClassroom</h1>
+                <h1> Validation du panier</h1>
             </div>
-
             <div id="status">
-                    Veuillez cliquer ci-dessous pour valider le paiement !
+                Veuillez cliquer ci-dessous pour accéder à l'interface de paiement et valider le paiement d'une somme de : <strong>{{ totalTTC }} € TTC</strong><br /><br />
                 <form action="{{ path('order_checkout') }}" method="POST">
                     <script
                             src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                             data-key="pk_test_xYxkBoEYIEXYJKWNlej4wl1A"
-                            data-amount= "{{ totalTTC }}"
+                            {#data-amount= "{{ totalTTC }}"#}
                             data-name="oc-stripe"
                             data-description="Widget"
                             data-locale="auto"
@@ -21,6 +20,11 @@
                     </script>
                     <input type = "hidden" name = "valeurPaiement" value = "{{ totalTTC }}" />
                 </form>
+                {% for message in app.flashes('success') %}
+                    <div class="flash-notice">
+                        {{ message }}
+                    </div>
+                {% endfor %}
                 </p>
             </div>
         </div>
