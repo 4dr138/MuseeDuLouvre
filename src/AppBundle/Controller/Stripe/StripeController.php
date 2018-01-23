@@ -22,6 +22,7 @@ class StripeController extends Controller
         // Get the credit card details submitted by the form
         $token = $_POST['stripeToken'];
         $amount = $_POST['valeurPaiement'];
+        $amount = $amount * 100;
 
 
         // Create a charge: this will charge the user's card
@@ -32,12 +33,12 @@ class StripeController extends Controller
                 "source" => $token,
                 "description" => "Paiement Stripe - OpenClassrooms Exemple"
             ));
-            $this->addFlash("success","Bravo ça marche !");
+            $this->addFlash("success","Votre paiement a bien été enregistré, vous allez être redirigés vers la page d'accueil !");
             return $this->redirectToRoute("homepage");
         } catch(\Stripe\Error\Card $e) {
 
-            $this->addFlash("error","Snif ça marche pas :(");
-            return $this->redirectToRoute("homepage");
+            $this->addFlash("error","Votre paiement n'est pas passé, veuillez ré-essayer");
+//            return $this->redirectToRoute("paiement");
             // The card has been declined
         }
     }

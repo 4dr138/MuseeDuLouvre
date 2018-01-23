@@ -85,7 +85,7 @@ $(document).ready(function() {
             // - le texte "__name__label__" qu'il contient par le label du champ
             // - le texte "__name__" qu'il contient par le numéro du champ
             var template = $container.attr('data-prototype')
-                .replace(/__name__label__/g, '<br /><li>Billet</li>')
+                .replace(/__name__label__/g, '<hr /><li>Billet</li>')
                 .replace(/__name__/g,        index)
             ;
 
@@ -162,7 +162,7 @@ $(document).ready(function() {
 
             // On gère le placement du bouton payer
             marginSubmit = marginSubmit.slice(0, (marginSubmit.length - 2));
-            marginSubmit = marginSubmit * 1 + (70 * 1);
+            marginSubmit = marginSubmit * 1 + (94 * 1);
             marginSubmit = marginSubmit + "px";
             $("#submitForm").css("margin-top", marginSubmit);
 
@@ -346,8 +346,7 @@ $(document).ready(function() {
     $("#submitForm").click(function(e){
         $('#appbundle_basket_type').prop('disabled', false);
         $("#prototype"+(indexMax-1)).remove();
-    })
+    });
+
 });
 
-
-// En fonction du numéro du billet, supprimer le dernier sélectionné pour passer dans le controlleur dans check les derniers
