@@ -39,8 +39,8 @@ form
     width:auto;
 }
 #accessibilite {
-    width: 600px;
-    margin-right: 10px;
+    width: 400px;
+    margin-left: 50px;
 }
 #resaBillet
 {
@@ -88,7 +88,7 @@ form
 {
     position:absolute;
     margin-top:-525px;
-    margin-left:80%;
+    margin-left:43%;
 }
 
 #priceBasket
@@ -138,3 +138,8 @@ form
 {
     min-height:480px;
 }
+body
+{
+    background-image: url("../img/background.jpg");
+}
+

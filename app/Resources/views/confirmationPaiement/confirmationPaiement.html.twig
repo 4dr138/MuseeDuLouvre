@@ -13,19 +13,19 @@
                             src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                             data-key="pk_test_xYxkBoEYIEXYJKWNlej4wl1A"
                             {#data-amount= "{{ totalTTC }}"#}
-                            data-name="oc-stripe"
+                            data-name="Paiement"
                             data-description="Widget"
-                            data-locale="auto"
-                            data-currency="eur">
+                            data-locale="fr"
+                            data-currency="eur"
+                            data-label="Payer par carte">
                     </script>
                     <input type = "hidden" name = "valeurPaiement" value = "{{ totalTTC }}" />
                 </form>
-                {% for message in app.flashes('success') %}
+                {% for message in app.flashes('error') %}
                     <div class="flash-notice">
                         {{ message }}
                     </div>
                 {% endfor %}
-                </p>
             </div>
         </div>
     </div>
