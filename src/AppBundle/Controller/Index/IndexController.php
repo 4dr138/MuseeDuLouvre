@@ -40,20 +40,9 @@ class IndexController extends Controller
                         $billet->setBasket($newBasket);
                         // On utilise le service pour récupérer le prix unitaire
                         $priceBillet = $this->container->get('appbundle.pricebillet');
-                        $birthdate = $billet->getBirthdate();
-                        $discount = $billet->getDiscount();
-                        $priceBillet = $priceBillet->getPriceBillet($birthdate, $discount);
+                        $priceBillet = $priceBillet->getPriceBillet($billet, $newBasket);
                         // On attribue ce prix au billet
                         $billet->setPrice($priceBillet);
-                        // On calcule le total des prix des billets dans la boucle pour les attribuer au total du panier
-                        $totalPrice = $billet->getPrice() + $newBasket->getTotalPrice();
-                        $newBasket->setTotalPrice($totalPrice);
-                        $totalTVA = $newBasket->getTotalPrice() * 0.2;
-                        $totalTVA = number_format($totalTVA, 1);
-                        $newBasket->setTotalTVA($totalTVA);
-                        $totalTTC = $newBasket->getTotalPrice() + $newBasket->getTotalTVA();
-                        $totalTTC = number_format($totalTTC, 1);
-                        $newBasket->setTotalTTC($totalTTC);
                     }
 
                     $em->persist($newBasket);

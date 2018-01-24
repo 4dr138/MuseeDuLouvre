@@ -2,7 +2,7 @@
 {% block script %}
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-    <script src = "{{ asset('js/main2.js') }}"></script>
+    <script src = "{{ asset('js/main.js') }}"></script>
     <script src = "{{ asset('js/datepicker.js') }}"></script>
     <script src="{{ asset('js/bootstrap.js') }}"></script>
 {% endblock %}
@@ -11,6 +11,19 @@
 <h1>Formulaire de réservation</h1>
 
 <div id = 'basket'>
+    <div id = 'accessibilite'>
+        <h2>Horaires et accessibilité</h2>
+        <p>Le musée est ouvert :</p>
+        <p><strong> - Tous les jours</strong>, sauf le mardi (fermé les 1er mai, 1er novembre et 25 décembre)</p>
+        <p><strong> - De 9h à 18h</strong></p>
+        <p> - L'évacuation des salles débute à <strong>17 h 30 ou 21 h 30 les jours de nocturne.</strong></p>
+
+        <p>Adresse : <strong>Rue de Rivoli, 75001 Paris</strong></p>
+        <p>Surface : 360 000m² dont 72 375m² de galeries</p>
+        <p><strong>Accessible pour tous</strong>, des équipements sont à disposition pour les personnes à mobilité réduite</p>
+        <div id = 'map'>
+        </div>
+    </div>
   <ul>
       <div id = 'allForm'>
           <br />
@@ -43,21 +56,8 @@
       </div>
       <a href="#" id="add_billet" class="btn btn-default">Ajouter un billet</a>
   </ul>
-    <div id = 'accessibilite'>
-        <h2>Horaires et accessibilité</h2>
-        <p>Le musée est ouvert :</p>
-        <p><strong> - Tous les jours</strong>, sauf le mardi (fermé les 1er mai, 1er novembre et 25 décembre)</p>
-        <p><strong> - De 9h à 18h</strong></p>
-        <p> - L'évacuation des salles débute à <strong>17 h 30 ou 21 h 30 les jours de nocturne.</strong></p>
-
-        <p>Adresse : <strong>Rue de Rivoli, 75001 Paris</strong></p>
-        <p>Surface : 360 000m² dont 72 375m² de galeries</p>
-        <p><strong>Accessible pour tous</strong>, des équipements sont à disposition pour les personnes à mobilité réduite</p>
-        <div id = 'map'>
-        </div>
-    </div>
     <div id = 'aside'>
-        <p id = 'titreResa'>Récapitulatif de la commande : </p><br />
+        <p id = 'titreResa'>Récapitulatif de la commande : </p><br /><br />
         {% for message in app.flashes('error') %}
             <div class="flash-notice">
                 {{ message }}

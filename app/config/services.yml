@@ -45,3 +45,7 @@ services:
     appbundle.billetsbydate:
             class : AppBundle\Service\BilletsByDate
             public: true
+
+    appbundle.insertextendsprices:
+            class: AppBundle\Service\InsertExtendsPrices
+            public: true

@@ -38,8 +38,9 @@ class StripeController extends Controller
         } catch(\Stripe\Error\Card $e) {
 
             $this->addFlash("error","Votre paiement n'est pas passé, veuillez ré-essayer");
-//            return $this->redirectToRoute("paiement");
+            return $this->redirectToRoute("paiement");
             // The card has been declined
         }
+//        return $this->redirectToRoute("homepage");
     }
 }

@@ -2,6 +2,8 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\Basket;
+use AppBundle\Entity\Billet;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -19,18 +21,26 @@ class PriceBillet extends Controller
     /**
      * Vérifie le prix du billet
      *
-     * @param \DateTime $birthdate
-     * @param boolean $discount
      * @return int
      */
-    public function getPriceBillet($birthdate, $discount)
+    public function getPriceBillet(Billet $billet, Basket $newBasket)
     {
+
+        $birthdate = $billet->getBirthdate();
+        $discount = $billet->getDiscount();
         $today = date("Y-m-d H:i:s");
         $today = new \DateTime($today);
         $age = date_diff($birthdate, $today);
         $age = $age->y;
 
-        if ($discount == true) {
+        if ($discount = true && $age < 4) {
+            $tarif = "bebe";
+        }
+        else if ($discount = true && $age >= 4 && $age < 12)
+        {
+            $tarif = "enfant";
+        }
+        else if ($discount == true) {
             $tarif = "reduit";
         }
         else if ($age >= 4 && $age < 12) {
@@ -51,6 +61,12 @@ class PriceBillet extends Controller
         foreach($prixBillet[0] as $values){
             $prixBillet = $values;
         }
+
+        // On insère directement nos valeurs HT et TVA via le repository en DQL
+        $HT_TVA = $this->container->get('appbundle.insertextendsprices');
+        $HT_TVA->insertHTTVA($billet, $newBasket, $prixBillet);
+
+
         return $prixBillet;
     }
 
