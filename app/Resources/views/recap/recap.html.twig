@@ -2,6 +2,11 @@
 
 {% block body %}
 <div class="container">
+    {% for message in app.flashes('error') %}
+        <div class="flash-notice">
+            <strong>{{ message }}</strong>
+        </div>
+    {% endfor %}
     <h2>Récapitulatif de votre commande</h2>
     {% for panier in basket %}
         <p>Un e-mail de confirmation vous sera envoyé à l'adresse : <strong>{{ panier.mail }}</strong> pour une réservation à la date du <strong>{{ panier.date|date('d-m-Y') }}</strong></p>
@@ -35,7 +40,17 @@
             <h3>Total HT : <strong>{{ panier.totalPrice }} €</strong></h3>
             <h3>TVA à 20% : <strong>{{ panier.totalTVA }} €</strong></h3>
             <h3>Total TTC : <strong>{{ panier.totalTTC }} €</strong></h3>
-            <strong><button class = "btn btn-info"><a id = 'btnPaiement' href = "{{ path('paiement', {'totalTTC': panier.totalTTC, 'mail': panier.mail, 'id': panier.id, 'date':panier.date|date('d-m-Y')}) }}">Procéder au paiement</a></button></strong>
+            <form action="{{ path('paiement', {'totalTTC': panier.totalTTC, 'mail': panier.mail, 'id': panier.id, 'date':panier.date|date('d-m-Y')}) }}) }}" method="POST" id = "btnPaiement">
+                <script
+                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        data-key="pk_test_xYxkBoEYIEXYJKWNlej4wl1A"
+                        data-name="Paiement"
+                        data-description="Widget"
+                        data-locale="fr"
+                        data-currency="eur"
+                        data-label="Payer">
+                </script>
+            </form>
         {% endfor %}
     </div>
 </div>

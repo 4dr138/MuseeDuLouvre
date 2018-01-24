@@ -49,3 +49,15 @@ services:
     appbundle.insertextendsprices:
             class: AppBundle\Service\InsertExtendsPrices
             public: true
+
+    appbundle.randomstring:
+            class: AppBundle\Service\RandomString
+            public: true
+
+    appbundle.mailconfig:
+            class: AppBundle\Service\MailConfig
+            public: true
+
+    appbundle.paiementstripe:
+            class: AppBundle\Service\PaiementStripe
+            public: true

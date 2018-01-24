@@ -9,7 +9,11 @@
 
 {% block body %}
 <h1>Formulaire de réservation</h1>
-
+{% for message in app.flashes('error') %}
+    <div class="flash-notice">
+        <strong>{{ message }}</strong>
+    </div>
+{% endfor %}
 <div id = 'basket'>
     <div id = 'accessibilite'>
         <h2>Horaires et accessibilité</h2>
@@ -21,8 +25,7 @@
         <p>Adresse : <strong>Rue de Rivoli, 75001 Paris</strong></p>
         <p>Surface : 360 000m² dont 72 375m² de galeries</p>
         <p><strong>Accessible pour tous</strong>, des équipements sont à disposition pour les personnes à mobilité réduite</p>
-        <div id = 'map'>
-        </div>
+        {% include 'map/map.html.twig' %}
     </div>
   <ul>
       <div id = 'allForm'>
@@ -58,11 +61,7 @@
   </ul>
     <div id = 'aside'>
         <p id = 'titreResa'>Récapitulatif de la commande : </p><br /><br />
-        {% for message in app.flashes('error') %}
-            <div class="flash-notice">
-                {{ message }}
-            </div>
-        {% endfor %}
     </div>
     </div>
+
 {% endblock %}

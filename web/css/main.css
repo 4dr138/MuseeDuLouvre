@@ -142,4 +142,12 @@ body
 {
     background-image: url("../img/background.jpg");
 }
-
+.flash-notice
+{
+    text-align:center;
+    color:red;
+}
+#map
+{
+    height:300px;
+}

@@ -49,12 +49,11 @@ class IndexController extends Controller
                     $em->flush();
                     return $this->redirectToRoute('recap', array('id' => $newBasket->getId()));
                 } else {
-                    $this->addFlash("error", "Désolé mais le maximum des places a été atteint. Il reste seulement" + (1000 - $totalBilletByDate) + "pour ce jour");
-                    return $this->redirectToRoute('homepage');
+                    $reste = 1000 - $totalBilletByDate;
+                    $this->addFlash("error", "Désolé mais le maximum des places a été atteint. Il reste seulement " . $reste . " billets.");
+                    return $this->redirectToRoute('homepage', array('message' => $this));
                 }
   }
                  return $this->render('index/index.html.twig', array('formBasket' => $formBasket->createView()));
   }
 }
-
-// calcul tva nveau champ
