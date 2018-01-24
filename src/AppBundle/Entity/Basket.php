@@ -59,7 +59,7 @@ class Basket
     /**
      * @var int
      *
-     * @ORM\Column(name="totalPrice", type="integer")
+     * @ORM\Column(name="totalPrice", type="decimal", precision=10, scale=1)
      */
     private $totalPrice;
 

@@ -33,6 +33,13 @@ class Billet
     /**
      * @var string
      *
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Votre nom doit au moins faire {{ limit }} caractères.",
+     *      maxMessage = "Votre nom ne peut pas dépasser {{ limit }} caractères"
+     * )
+     * @Assert\NotBlank()
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
@@ -45,29 +52,22 @@ class Billet
      * @Assert\Length(
      *      min = 2,
      *      max = 50,
-     *      minMessage = "Votre nom doit au moins faire {{ limit }} caractères.",
+     *      minMessage = "Votre prénom doit au moins faire {{ limit }} caractères",
      *      maxMessage = "Votre nom ne peut pas dépasser {{ limit }} caractères"
      * )
+     * @Assert\NotBlank()
      */
     private $firstname;
 
     /**
      * @var string
-     *
+     * @Assert\NotNull()
      * @ORM\Column(name="country", type="string", length=255)
-     *
-     * @Assert\Length(
-     *      min = 2,
-     *      max = 50,
-     *      minMessage = "Votre prénom doit au moins faire {{ limit }} caractères",
-     *      maxMessage = "Votre nom ne peut pas dépasser {{ limit }} caractères"
-     * )
      */
     private $country;
 
     /**
      * @var discount
-     *
      * @ORM\Column(name="discount", type="boolean", options={"default": false})
      */
     private $discount;

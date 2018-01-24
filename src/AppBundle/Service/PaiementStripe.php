@@ -1,27 +1,36 @@
 <?php
 
-namespace AppBundle\Controller\Stripe;
+namespace AppBundle\Service;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use AppBundle\Entity\Basket;
+use AppBundle\Entity\Billet;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class StripeController extends Controller
+class PaiementStripe extends Controller
 {
+
     /**
-     * @Route(
-     *     "/checkout",
-     *     name="order_checkout",
-     *     methods="POST"
-     * )
+     * @param ContainerInterface $container
      */
-    public function checkoutAction(Request $request)
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+
+    /**
+     * Gère le paiement par Stripe
+     *
+     *
+     */
+    public function payByStripe(Request $request, $totalTTC)
     {
         \Stripe\Stripe::setApiKey("sk_test_x5faSSCFcNPsJ2yiXjzjpuwo");
 
         // Get the credit card details submitted by the form
         $token = $_POST['stripeToken'];
-        $amount = $_POST['valeurPaiement'];
+        $amount = $totalTTC * 100;
 
 
         // Create a charge: this will charge the user's card
@@ -30,15 +39,15 @@ class StripeController extends Controller
                 "amount" => $amount, // Amount in cents
                 "currency" => "eur",
                 "source" => $token,
-                "description" => "Paiement Stripe - OpenClassrooms Exemple"
+                "description" => "Paiement Stripe"
             ));
-            $this->addFlash("success","Bravo ça marche !");
-            return $this->redirectToRoute("homepage");
+            return "Ok";
         } catch(\Stripe\Error\Card $e) {
-
-            $this->addFlash("error","Snif ça marche pas :(");
-            return $this->redirectToRoute("homepage");
+            return "NotOk";
             // The card has been declined
         }
     }
 }
+
+
+
