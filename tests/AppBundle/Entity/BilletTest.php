@@ -9,7 +9,7 @@
 use AppBundle\Entity\Billet;
 use PHPUnit\Framework\TestCase;
 
-class BilletNameTest extends TestCase
+class BilletTest extends TestCase
 {
     public function testName()
     {

@@ -22,12 +22,14 @@ class GetPriceTest extends TestCase
         $billet->setBirthdate(new DateTime('1950-01-01'));
         $billet->setDiscount(true);
 
-        $stub = $this->createMock(PriceBillet::class);
-        $stub->method('getPriceBillet')
-             ->willReturn(12);
-        $this->assertEquals(12, $stub->getPriceBillet($billet, $basket));
-
-
+        $mock = $this->getMockBuilder(PriceBillet::class)
+                     ->disableOriginalConstructor()
+                     ->disableOriginalClone()
+                     ->disableArgumentCloning()
+                     ->disallowMockingUnknownTypes()
+                     ->getMock();
+        $mock->method('getPriceBillet');
+        $this->assertEquals(12, $mock->getPriceBillet($billet, $basket));
 
 
 //
