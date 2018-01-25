@@ -3,14 +3,11 @@
 namespace AppBundle\Controller\Index;
 
 
-use AppBundle\Entity\Billet;
-use AppBundle\Entity\Price;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\Basket;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Service\PriceBillet;
 
 
 class IndexController extends Controller
