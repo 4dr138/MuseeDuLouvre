@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Tests;
+namespace AppBundle\Form;
 
 class Calculator
 {

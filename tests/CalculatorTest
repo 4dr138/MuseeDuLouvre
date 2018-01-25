@@ -2,7 +2,7 @@
 
 namespace AppBundle\Tests;
 
-use AppBundle\Tests\Calculator;
+use AppBundle\Form\Calculator;
 use PHPUnit\Framework\TestCase;
 
 class CalculatorTest extends TestCase
