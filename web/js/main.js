@@ -5,6 +5,7 @@ $(document).ready(function() {
         // On récupère la position du bouton payer
         var marginSubmit = $('#submitForm').css("margin-top");
 
+
     // Gestion de l'email pour le format de la string avec REGEX
     function validateEmail(email)
     {
@@ -167,13 +168,6 @@ $(document).ready(function() {
                 tarif = "normal";
             }
 
-
-            // On gère le placement du bouton payer
-            marginSubmit = marginSubmit.slice(0, (marginSubmit.length - 2));
-            marginSubmit = marginSubmit * 1 + (75 * 1);
-            marginSubmit = marginSubmit + "px";
-            $("#submitForm").css("margin-top", marginSubmit);
-
             // Placement des différents éléments dans le bloc récap
             $("#titreResa").append("<div id ='resaBillet'></div>");
 
@@ -254,12 +248,6 @@ $(document).ready(function() {
             $("body").append("<input type='hidden' id='totalPrice' value=  />");
             $("#totalPrice").attr({value: totalTTC});
 
-            // On gère le placement du bouton payer
-            marginSubmit = marginSubmit.slice(0, (marginSubmit.length - 2));
-            marginSubmit = marginSubmit * 1  - (75 * 1);
-            marginSubmit = marginSubmit + "px";
-            $("#submitForm").css("margin-top", marginSubmit);
-
             index--;
             // évite qu'un # apparaisse dans l'URL
             e.preventDefault();
@@ -285,6 +273,5 @@ $(document).ready(function() {
         $('#appbundle_basket_type').prop('disabled', false);
         $("#prototype"+(indexMax-1)).remove();
     });
-
 });
 

@@ -84,12 +84,6 @@ form
 {
     font-size:0.8em;
 }
-#submitForm
-{
-    position:absolute;
-    margin-top:-525px;
-    margin-left:43%;
-}
 
 #priceBasket
 {
@@ -150,4 +144,31 @@ body
 #map
 {
     height:300px;
+}
+#appbundle_basket_payer {
+    margin-top: -50px;
+}
+@media (min-width: 1441px) {
+    #basket {
+        margin-left: 20%;
+    }
+    .panel-body
+    {
+        position:absolute;
+        bottom:0;
+        width:100%;
+    }
+}
+@media(max-width: 768px){
+    body{
+        display:inline-block;
+    }
+}
+@media(max-width: 425px){
+    .container-fluid{
+        display:inline-flex;
+    }
+    .navbar-nav{
+        padding-left:50px;
+    }
 }
