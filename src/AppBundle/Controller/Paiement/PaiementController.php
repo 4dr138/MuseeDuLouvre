@@ -34,8 +34,8 @@ class PaiementController extends Controller
             $code_aleatoire = $code_aleatoire->generateRandomString();
 
             // On gère la configuration de l'envoi du mail récap
-//        $mailToSend = $this->container->get("appbundle.mailconfig");
-//        $mailToSend->sendMail($totalTTC, $name, $code_aleatoire, $date, $mail);
+            $mailToSend = $this->container->get("appbundle.mailconfig");
+            $mailToSend->sendMail($totalTTC, $name, $code_aleatoire, $date, $mail);
 
             return $this->redirectToRoute('homepage');
         }

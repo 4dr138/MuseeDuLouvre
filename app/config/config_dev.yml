@@ -39,6 +39,4 @@ monolog:
 
 swiftmailer:
 #    delivery_addresses: ['me@example.com']
-    transport: gmail
-    username: agautier38
-    password: ThjKgKufWT38
+
