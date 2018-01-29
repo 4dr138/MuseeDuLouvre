@@ -12,16 +12,19 @@ class BasketFormTest extends WebTestCase
         $crawler = $client->request("POST", '/');
         $this->assertEquals(1, $crawler->filter('h1:contains("Formulaire")')->count());
 
-        $form = $crawler->selectButton('submit')->form();
+        $form = $crawler->selectButton('#appbundle_basket_payer')->form();
 
-        $form['appbundle_basket[mail]'] = "agautier38@gmail.com";
-        $form['appbundle_basket[type]'] = true;
-        $form['appbundle_basket[date]'] = '25/01/2018';
-        $form['appbundle_basket[billet][__name__][name]'] = 'test';
+        $form->setValues(array(
+            'appbundle_basket[mail]' => "agautier38@gmail.com",
+            'appbundle_basket[type]' => true,
+            'appbundle_basket[date]' => '25/01/2018',
+            'appbundle_basket_billet' => null
+        ));
 
-        $crawler = $client->submit($form);
+        $client->submit($form);
+        $response = $client->getResponse();
 
-        $this->assertEquals(1, $crawler->filter('.flash-notice:contains("Désolé mais le maximum des places a été atteint")')->count());
+        $this->assertEquals(0, $crawler->filter('.flash-notice:contains("Désolé mais le maximum des places a été atteint")')->count());
     }
 
 }
