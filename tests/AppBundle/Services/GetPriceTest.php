@@ -6,44 +6,57 @@
  * Time: 18:38
  */
 
+namespace tests\AppBundle\Services;
+
+
 use AppBundle\Entity\Billet;
-use AppBundle\Entity\Basket;
+use AppBundle\Entity\Price;
+use AppBundle\Repository\PriceRepository;
 use AppBundle\Service\PriceBillet;
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 
 class GetPriceTest extends TestCase
 {
-    public function testPriceBillet()
+    /**
+     * @var $PriceBillet
+     */
+    private $PriceBillet;
+
+    protected function setUp()
     {
+        $prix = new Price();
+        $prix->setTarif('normal');
+        $prixRepository = $this
+            ->getMockBuilder(PriceRepository::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $prixRepository->expects($this->any())
+            ->method('find')
+            ->will($this->returnValue($prix));
 
-        $billet = new Billet();
-        $basket = new Basket();
-        $billet->setBirthdate(new DateTime('1950-01-01'));
-        $billet->setDiscount(true);
+        $container = $this
+            ->getMockBuilder(ContainerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $container->expects($this->any())
+            ->method('getPrice')
+            ->will($this->returnValue($prixRepository));
 
-        $mock = $this->getMockBuilder(PriceBillet::class)
-                     ->disableOriginalConstructor()
-                     ->disableOriginalClone()
-                     ->disableArgumentCloning()
-                     ->disallowMockingUnknownTypes()
-                     ->getMock();
-        $mock->method('getPriceBillet');
-        $this->assertEquals(12, $mock->getPriceBillet($billet, $basket));
+        $this->service = new PriceBillet($container);
 
-
-//
-//        $stub = $this->getMockBuilder(PriceBillet::class)
-//            ->disableOriginalConstructor()
-//            ->getMock();
-//
-//        $mock->method('getPriceBillet')
-//             ->willReturn(12);
-//
-//        $this->assertEquals(12, $mock->);
-//        $priceBillet = $priceBillet->getPriceBillet($billet, $basket);
-
-
-//        $this->assertEquals(12, $priceBillet);
     }
+
+    public function testPrix()
+    {
+        $billet = new Billet();
+        $billet->setDiscount(false);
+        $billet->setBirthdate(new \DateTime('1950-01-01'));
+
+        $this->assertEquals(12, $this->PriceBillet->getPriceBillet($billet, true));
+    }
+
+
 }

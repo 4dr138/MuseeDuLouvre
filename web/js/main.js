@@ -184,6 +184,7 @@ $(document).ready(function() {
             data: tarif,
             type: 'POST',
             success: function(data){
+                console.log('ok');
                 $("#resaBillet").append("<p class = 'recapBillet"+index+"'><strong>- "+name+" "+firstname+"</strong><br />"+datereservation+" - Tarif "+type+" - <strong>"+data+" €</strong><br />");
                 $("#resaBillet").append("<input type = 'hidden' value = '" + data + "' id = 'tarifindex_"+ index +"' />");
                 validationBasket(data, index);
