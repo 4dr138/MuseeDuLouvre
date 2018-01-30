@@ -1,11 +1,12 @@
 <html>
-    <header><img src = "{{ asset('img/logo.jpg')}}" alt = 'logo' /></header>
+<img src = "{{ absolute_url(asset('web/img/logo.jpg')) }}" alt = 'logo' />
+    <header>Musée du Louvre</header>
     <body>
         <h2>
             Voici votre récapitulatif de commande {{ code }} pour le {{ date }}
         </h2><br />
 
-        Ci-dessous les noms des personnes associées à la commande :<br />
+        Ci-dessous les noms des personnes associées à la commande :<br /><br />
         {% for names in name %}
             - <strong>{{ names.name}}</strong><br />
         {% endfor %}<br/>

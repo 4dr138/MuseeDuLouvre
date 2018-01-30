@@ -2,8 +2,6 @@
 
 namespace AppBundle\Service;
 
-use AppBundle\Entity\Basket;
-use AppBundle\Entity\Billet;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -28,6 +26,7 @@ class MailConfig extends Controller
         $message = (new \Swift_Message('Recapitulatif de commande'))
             ->setFrom('agautier38@gmail.com')
             ->setTo($mail)
+            ->attach(\Swift_Image::fromPath('web/img/logo.jpg'))
             ->setBody(
                 $this->renderView('email/email.html.twig', array('totalTTC' => $totalTTC, 'name' => $name, 'code' => $code_aleatoire, 'date' => $date)),
                 'text/html'
