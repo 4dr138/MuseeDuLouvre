@@ -29,7 +29,7 @@ class MailConfig extends Controller
             ->setFrom('agautier38@gmail.com')
             ->setTo($mail)
             ->setBody(
-                $this->renderView('email/email.html', array('totalTTC' => $totalTTC, 'name' => $name, 'code' => $code_aleatoire, 'date' => $date)),
+                $this->renderView('email/email.html.twig', array('totalTTC' => $totalTTC, 'name' => $name, 'code' => $code_aleatoire, 'date' => $date)),
                 'text/html'
             );
         // On utilise SwiftMailer pour envoyer le mail

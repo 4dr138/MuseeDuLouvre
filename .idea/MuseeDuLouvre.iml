@@ -2,6 +2,7 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/vendor/coresphere/console-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/flosch/stripe-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/friendsofsymfony/jsrouting-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/myclabs/deep-copy" />

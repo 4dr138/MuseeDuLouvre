@@ -1,0 +1,19 @@
+<html>
+    <header><img src = "{{ asset('img/logo.jpg')}}" alt = 'logo' /></header>
+    <body>
+        <h2>
+            Voici votre récapitulatif de commande {{ code }} pour le {{ date }}
+        </h2><br />
+
+        Ci-dessous les noms des personnes associées à la commande :<br />
+        {% for names in name %}
+            - <strong>{{ names.name}}</strong><br />
+        {% endfor %}<br/>
+
+        Total de la facture : <strong>{{ totalTTC }} € TTC.</strong><br /><br />
+
+        Ce mail fait office de billet, à présenter lors de l'arrivée sur le site.<br /><br />
+
+    </body>
+    <footer>A bientôt au Musée du Louvre</footer>
+</html>
