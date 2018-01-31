@@ -40,7 +40,7 @@
             <h3>Total HT : <strong>{{ panier.totalPrice }} €</strong></h3>
             <h3>TVA à 20% : <strong>{{ panier.totalTVA }} €</strong></h3>
             <h3>Total TTC : <strong>{{ panier.totalTTC }} €</strong></h3>
-            <form action="{{ path('paiement', {'totalTTC': panier.totalTTC, 'mail': panier.mail, 'id': panier.id, 'date':panier.date|date('d-m-Y')}) }}) }}" method="POST" id = "btnPaiement">
+            <form action="{{ path('paiement', {'totalTTC': panier.totalTTC, 'mail': panier.mail, 'id': panier.id, 'date':panier.date|date('d-m-Y')}) }}" method="POST" id = "btnPaiement">
                 <script
                         src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                         data-key="pk_test_xYxkBoEYIEXYJKWNlej4wl1A"

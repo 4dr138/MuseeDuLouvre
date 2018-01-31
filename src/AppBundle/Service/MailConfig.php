@@ -24,11 +24,10 @@ class MailConfig extends Controller
     {
         // On commence par configurer l'envoi de mail de confirmation
         $message = (new \Swift_Message('Recapitulatif de commande'))
-            ->setFrom('agautier38@gmail.com')
+            ->setFrom('contact@billetteriemuseedulouvre.fr')
             ->setTo($mail)
-            ->attach(\Swift_Image::fromPath('web/img/logo.jpg'))
             ->setBody(
-                $this->renderView('email/email.html.twig', array('totalTTC' => $totalTTC, 'name' => $name, 'code' => $code_aleatoire, 'date' => $date)),
+                $this->renderView('email/email.html.twig', array('totalTTC' => $totalTTC, 'name' => $name, 'code' => $code_aleatoire, 'dateresa' => $date)),
                 'text/html'
             );
         // On utilise SwiftMailer pour envoyer le mail
