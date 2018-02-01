@@ -9,54 +9,54 @@
 namespace tests\AppBundle\Services;
 
 
+use AppBundle\Entity\Basket;
 use AppBundle\Entity\Billet;
-use AppBundle\Entity\Price;
-use AppBundle\Repository\PriceRepository;
-use AppBundle\Service\PriceBillet;
-use Doctrine\ORM\EntityManagerInterface;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 
-class GetPriceTest extends TestCase
+
+class GetPriceTest extends KernelTestCase
 {
     /**
      * @var $PriceBillet
      */
     private $PriceBillet;
+    /**
+     * @var $PriceBillet
+     */
+    private $dateToday;
 
     protected function setUp()
     {
-        $prix = new Price();
-        $prix->setTarif('normal');
-        $prixRepository = $this
-            ->getMockBuilder(PriceRepository::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $prixRepository->expects($this->any())
-            ->method('find')
-            ->will($this->returnValue($prix));
-
-        $container = $this
-            ->getMockBuilder(ContainerInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $container->expects($this->any())
-            ->method('getPrice')
-            ->will($this->returnValue($prixRepository));
-
-        $this->service = new PriceBillet($container);
-
+        self::bootKernel();
+        $this->PriceBillet = static::$kernel->getContainer()->get('appbundle.pricebillet');
+        $this->dateToday = new \DateTime();
     }
 
-    public function testPrix()
+    public function testPrice()
     {
         $billet = new Billet();
-        $billet->setDiscount(false);
-        $billet->setBirthdate(new \DateTime('1950-01-01'));
+        $basket = new Basket();
+        $obj = $this->PriceBillet;
 
-        $this->assertEquals(12, $this->PriceBillet->getPriceBillet($billet, true));
+        $billet->setBirthdate(new \DateTime('1950-01-01'));
+        $billet->setDiscount(false);
+        $result = $this->invokeMethod($obj, 'getPriceBillet', array($billet,$basket));
+        $this->assertEquals(12, $result);
+
+        $billet->setBirthdate(new \DateTime('1950-01-01'));
+        $billet->setDiscount(true);
+        $result = $this->invokeMethod($obj, 'getPriceBillet', array($billet,$basket));
+        $this->assertEquals(10, $result);
     }
 
+    public function invokeMethod(&$object, $methodName, array $parameters = array())
+    {
+        $reflection = new \ReflectionClass(get_class($object));
+        $method = $reflection->getMethod($methodName);
+        $method->setAccessible(true);
+
+        return $method->invokeArgs($object, $parameters);
+    }
 
 }

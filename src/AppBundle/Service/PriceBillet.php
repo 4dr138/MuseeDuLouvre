@@ -33,14 +33,15 @@ class PriceBillet extends Controller
         $age = date_diff($birthdate, $today);
         $age = $age->y;
 
-        if ($discount = true && $age < 4) {
+
+        if ($discount === true && $age < 4) {
             $tarif = "bebe";
         }
-        else if ($discount = true && $age >= 4 && $age < 12)
+        else if ($discount === true && $age >= 4 && $age < 12)
         {
             $tarif = "enfant";
         }
-        else if ($discount == true) {
+        else if ($discount === true && $age > 12) {
             $tarif = "reduit";
         }
         else if ($age >= 4 && $age < 12) {

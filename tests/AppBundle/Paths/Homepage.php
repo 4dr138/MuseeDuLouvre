@@ -10,7 +10,7 @@ class Homepage extends WebTestCase
         {
             $client = static::createClient();
 
-            $client->request('GET', '');
+            $client->request('GET', '/');
 
             $this->assertEquals(200, $client->getResponse()->getStatusCode());
         }
