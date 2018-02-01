@@ -39,15 +39,29 @@ class GetPriceTest extends KernelTestCase
         $basket = new Basket();
         $obj = $this->PriceBillet;
 
+        // Tarif senior
         $billet->setBirthdate(new \DateTime('1950-01-01'));
         $billet->setDiscount(false);
         $result = $this->invokeMethod($obj, 'getPriceBillet', array($billet,$basket));
         $this->assertEquals(12, $result);
 
+        // Reduction
         $billet->setBirthdate(new \DateTime('1950-01-01'));
         $billet->setDiscount(true);
         $result = $this->invokeMethod($obj, 'getPriceBillet', array($billet,$basket));
         $this->assertEquals(10, $result);
+
+        // Tarif normal (23 ans)
+        $billet->setBirthdate(new \DateTime('1994-12-31'));
+        $billet->setDiscount(false);
+        $result = $this->invokeMethod($obj, 'getPriceBillet', array($billet,$basket));
+        $this->assertEquals(16, $result);
+
+        // Tarif enfant (7 ans)
+        $billet->setBirthdate(new \DateTime('2010-04-23'));
+        $billet->setDiscount(false);
+        $result = $this->invokeMethod($obj, 'getPriceBillet', array($billet,$basket));
+        $this->assertEquals(8, $result);
     }
 
     public function invokeMethod(&$object, $methodName, array $parameters = array())
