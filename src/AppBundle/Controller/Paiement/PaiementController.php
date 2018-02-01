@@ -29,13 +29,16 @@ class PaiementController extends Controller
             $name = $this->container->get('appbundle.billetbyid');
             $name = $name->getNamesById($id);
 
+            $firstname = $this->container->get('appbundle.billetbyid');
+            $firstname = $firstname->getFirstNamesById($id);
+
             // On génère le code aléatoire
             $code_aleatoire = $this->container->get('appbundle.randomstring');
             $code_aleatoire = $code_aleatoire->generateRandomString();
 
             // On gère la configuration de l'envoi du mail récap
             $mailToSend = $this->container->get("appbundle.mailconfig");
-            $mailToSend->sendMail($totalTTC, $name, $code_aleatoire, $date, $mail);
+            $mailToSend->sendMail($totalTTC, $name, $code_aleatoire, $date, $mail, $firstname);
 
             return $this->redirectToRoute('homepage');
         }

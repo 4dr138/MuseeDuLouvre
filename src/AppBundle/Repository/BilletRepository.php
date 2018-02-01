@@ -61,7 +61,21 @@ class BilletRepository extends EntityRepository
         return $query->execute();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getFirstNames($id)
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            'SELECT b.firstname
+            FROM AppBundle\Entity\Billet b
+            WHERE b.Basket = :id')
+            ->setParameter('id', $id);
 
+        return $query->execute();
+    }
 
 
 

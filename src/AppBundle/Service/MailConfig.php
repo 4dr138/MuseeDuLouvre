@@ -20,14 +20,14 @@ class MailConfig extends Controller
      * Envoi le mail de confirmation
      *
      */
-    public function sendMail($totalTTC, $name, $code_aleatoire, $date, $mail)
+    public function sendMail($totalTTC, $name, $code_aleatoire, $date, $mail, $firstname)
     {
         // On commence par configurer l'envoi de mail de confirmation
         $message = (new \Swift_Message('Recapitulatif de commande'))
             ->setFrom('contact@billetteriemuseedulouvre.fr')
             ->setTo($mail)
             ->setBody(
-                $this->renderView('email/email.html.twig', array('totalTTC' => $totalTTC, 'name' => $name, 'code' => $code_aleatoire, 'dateresa' => $date)),
+                $this->renderView('email/email.html.twig', array('totalTTC' => $totalTTC, 'name' => $name, 'code' => $code_aleatoire, 'dateresa' => $date, 'firstname' => $firstname)),
                 'text/html'
             );
         // On utilise SwiftMailer pour envoyer le mail
