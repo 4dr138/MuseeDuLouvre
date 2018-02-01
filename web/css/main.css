@@ -23,23 +23,18 @@ li, #titreResa
     border-color: #dc3545;
     margin-top: -20px;
 }
-form
-{
-    width:80%;
-}
 #aside
 {
-    margin-right:20px;
+    margin-right: 20px;
+    margin-left: 40px;
     margin-top:2%;;
     padding:20px;
     border:1px solid black;
-    min-height: 650px;
+    min-height: 700px;
     height:auto;
-    min-width:250px;
     width:auto;
 }
 #accessibilite {
-    width: 400px;
     margin-left: 50px;
 }
 #resaBillet
@@ -66,7 +61,7 @@ form
     top:0;
     left:0;
     height:500px;
-    width:500px;
+    /*width:500px;*/
 }
 #validationPanier
 {
@@ -88,7 +83,6 @@ form
 #priceBasket
 {
     border: 1px solid black;
-    width:250px;
     margin-right:60px;
     padding: 10px;
 }
@@ -110,15 +104,9 @@ form
 {
     width:800px;
 }
-#basket
-{
-    display:inline-flex;
-}
 .priceBasket
 {
-    margin-left:70%;
-    width:200px;
-    text-align:right;
+    width:300px;
 }
 #status
 {
@@ -148,27 +136,23 @@ body
 #appbundle_basket_payer {
     margin-top: -50px;
 }
-@media (min-width: 1441px) {
-    #basket {
-        margin-left: 20%;
-    }
-    .panel-body
-    {
-        position:absolute;
-        bottom:0;
-        width:100%;
-    }
+.row
+{
+    width: 100%;
 }
-@media(max-width: 768px){
-    body{
-        display:inline-block;
-    }
+html{
+    min-height:100vh;
 }
-@media(max-width: 425px){
-    .container-fluid{
-        display:inline-flex;
-    }
-    .navbar-nav{
-        padding-left:50px;
-    }
+body
+{
+    min-height:90vh;
+}
+.panel-default
+{
+    clear: both;
+    width: 100%;
+    margin-top: 4.5%;
+}
+.container {
+    min-height: 760px;
 }

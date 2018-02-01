@@ -15,55 +15,63 @@
     </div>
 {% endfor %}
 <div id = 'basket'>
-    <div id = 'accessibilite'>
-        <h2>Horaires et accessibilité</h2>
-        <p>Le musée est ouvert :</p>
-        <p><strong> - Tous les jours</strong>, sauf le mardi (fermé les 1er mai, 1er novembre et 25 décembre)</p>
-        <p><strong> - De 9h à 18h</strong></p>
-        <p> - L'évacuation des salles débute à <strong>17 h 30 ou 21 h 30 les jours de nocturne.</strong></p>
+    <div class = 'row'>
+        <div class = 'col-lg-4'>
+            <div id = 'accessibilite'>
+                <h2>Horaires et accessibilité</h2>
+                <p>Le musée est ouvert :</p>
+                <p><strong> - Tous les jours</strong>, sauf le mardi (fermé les 1er mai, 1er novembre et 25 décembre)</p>
+                <p><strong> - De 9h à 18h</strong></p>
+                <p> - L'évacuation des salles débute à <strong>17 h 30 ou 21 h 30 les jours de nocturne.</strong></p>
 
-        <p>Adresse : <strong>Rue de Rivoli, 75001 Paris</strong></p>
-        <p>Surface : 360 000m² dont 72 375m² de galeries</p>
-        <p><strong>Accessible pour tous</strong>, des équipements sont à disposition pour les personnes à mobilité réduite</p>
-        {% include 'map/map.html.twig' %}
-    </div>
-  <ul>
-      <div id = 'allForm'>
-          <br />
-    <li>Informations générales : </li><br />
-      {{ form_start(formBasket) }}
-      <div>
-          {{ form_label(formBasket.date) }}
-          {{ form_widget(formBasket.date) }}
-          {{ form_errors(formBasket.date) }}
-      </div>
-      <div>
-          {{ form_label(formBasket.mail) }}
-          {{ form_widget(formBasket.mail) }}
-          {{ form_errors(formBasket.mail) }}
-      </div>
-      <div>
-          {{ form_label(formBasket.type) }}
-          {{ form_widget(formBasket.type) }}
-          {{ form_errors(formBasket.type) }}
-      </div>
-      <div>
-          {{ form_label(formBasket.billet) }}
-          {{ form_widget(formBasket.billet) }}
-          {{ form_errors(formBasket.billet) }}
-      </div>
-
-      </div>
-      <a href="#" id="add_billet" class="btn btn-default">Ajouter un billet</a>
-  </ul>
-    <div id = 'aside'>
-        <p id = 'titreResa'>Récapitulatif de la commande : </p><br /><br />
-        <div id = 'submitForm'>
-        {{ form_widget(formBasket.payer) }}
+                <p>Adresse : <strong>Rue de Rivoli, 75001 Paris</strong></p>
+                <p>Surface : 360 000m² dont 72 375m² de galeries</p>
+                <p><strong>Accessible pour tous</strong>, des équipements sont à disposition pour les personnes à mobilité réduite</p>
+                {% include 'map/map.html.twig' %}
+            </div>
         </div>
-        {{ form_end(formBasket) }}
+  <ul>
+      <div class = 'col-lg-4'>
+          <div id = 'allForm'>
+              <br />
+            <li>Informations générales : </li><br />
+              {{ form_start(formBasket) }}
+              <div>
+                  {{ form_label(formBasket.date) }}
+                  {{ form_widget(formBasket.date) }}
+                  {{ form_errors(formBasket.date) }}
+              </div>
+              <div>
+                  {{ form_label(formBasket.mail) }}
+                  {{ form_widget(formBasket.mail) }}
+                  {{ form_errors(formBasket.mail) }}
+              </div>
+              <div>
+                  {{ form_label(formBasket.type) }}
+                  {{ form_widget(formBasket.type) }}
+                  {{ form_errors(formBasket.type) }}
+              </div>
+              <div>
+                  {{ form_label(formBasket.billet) }}
+                  {{ form_widget(formBasket.billet) }}
+                  {{ form_errors(formBasket.billet) }}
+              </div>
+
+          </div>
+      <a href="#" id="add_billet" class="btn btn-default">Ajouter un billet</a>
+      </div>
+  </ul>
+        <div class = 'col-lg-4'>
+            <div id = 'aside'>
+                <p id = 'titreResa'>Récapitulatif de la commande : </p><br /><br />
+                <div id = 'submitForm'>
+                {{ form_widget(formBasket.payer) }}
+                </div>
+                {{ form_end(formBasket) }}
+            </div>
+        </div>
     </div>
-    </div>
+</div>
 
 {% endblock %}
 
