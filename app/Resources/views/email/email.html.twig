@@ -12,12 +12,14 @@
         <h2>Voici votre récapitulatif de commande n° {{ code }} pour le {{ dateresa }}</h2><br />
 
         Ci-dessous les noms des personnes associées à la commande :<br /><br />
-        {% for names in name %}
-            - <strong>{{ names.name}}</strong>
-        {% endfor %}
-        {% for firstnames in firstname %}
-            <strong> {{ firstnames.firstname }}</strong>
-        {% endfor %}<br />
+        {% for billets in billet %}
+            - <strong>{{ billets.name}} {{ billets.firstname }}</strong> / <strong>{{ billets.price }}€</strong> - Réduction :
+            <strong>{% if billets.discount == true %}
+                Oui
+            {% else %}
+                Non
+            {% endif %}</strong><br />
+        {% endfor %}<br /><br />
 
         Total de la facture : <strong>{{ totalTTC }} € TTC.</strong><br /><br />
 

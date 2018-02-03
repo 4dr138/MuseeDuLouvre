@@ -7,7 +7,6 @@ $(document).ready(function() {
 
     function checkType(datereservation){
         var todayDate = new Date().toISOString().replace(/T.*/, '').split('-').reverse().join('/');
-        console.log(datereservation);
         var type = $('#appbundle_basket_type option:selected').text();
         if (todayDate == datereservation) {
             var dateHour = new Date();
@@ -39,7 +38,6 @@ $(document).ready(function() {
             return disabledays(date);
         }
     }
-
 
 //     // Initialisation du DatePicker
     $(".js-datepicker").datepicker({

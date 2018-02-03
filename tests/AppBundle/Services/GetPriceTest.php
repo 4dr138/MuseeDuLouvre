@@ -22,7 +22,7 @@ class GetPriceTest extends KernelTestCase
      */
     private $PriceBillet;
     /**
-     * @var $PriceBillet
+     * @var $dateToday
      */
     private $dateToday;
 

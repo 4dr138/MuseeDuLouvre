@@ -39,6 +39,7 @@ class Basket
      *     message = "Le format de l'email n'est pas valide",
      *     checkMX=true
      * )
+     * @Assert\NotBlank()
      */
     private $mail;
 
@@ -46,6 +47,7 @@ class Basket
      * @var type
      *
      * @ORM\Column(name="type", type="boolean", options={"default":true})
+     * @Assert\NotNull()
      */
     private $type;
 
@@ -53,6 +55,7 @@ class Basket
      * @var Billet[]
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Billet", mappedBy="Basket", cascade={"persist"})
+     * @Assert\NotNull()
      */
     private $billet;
 

@@ -22,7 +22,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for billet in billets %}
+            {% for billet in basket.billet %}
                 <tr>
                     <td><h3>Billet n° {{ loop.index }} : </h3></td>
                     <td><h3><strong>{{ billet.name }}</strong></h3></td>
@@ -35,11 +35,10 @@
     </div>
     <div class = 'priceBasket'>
         <h2 class = 'titreTotal'>Total : </h2>
-        {% for panier in basket %}
-            <h3>Total HT : <strong>{{ panier.totalPrice }} €</strong></h3>
-            <h3>TVA à 20% : <strong>{{ panier.totalTVA }} €</strong></h3>
-            <h3>Total TTC : <strong>{{ panier.totalTTC }} €</strong></h3>
-            <form action="{{ path('paiement', {'totalTTC': panier.totalTTC, 'mail': panier.mail, 'id': panier.id, 'date':panier.date|date('d-m-Y')}) }}" method="POST" id = "btnPaiement">
+            <h3>Total HT : <strong>{{ basket.totalPrice }} €</strong></h3>
+            <h3>TVA à 20% : <strong>{{ basket.totalTVA }} €</strong></h3>
+            <h3>Total TTC : <strong>{{  basket.totalTTC }} €</strong></h3>
+            <form action="{{ path('paiement', {'totalTTC': basket.totalTTC, 'mail': basket.mail, 'id': basket.id, 'date':basket.date|date('d-m-Y')}) }}" method="POST" id = "btnPaiement">
                 <script
                         src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                         data-key="pk_test_xYxkBoEYIEXYJKWNlej4wl1A"
@@ -50,7 +49,6 @@
                         data-label="Payer">
                 </script>
             </form>
-        {% endfor %}
     </div>
 </div>
 {% endblock %}

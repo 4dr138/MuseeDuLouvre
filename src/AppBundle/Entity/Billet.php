@@ -27,6 +27,8 @@ class Billet
      * @var \DateTime
      *
      * @ORM\Column(name="birthdate", type="datetime")
+     * @Assert\NotNull()
+     * @Assert\Date()
      */
     private $birthdate;
 

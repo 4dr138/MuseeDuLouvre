@@ -34,6 +34,16 @@ $(document).ready(function() {
 
         // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
         $('#add_billet').click(function(e) {
+            $("#validDate").remove();
+            var today = new Date();
+            today = formatDateForCheck(today);
+            var datereservation = $("#appbundle_basket_date").val();
+            if(datereservation < today)
+            {
+                var baliseDate = $("<div id = 'validDate'></div>").insertAfter('#appbundle_basket_date');
+                baliseDate.html("<p>La date saisie doit être supérieure ou égale à la date du jour</p>").css('color', 'red');
+                return false;
+            }
             var $name = $('#appbundle_basket_billet_'+(index-1)+'_name');
             var $firstname = $('#appbundle_basket_billet_'+(index-1)+'_firstname');
             var $email = $("#appbundle_basket_mail");
@@ -184,7 +194,6 @@ $(document).ready(function() {
             data: tarif,
             type: 'POST',
             success: function(data){
-                console.log('ok');
                 $("#resaBillet").append("<p class = 'recapBillet"+index+"'><strong>- "+name+" "+firstname+"</strong><br />"+datereservation+" - Tarif "+type+" - <strong>"+data+" €</strong><br />");
                 $("#resaBillet").append("<input type = 'hidden' value = '" + data + "' id = 'tarifindex_"+ index +"' />");
                 validationBasket(data, index);
@@ -267,6 +276,19 @@ $(document).ready(function() {
         if (day.length < 2) day = '0' + day;
 
         return [year, month, day].join('-');
+    }
+
+    function formatDateForCheck(date)
+    {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [day, month, year].join('/');
     }
 
  // On gère la partie Disabled au clic du payer pour ne pas bloquer la transmission de données

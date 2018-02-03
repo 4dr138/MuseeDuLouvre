@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller\Paiement;
 
+use AppBundle\Entity\Basket;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,24 +23,18 @@ class PaiementController extends Controller
     public function paiementAction($totalTTC, $mail, $id, $date, Request $request)
     {
         // On gère la solution de paiement via Stripe
-        $stripe = $this->container->get('appbundle.paiementstripe');
-        $stripe = $stripe->payByStripe($request, $totalTTC);
+        $stripe = $this->container->get('appbundle.paiementstripe')->payByStripe($request, $totalTTC);
         if($stripe == "Ok") {
             // On récupère les différents noms en fonction de l'id
-            $name = $this->container->get('appbundle.billetbyid');
-            $name = $name->getNamesById($id);
-
-            $firstname = $this->container->get('appbundle.billetbyid');
-            $firstname = $firstname->getFirstNamesById($id);
+            $billet = $this->container->get('appbundle.billetbyid')->getBilletById($id);
 
             // On génère le code aléatoire
-            $code_aleatoire = $this->container->get('appbundle.randomstring');
-            $code_aleatoire = $code_aleatoire->generateRandomString();
+            $code_aleatoire = $this->container->get('appbundle.randomstring')->generateRandomString();
 
             // On gère la configuration de l'envoi du mail récap
-            $mailToSend = $this->container->get("appbundle.mailconfig");
-            $mailToSend->sendMail($totalTTC, $name, $code_aleatoire, $date, $mail, $firstname);
+            $this->container->get("appbundle.mailconfig")->sendMail($totalTTC, $code_aleatoire, $date, $mail, $billet);
 
+            $this->addFlash("success", "Votre paiement a bien été enregistré, vous devriez recevoir un mail de confirmation");
             return $this->redirectToRoute('homepage');
         }
         else

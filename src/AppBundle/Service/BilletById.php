@@ -40,21 +40,6 @@ class BilletById extends Controller
         $basket = $em->getRepository('AppBundle:Basket')->getBasket($id);
         return $basket;
     }
-
-    public function getNamesById($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $names = $em->getRepository('AppBundle:Billet')->getNames($id);
-        return $names;
-    }
-
-    public function getFirstNamesById($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $firstnames = $em->getRepository('AppBundle:Billet')->getFirstNames($id);
-        return $firstnames;
-    }
-
 }
 
 

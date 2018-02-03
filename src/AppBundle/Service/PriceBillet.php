@@ -67,7 +67,6 @@ class PriceBillet extends Controller
         $HT_TVA = $this->container->get('appbundle.insertextendsprices');
         $HT_TVA->insertHTTVA($billet, $newBasket, $prixBillet);
 
-
         return $prixBillet;
     }
 

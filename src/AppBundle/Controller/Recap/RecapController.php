@@ -3,6 +3,8 @@
 namespace AppBundle\Controller\Recap;
 
 
+use AppBundle\Entity\Basket;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -11,13 +13,10 @@ class RecapController extends Controller
 {
     /**
      * @Route("/recap/{id}", name="recap")
-     *
+     * @Method("GET")
      */
-    public function recapAction($id)
+    public function recapAction(Basket $basket)
     {
-        $arrBillet = $this->container->get('appbundle.billetbyid');
-        $billets = $arrBillet->getBilletById($id);
-        $basket = $arrBillet->getBasketById($id);
-        return $this->render('recap/recap.html.twig', array('billets' => $billets, 'basket' => $basket));
+        return $this->render('recap/recap.html.twig', array('basket' => $basket));
     }
 }

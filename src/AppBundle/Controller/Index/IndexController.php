@@ -29,15 +29,13 @@ class IndexController extends Controller
 
           // On gère le conditionnemment des 1000 billets max pour la journée
           $dateresa = $newBasket->getDate();
-          $totalBilletByDate = $this->container->get('appbundle.billetsbydate');
-          $totalBilletByDate = $totalBilletByDate->getBilletsByDate($dateresa);
+          $totalBilletByDate = $this->container->get('appbundle.billetsbydate')->getBilletsByDate($dateresa);
                 if ($totalBilletByDate <= 1000) {
                     // On boucle sur chacun des billets saisis
                     foreach ($newBasket->getBillet() as $billet) {
                         $billet->setBasket($newBasket);
                         // On utilise le service pour récupérer le prix unitaire
-                        $priceBillet = $this->container->get('appbundle.pricebillet');
-                        $priceBillet = $priceBillet->getPriceBillet($billet, $newBasket);
+                        $priceBillet = $this->container->get('appbundle.pricebillet')->getPriceBillet($billet, $newBasket);
                         // On attribue ce prix au billet
                         $billet->setPrice($priceBillet);
                     }
