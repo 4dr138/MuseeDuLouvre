@@ -3,23 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="60807a87-0808-4885-a45d-545659f1837b" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/Resources/TwigBundle/views/Exception/error403.html.twig" afterPath="$PROJECT_DIR$/app/Resources/TwigBundle/views/Exception/error403.html.twig" />
-      <change beforePath="$PROJECT_DIR$/app/Resources/views/email/email.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/email/email.html.twig" />
-      <change beforePath="$PROJECT_DIR$/app/Resources/views/index/index.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/index/index.html.twig" />
-      <change beforePath="$PROJECT_DIR$/app/Resources/views/recap/recap.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/recap/recap.html.twig" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/Index/IndexController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/Index/IndexController.php" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/Paiement/PaiementController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/Paiement/PaiementController.php" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/Recap/RecapController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/Recap/RecapController.php" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Basket.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Basket.php" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Billet.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Billet.php" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Repository/BilletRepository.php" afterPath="$PROJECT_DIR$/src/AppBundle/Repository/BilletRepository.php" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Service/BilletById.php" afterPath="$PROJECT_DIR$/src/AppBundle/Service/BilletById.php" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Service/MailConfig.php" afterPath="$PROJECT_DIR$/src/AppBundle/Service/MailConfig.php" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Service/PaiementStripe.php" afterPath="$PROJECT_DIR$/src/AppBundle/Service/PaiementStripe.php" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Service/PriceBillet.php" afterPath="$PROJECT_DIR$/src/AppBundle/Service/PriceBillet.php" />
-      <change beforePath="$PROJECT_DIR$/tests/AppBundle/Services/GetPriceTest.php" afterPath="$PROJECT_DIR$/tests/AppBundle/Services/GetPriceTest.php" />
-      <change beforePath="$PROJECT_DIR$/web/js/datepicker.js" afterPath="$PROJECT_DIR$/web/js/datepicker.js" />
-      <change beforePath="$PROJECT_DIR$/web/js/main.js" afterPath="$PROJECT_DIR$/web/js/main.js" />
+      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -45,7 +29,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="email.html.twig" pinned="false" current-in-tab="true">
+      <file leaf-file-name="email.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/email/email.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="357">
@@ -80,10 +64,24 @@
       <file leaf-file-name="BilletById.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/BilletById.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
+            <state relative-caret-position="510">
               <caret line="36" column="38" lean-forward="true" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
               <folding>
                 <marker date="1517664922037" expanded="false" signature="705:721" ph="Billet" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BilletRepository.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Repository/BilletRepository.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="260">
+              <caret line="51" column="5" lean-forward="true" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
+              <folding>
+                <marker date="1517602364402" expanded="true" signature="441:570" ph="SELECT b.id,... AppBundle" />
+                <marker date="1517602364402" expanded="true" signature="838:927" ph="SELECT b.nam... AppBundle" />
+                <marker date="1517602364402" expanded="true" signature="1223:1379" ph="SELECT count... AppBundle" />
               </folding>
             </state>
           </provider>
@@ -99,26 +97,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BilletRepository.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Repository/BilletRepository.php">
+      <file leaf-file-name="PaiementController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Paiement/PaiementController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="430">
-              <caret line="61" column="5" lean-forward="false" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
-              <folding>
-                <marker date="1517602364402" expanded="true" signature="441:570" ph="SELECT b.id,... AppBundle" />
-                <marker date="1517602364402" expanded="true" signature="838:927" ph="SELECT b.nam... AppBundle" />
-                <marker date="1517602364402" expanded="true" signature="1223:1379" ph="SELECT count... AppBundle" />
-              </folding>
+            <state relative-caret-position="282">
+              <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PaiementController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Paiement/PaiementController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="34" column="117" lean-forward="false" selection-start-line="34" selection-start-column="117" selection-end-line="34" selection-end-column="117" />
-              <folding />
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="85">
+                <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+                <folding />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -126,28 +123,18 @@
       <file leaf-file-name="MailConfig.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/MailConfig.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="22" column="78" lean-forward="false" selection-start-line="22" selection-start-column="71" selection-end-line="22" selection-end-column="78" />
+            <state relative-caret-position="127">
+              <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RecapController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Recap/RecapController.php">
+      <file leaf-file-name="InsertExtendsPrices.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/InsertExtendsPrices.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="17" column="32" lean-forward="false" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="46" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GetPriceTest.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/AppBundle/Services/GetPriceTest.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="29" column="5" lean-forward="true" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+            <state relative-caret-position="430">
+              <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -202,7 +189,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/AppBundle/Form/calculator.php" />
         <option value="$PROJECT_DIR$/tests/CalculatorTest" />
         <option value="$PROJECT_DIR$/tests/GetPriceTest.php" />
         <option value="$PROJECT_DIR$/tests/BilletNameTest.php" />
@@ -249,10 +235,11 @@
         <option value="$PROJECT_DIR$/tests/AppBundle/Entity/BilletTest.php" />
         <option value="$PROJECT_DIR$/tests/AppBundle/Services/GetPriceTest.php" />
         <option value="$PROJECT_DIR$/app/Resources/TwigBundle/views/Exception/error403.html.twig" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Service/MailConfig.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/Paiement/PaiementController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Service/BilletById.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/email/email.html.twig" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Service/MailConfig.php" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -677,7 +664,7 @@
       <workItem from="1517494355219" duration="9224000" />
       <workItem from="1517511563684" duration="73000" />
       <workItem from="1517513040615" duration="1516000" />
-      <workItem from="1517521232060" duration="17537000" />
+      <workItem from="1517521232060" duration="17766000" />
     </task>
     <servers />
   </component>
@@ -714,7 +701,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="173158000" />
+    <option name="totallyTimeSpent" value="173387000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -738,7 +725,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31085527" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3256579" sideWeight="0.4969743" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3256579" sideWeight="0.4969743" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -783,11 +770,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/img/logo.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/.htaccess">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1045,14 +1027,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/InsertExtendsPrices.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/RandomString.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-18">
@@ -1093,42 +1067,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Index/IndexController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="26" column="45" lean-forward="false" selection-start-line="26" selection-start-column="45" selection-end-line="26" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/AppBundle/Services/GetPriceTest.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="29" column="5" lean-forward="true" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/PaiementStripe.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="37" column="12" lean-forward="false" selection-start-line="37" selection-start-column="12" selection-end-line="37" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/PriceBillet.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/MailConfig.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="22" column="78" lean-forward="false" selection-start-line="22" selection-start-column="71" selection-end-line="22" selection-end-column="78" />
           <folding />
         </state>
       </provider>
@@ -1141,18 +1083,62 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Paiement/PaiementController.php">
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/email/email.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="34" column="117" lean-forward="false" selection-start-line="34" selection-start-column="117" selection-end-line="34" selection-end-column="117" />
+        <state relative-caret-position="357">
+          <caret line="21" column="32" lean-forward="true" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
+          <folding>
+            <marker date="1517665007396" expanded="true" signature="992:1025" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/PriceBillet.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="387">
+          <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/PaiementStripe.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="37" column="12" lean-forward="false" selection-start-line="37" selection-start-column="12" selection-end-line="37" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/MailConfig.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/InsertExtendsPrices.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/BilletById.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="36" column="38" lean-forward="true" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
+          <folding>
+            <marker date="1517664922037" expanded="false" signature="705:721" ph="Billet" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Repository/BilletRepository.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="61" column="5" lean-forward="false" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
+        <state relative-caret-position="260">
+          <caret line="51" column="5" lean-forward="true" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
           <folding>
             <marker date="1517602364402" expanded="true" signature="441:570" ph="SELECT b.id,... AppBundle" />
             <marker date="1517602364402" expanded="true" signature="838:927" ph="SELECT b.nam... AppBundle" />
@@ -1161,23 +1147,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/BilletById.php">
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Index/IndexController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="36" column="38" lean-forward="true" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
-          <folding>
-            <marker date="1517664922037" expanded="false" signature="705:721" ph="Billet" />
-          </folding>
+        <state relative-caret-position="333">
+          <caret line="26" column="45" lean-forward="false" selection-start-line="26" selection-start-column="45" selection-end-line="26" selection-end-column="45" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/email/email.html.twig">
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/Paiement/PaiementController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="32" lean-forward="true" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
-          <folding>
-            <marker date="1517665007396" expanded="true" signature="992:1025" ph="..." />
-          </folding>
+        <state relative-caret-position="282">
+          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="85">
+            <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
