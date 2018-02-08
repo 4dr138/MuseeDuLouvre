@@ -80,6 +80,20 @@ class Basket
      */
     private $totalTVA;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="randomstring", type="string", length=255)
+     */
+    private $randomstring;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=255)
+     */
+    private $status;
+
     public function __construct()
     {
       $this->date = new \datetime();
@@ -254,5 +268,53 @@ class Basket
     public function getTotalTVA()
     {
         return $this->totalTVA;
+    }
+
+    /**
+     * Set randomstring
+     *
+     * @param string $randomstring
+     *
+     * @return Basket
+     */
+    public function setRandomString($randomstring)
+    {
+        $this->randomstring = $randomstring;
+
+        return $this;
+    }
+
+    /**
+     * Get randomstring
+     *
+     * @return string
+     */
+    public function getRandomString()
+    {
+        return $this->randomstring;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return Basket
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

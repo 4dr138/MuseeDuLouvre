@@ -27,9 +27,13 @@ class PaiementController extends Controller
         if($stripe == "Ok") {
             // On récupère les différents noms en fonction de l'id
             $billet = $this->container->get('appbundle.billetbyid')->getBilletById($id);
-
-            // On génère le code aléatoire
-            $code_aleatoire = $this->container->get('appbundle.randomstring')->generateRandomString();
+            // on récupère le code aléatoire
+            $code = $this->container->get('appbundle.billetbyid')->getBasketById($id);
+            for($i = 0; $i < count($code); ++$i) {
+                $code_aleatoire = $code[$i]["randomstring"];
+            }
+            // On met à jour le statut par un service
+            $this->container->get('appbundle.updatestatus')->setStatus($id);
 
             // On gère la configuration de l'envoi du mail récap
             $this->container->get("appbundle.mailconfig")->sendMail($totalTTC, $code_aleatoire, $date, $mail, $billet);

@@ -20,11 +20,27 @@ class BasketRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            'SELECT b.id, b.date, b.totalPrice, b.totalTTC, b.totalTVA, b.mail
+            'SELECT b.id, b.date, b.totalPrice, b.totalTTC, b.totalTVA, b.mail, b.randomstring, b.status
             FROM AppBundle\Entity\Basket b
             WHERE b.id = :id')
             ->setParameter('id', $id);
 
         return $query->execute();
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function setStatusBasket($id)
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            "UPDATE AppBundle\Entity\Basket b
+            SET b.status = 'Released'
+            WHERE b.id = :id")
+            ->setParameter('id', $id);
+
+        $query->execute();
     }
 }

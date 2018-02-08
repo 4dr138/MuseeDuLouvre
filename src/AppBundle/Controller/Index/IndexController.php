@@ -36,6 +36,9 @@ class IndexController extends Controller
                         $billet->setBasket($newBasket);
                         // On utilise le service pour récupérer le prix unitaire
                         $priceBillet = $this->container->get('appbundle.pricebillet')->getPriceBillet($billet, $newBasket);
+                        // On attribue au panier un statut et une chaine de caractères aléatoires
+                        $this->container->get('appbundle.randomstring')->generateRandomString($newBasket);
+                        $newBasket->setStatus('Brouillon');
                         // On attribue ce prix au billet
                         $billet->setPrice($priceBillet);
                     }

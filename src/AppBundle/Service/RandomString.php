@@ -3,7 +3,6 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Basket;
-use AppBundle\Entity\Billet;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -23,7 +22,7 @@ class RandomString extends Controller
      * @return string
      *
      */
-    public function generateRandomString()
+    public function generateRandomString(Basket $newbasket)
     {
         // On génère ensuite notre chaine aléatoire
         $characts    = 'abcdefghijklmnopqrstuvwxyz';
@@ -35,6 +34,8 @@ class RandomString extends Controller
         {
             $code_aleatoire .= substr($characts,rand()%(strlen($characts)),1);
         }
+
+        $newbasket->setRandomString($code_aleatoire);
 
         return $code_aleatoire;
     }
